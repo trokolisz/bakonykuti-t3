@@ -1,29 +1,98 @@
-# Create T3 App
+# Village Webapp Development Roadmap
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## 1. Project Initialization
+- [x] Create Next.js 15 project with TypeScript
+- [x] Set up version control (Git)
+- [x] Configure ESLint and Prettier
+- [x] Set up Tailwind CSS
+- [x] Install shadcn/ui components
+- [x] Configure TypeScript strict mode
 
-## What's next? How do I make an app with this?
+## 2. Authentication & User Management
+- [ ] Set up Supabase project
+- [ ] Implement Lucia Auth for admin login
+- [ ] Create admin roles and permissions
+- [ ] Design login/logout pages
+- [ ] Implement protected routes for admin
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## 3. Database & Content Structure
+- [ ] Design Supabase database schema
+  - Users table
+  - Pages table
+  - News table
+  - Categories table
+- [ ] Set up Contentlayer for content management
+- [ ] Create markdown schemas for dynamic pages
+- [ ] Implement content upload mechanisms
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## 4. Frontend Components
+### Navigation
+- [ ] Create responsive top navigation
+- [ ] Implement mobile-friendly menu
+- [ ] Add active state for current page
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+### Banner & Carousel
+- [ ] Design carousel component
+- [ ] Implement automatic image transition
+- [ ] Make banner responsive
+- [ ] Add image lazy loading
 
-## Learn More
+### Widgets
+- [ ] Create event calendar widget
+- [ ] Implement interactive map component
+- [ ] Design news highlights section
+- [ ] Make widgets responsive
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## 5. Page Types Implementation
+### Main Page
+- [ ] Design landing page layout
+- [ ] Integrate carousel
+- [ ] Add welcome section
+- [ ] Display dynamic widgets
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+### News Page
+- [ ] Create news listing with pagination
+- [ ] Implement individual news post view
+- [ ] Add admin news upload functionality
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+### Gallery
+- [ ] Design responsive image gallery
+- [ ] Implement lightbox/modal for images
+- [ ] Add image upload for admins
 
-## How do I deploy this?
+### Dynamic Text Pages
+- [ ] Create dynamic page rendering
+- [ ] Support multiple categories
+- [ ] Implement markdown/MDX rendering
+- [ ] Add admin editing capabilities
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## 6. Performance & Optimization
+- [ ] Implement image optimization
+- [ ] Set up caching strategies
+- [ ] Optimize server-side rendering
+- [ ] Implement incremental static regeneration
+
+## 7. Accessibility & SEO
+- [ ] Ensure WCAG compliance
+- [ ] Implement semantic HTML
+- [ ] Add proper meta tags
+- [ ] Create sitemap
+- [ ] Set up Google Analytics
+
+## 8. Deployment Preparation
+- [ ] Set up Vercel project
+- [ ] Configure environment variables
+- [ ] Set up preview and production deployments
+- [ ] Test all functionalities
+
+## 9. Post-Deployment
+- [ ] Set up monitoring
+- [ ] Configure error tracking
+- [ ] Perform load testing
+- [ ] Create admin documentation
+
+## Stretch Goals
+- [ ] Multilingual support
+- [ ] Advanced search functionality
+- [ ] User feedback/comment system
+- [ ] Social media integration
