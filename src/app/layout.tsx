@@ -2,8 +2,7 @@ import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
-import Link from "next/link";
-import { TopNav } from "./_components/topnav";
+import TopNav from "./_components/top_nav";
 import { ClerkProvider } from "@clerk/nextjs";
 export const metadata: Metadata = {
   title: "Bakonykúti",
