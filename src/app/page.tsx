@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { db } from "~/server/db";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 const mockUrls= [
   "https://utfs.io/f/26L8Sk7UnuECn1bcfKypuwvx56J1US2AQWgyPYTDO7XGiend",
@@ -13,16 +15,15 @@ const mockImages = mockUrls.map((url, index) => ({
 }));
 
 export default async function HomePage() {
-  const posts = await db.query.posts.findMany();
 
-  console.log(posts);
+  const { userId } = auth()
+
+
 
   return (
     <main className="">
       <div className="flex flex-wrap gap-4">
-        {posts.map((post) => (
-          <div key={post.id}>{post.name}</div>
-        ))}
+        
         {[...mockImages, ...mockImages, ...mockImages].map((image, index) => (
           <div key={image.id + "-" + index} className="w-48">
             <img src={image.url} />
