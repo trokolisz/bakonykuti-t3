@@ -8,6 +8,18 @@ await import ("./src/env.js");
 /** @type {import("next").NextConfig} */
 
 const config = {
+    images: { 
+        remotePatterns: [
+          {
+            protocol: 'https',
+            hostname: 'images.unsplash.com',
+          },
+          {
+            protocol: 'https',
+            hostname: 'unpkg.com',
+          }
+        ]
+    },
     typescript: {
         ignoreBuildErrors: true,
     },

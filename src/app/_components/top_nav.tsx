@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 
+
+
 export default function TopNav(){
     return (
       <nav className="flex items-center justify-between w-full p-4 bg-green-500 border-b-4 border-gray-500 ">
@@ -14,6 +16,7 @@ export default function TopNav(){
             <SignInButton />
           </SignedOut>
           <SignedIn>
+
             <UserButton />
           </SignedIn>
         </div>
