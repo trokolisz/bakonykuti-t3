@@ -7,7 +7,7 @@ import { Button } from "~/components/ui/button"
 import { VillageMap } from "~/components/map/village-map"
 import { SearchDialog } from "~/components/shared/search-dialog"
 import { WeatherWidget } from "~/components/shared/weather-widget"
-
+import type { WeatherData } from "~/types"
 import { CookieConsent } from "~/components/shared/cookie-consent"
 import { AccessibilityMenu } from "~/components/shared/accessibility-menu"
 import { SignedIn } from "@clerk/nextjs"
@@ -27,14 +27,15 @@ async function fetchWeather() {
       }
     }
   )
-  const data = await response.json()
+  const data = await response.json() as WeatherData
+
 
   if (!data.main || !data.weather?.[0]) {
     throw new Error("Invalid weather data")
   }
 
   const temp = data.main.temp
-  const weatherMain = data.weather[0].main
+  const weatherMain = data.weather[0].main as Weather["weatherMain"]
 
   return { temp, weatherMain }
 }
