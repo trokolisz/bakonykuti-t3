@@ -97,7 +97,9 @@ export default function Navbar() {
   const NavItems = () => (
     <NavigationMenu>
       <NavigationMenuList className="hidden md:flex">
+
         {sections.map((section) => (
+
           <NavigationMenuItem key={section.title}>
             {section.subsections ? (
               <>
@@ -149,7 +151,9 @@ export default function Navbar() {
               </Link>
             )}
           </NavigationMenuItem>
-        ))}
+
+        ))
+        }
       </NavigationMenuList>
     </NavigationMenu>
   )
