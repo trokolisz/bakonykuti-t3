@@ -1,16 +1,7 @@
 "use client"
 
-import { useState } from "react"
+
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
-import { Button } from "~/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "~/components/ui/dialog"
-import { Maximize2, Minimize2 } from "lucide-react"
 import "leaflet/dist/leaflet.css"
 import L from "leaflet"
 
