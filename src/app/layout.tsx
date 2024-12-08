@@ -13,6 +13,8 @@ import { PageTransition } from "~/components/layout/page-transition"
 import Footer from "~/components/layout/footer"
 import { Toaster } from "~/components/ui/toaster"
 
+
+
 export const metadata: Metadata = {
   title: {
     default: 'Bakonykúti - A Természet Ölelésében',
@@ -42,30 +44,31 @@ const inter = Inter({ subsets: ['latin'] })
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <ClerkProvider>
-    <html lang="hu" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="min-h-screen flex flex-col">
-            <ImageBanner />
-            <Navbar />
-            <main className="flex-grow">
-              <PageTransition>
-                {children}
-              </PageTransition>
-            </main>
-            <Footer />
-          </div>
-          <Toaster />
-        </ThemeProvider>
-      </body>
-    </html>
-    </ClerkProvider>
+  return ( 
+      <ClerkProvider>
+        <html lang="hu" suppressHydrationWarning>
+          <body className={inter.className}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <div className="min-h-screen flex flex-col">
+                <ImageBanner />
+                <Navbar />
+                <main className="flex-grow">
+                  <PageTransition>
+                    {children}
+                  </PageTransition>
+                </main>
+                <Footer />
+              </div>
+              <Toaster />
+            </ThemeProvider>
+          </body>
+        </html>
+      </ClerkProvider>
+
   );
 }

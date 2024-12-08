@@ -33,6 +33,12 @@ export const images = createTable("image", {
   carousel: boolean("carousel").default(false).notNull()
 });
 
+export type Image = typeof images.$inferSelect;
+export type InsertImage = typeof images.$inferInsert;
+
+export type Page = typeof pages.$inferSelect;
+export type InsertPage = typeof pages.$inferInsert;
+
 export const pages = createTable("page", {
   id: varchar("id", { length: 36 }).primaryKey(),
   title: varchar("title", { length: 256 }).notNull(),
@@ -43,10 +49,13 @@ export const pages = createTable("page", {
     .notNull(),
 });
 
+export type News = typeof news.$inferSelect;
+export type InsertNews = typeof news.$inferInsert;
+
 export const news = createTable("news", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 256 }).notNull(),
-  tumbnail: varchar("tumbnail", { length: 256 }).notNull(),
+  thumbnail: varchar("thumbnail", { length: 256 }).notNull(),
   content: text("content"),
   creatorName: varchar("creator_name", { length: 256 }),
   createdAt: timestamp("created_at")
@@ -54,6 +63,8 @@ export const news = createTable("news", {
     .notNull(),
 });
 
+export type Event = typeof events.$inferSelect;
+export type InsertEvent = typeof events.$inferInsert;
 
 export const events = createTable("event", {
   id: varchar("id", { length: 36 }).primaryKey(),

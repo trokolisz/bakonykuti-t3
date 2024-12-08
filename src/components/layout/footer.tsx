@@ -1,8 +1,8 @@
-import { FacebookIcon, Instagram, Mail, LogIn } from "lucide-react"
+import { Facebook, Instagram, Mail, LogIn } from "lucide-react"
 import Link from "next/link"
 
 import { Button } from "~/components/ui/button"
-import { SignedIn, SignedOut } from "@clerk/nextjs"
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs"
 
 export default function Footer() {
   
@@ -39,7 +39,7 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
             <div className="flex space-x-4 mb-6">
               <Link href="#" className="hover:text-primary">
-                <FacebookIcon className="h-6 w-6" />
+                <Facebook className="h-6 w-6" />
               </Link>
               <Link href="#" className="hover:text-primary">
                 <Instagram className="h-6 w-6" />
@@ -54,14 +54,16 @@ export default function Footer() {
                   Admin Dashboard
                 </Button>
               </Link>
+              <div className="flex justify-center">
+                <UserButton />
+              </div>
             </SignedIn>
             <SignedOut>
-              <Link href="/admin/login">
+              <SignInButton>
                 <Button variant="outline" className="w-full">
-                  <LogIn className="mr-2 h-4 w-4" />
-                  Admin Login
+                  Sign In
                 </Button>
-              </Link>
+              </SignInButton>
             </SignedOut>
           </div>
         </div>
