@@ -84,12 +84,24 @@ export default function Navbar() {
                     </li>
                     {section.subsections.map((subsection) => (
                       <li key={subsection}>
-                        <Link href={`${section.href}/${subsection.toLowerCase().replace(/\s+/g, '-')}`} legacyBehavior passHref>
+                        <Link href={`${section.href}/${subsection.toLowerCase()
+                          .replace(/\s+/g, '-')
+                          .replace(/[á]/g, 'a')
+                          .replace(/[é]/g, 'e')
+                          .replace(/[í]/g, 'i')
+                          .replace(/[óöő]/g, 'o')
+                          .replace(/[úüű]/g, 'u')}`} legacyBehavior passHref>
                           <NavigationMenuLink className={cn(
-                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                            pathname === `${section.href}/${subsection.toLowerCase().replace(/\s+/g, '-')}` && "bg-accent/50"
+                          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                          pathname === `${section.href}/${subsection.toLowerCase()
+                            .replace(/\s+/g, '-')
+                            .replace(/[áÁ]/g, 'a')
+                            .replace(/[éÉ]/g, 'e')
+                            .replace(/[íÍ]/g, 'i')
+                            .replace(/[óÓöÖőŐ]/g, 'o')
+                            .replace(/[úÚüÜűŰ]/g, 'u')}` && "bg-accent/50"
                           )}>
-                            {subsection}
+                          {subsection}
                           </NavigationMenuLink>
                         </Link>
                       </li>

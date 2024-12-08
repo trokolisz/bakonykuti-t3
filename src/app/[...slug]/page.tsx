@@ -1,14 +1,14 @@
-
 import ReactMarkdown from "react-markdown"
 import remarkGfm from 'remark-gfm'
-import { Button } from "~/components/ui/button"
+
 import { Card } from "~/components/ui/card"
-import { SignedIn } from "@clerk/nextjs"
+
 import { formatDate } from "~/lib/utils"
 import "~/styles/markdown.css"
 import { db } from "~/server/db"
+import { EditPageButton } from "~/components/EditPageButton"
 
-import { Edit } from "lucide-react"
+
 import { eq } from "drizzle-orm"
 import { pages } from "~/server/db/schema"
 import { notFound } from "next/navigation"
@@ -24,6 +24,7 @@ export default async function StaticPage({ params }: Props) {
   const page = await db.query.pages.findFirst({
     where: eq(pages.slug, slugPath),
   })
+  
 
   if (!page) {
     notFound();
@@ -41,16 +42,7 @@ export default async function StaticPage({ params }: Props) {
               Last updated: {formatDate(page.lastModified)}
             </p>
           </div>
-          <SignedIn>
-            <div>logged in</div>
-            {/* <Button
-              variant="outline"
-              onClick={() => router.push(`/admin/pages/edit/${slugPath}`)}
-            >
-              <Edit className="mr-2 h-4 w-4" />
-              Edit Page
-            </Button> */}
-          </SignedIn>
+          <EditPageButton slugPath={slugPath} />
         </div>
 
         <Card className="p-6 prose prose-green dark:prose-invert max-w-none markdown">
