@@ -17,8 +17,13 @@ const config = {
           {
             protocol: 'https',
             hostname: 'unpkg.com',
+          },
+          {
+            protocol: 'https',
+            hostname: 'utfs.io',
           }
         ]
+        
     },
     typescript: {
         ignoreBuildErrors: true,

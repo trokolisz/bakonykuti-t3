@@ -12,6 +12,9 @@ import { Inter } from 'next/font/google'
 import { PageTransition } from "~/components/layout/page-transition"
 import Footer from "~/components/layout/footer"
 import { Toaster } from "~/components/ui/toaster"
+import { db } from "~/server/db";
+import { images } from "~/server/db/schema";
+import { eq } from "drizzle-orm";
 
 
 
@@ -41,9 +44,16 @@ export const metadata: Metadata = {
 }
 const inter = Inter({ subsets: ['latin'] })
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{ children: React.ReactNode }>) 
+{
+  const carouselImages = await db.query.images.findMany({
+    where: eq(images.carousel, true),
+    limit: 10
+  })
+  const imageURLs = carouselImages.map((image) => image.url)
+
   return ( 
       <ClerkProvider>
         <html lang="hu" suppressHydrationWarning>
@@ -55,7 +65,7 @@ export default function RootLayout({
               disableTransitionOnChange
             >
               <div className="min-h-screen flex flex-col">
-                <ImageBanner />
+                <ImageBanner imageURLs={imageURLs} />
                 <Navbar />
                 <main className="flex-grow">
                   <PageTransition>

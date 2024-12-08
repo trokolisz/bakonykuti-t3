@@ -3,25 +3,21 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 
-const images = [
-  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070",
-  "https://images.unsplash.com/photo-1449452198679-05c7fd30f416?q=80&w=2070",
-  "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=2070",
-]
 
-export default function ImageBanner() {
+
+export default function ImageBanner({ imageURLs }: { imageURLs: string[] }) {
   const [currentImage, setCurrentImage] = useState(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImage((current) => (current + 1) % images.length)
+      setCurrentImage((current) => (current + 1) % imageURLs.length)
     }, 5000)
     return () => clearInterval(interval)
   }, [])
 
   return (
     <div className="relative w-full h-[300px] overflow-hidden">
-      {images.map((src, index) => (
+      {imageURLs.map((src, index) => (
         <Image
           key={src}
           src={src}
