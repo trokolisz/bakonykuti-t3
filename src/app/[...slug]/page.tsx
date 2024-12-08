@@ -130,7 +130,7 @@ export default async function StaticPage({ params }: Props) {
               </CardHeader>
               <CardContent>
 
-                MAP PLACEHOLDER
+                MAP PLACEHOLDER! WIP
                 {/*
                <VillageMap />
                */}
