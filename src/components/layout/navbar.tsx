@@ -20,42 +20,74 @@ const sections = [
     href: "/",
   },
   {
-    title: "Bakonykúti/Turisztika",
-    href: "/turisztika",
-    subsections: ["Látnivalók", "Szállás", "Programok"]
+    title: "Bakonykúti",
+    href: "/bakonykuti",
+    subsections: ["Bemutatás", "Történet", "Környékünk", "Látnivalók"]
   },
   {
     title: "Hírek",
-    href: "/news",
+    href: "/hirek",
   },
   {
     title: "Önkormányzat",
     href: "/onkormanyzat",
-    subsections: ["Képviselő-testület", "Rendeletek", "Határozatok", "Dokumentumok"]
+    subsections: [
+      "Képviselő-testület",
+      "Testületi ülések",
+      "Önkormányzati rendeletek",
+      "Dokumentumok",
+      "Iszkaszentgyörgyi Közös Önkormányzati Hivatal",
+      "Munkatársak",
+      "Elérhetőségek",      
+      "Letölthető dokumentumok",
+      "Közérdekű adatok",      
+      "Hirdetmények ",
+      'Szabályzatok',
+      'Helyi Esélyegyenlőségi Program',
+      'Településrendezési eszközök és arculati kézikönyv',
+      'Pályázatok',
+      'Választás'
+    ]
   },
   {
     title: "Intézmények",
     href: "/intezmenyek",
-    subsections: ["Óvoda", "Iskola", "Könyvtár"]
+    subsections: [
+      "Iszkaszentgyörgyi Szociális Intézményi  Társulás",
+      "Iszkaszentgyörgyi Szociális Alapszolgáltatási Intézmény",
+      "Iszkaszentgyörgyi Általános Iskola",
+      "Iszkaszentgyörgyi Vackor Óvoda és Konyha",
+      "Közösségi Ház és Könyvtár",
+    ]
   },
   {
     title: "Egészségügy",
     href: "/egeszsegugy",
-    subsections: ["Háziorvos", "Gyógyszertár", "Ügyelet"]
+    subsections: [
+      "Háziorvosi ellátás",
+      "Fogászati rendelés",
+      "Védőnői ellátás",
+      "Vérvétel"]
   },
   {
     title: "Galéria",
-    href: "/gallery",
+    href: "/galeria",
   },
   {
     title: "Közérdekű",
     href: "/kozerdeku",
-    subsections: ["Hirdetmények", "Pályázatok", "Elérhetőségek"]
+    subsections: [
+      "Magyar Honvédség Böszörményi Géza Csapatgyakorlótér Parancsnokság",
+      "DRV",
+      "E - ON",
+      "Telekom",
+      "Kémény ellenőrzés és tisztítás"
+    ]
   },
   {
     title: "Ügyintézés",
     href: "/ugyintezes",
-    subsections: ["Nyomtatványok", "Időpontfoglalás", "Ügyleírások"]
+    subsections: ["Ügyfélfogadás", "Bejelentés köteles tevékenységek",]
   }
 ]
 
@@ -92,16 +124,16 @@ export default function Navbar() {
                           .replace(/[óöő]/g, 'o')
                           .replace(/[úüű]/g, 'u')}`} legacyBehavior passHref>
                           <NavigationMenuLink className={cn(
-                          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                          pathname === `${section.href}/${subsection.toLowerCase()
-                            .replace(/\s+/g, '-')
-                            .replace(/[áÁ]/g, 'a')
-                            .replace(/[éÉ]/g, 'e')
-                            .replace(/[íÍ]/g, 'i')
-                            .replace(/[óÓöÖőŐ]/g, 'o')
-                            .replace(/[úÚüÜűŰ]/g, 'u')}` && "bg-accent/50"
+                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                            pathname === `${section.href}/${subsection.toLowerCase()
+                              .replace(/\s+/g, '-')
+                              .replace(/[áÁ]/g, 'a')
+                              .replace(/[éÉ]/g, 'e')
+                              .replace(/[íÍ]/g, 'i')
+                              .replace(/[óÓöÖőŐ]/g, 'o')
+                              .replace(/[úÚüÜűŰ]/g, 'u')}` && "bg-accent/50"
                           )}>
-                          {subsection}
+                            {subsection}
                           </NavigationMenuLink>
                         </Link>
                       </li>

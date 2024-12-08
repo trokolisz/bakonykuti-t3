@@ -67,7 +67,7 @@ export type Event = typeof events.$inferSelect;
 export type InsertEvent = typeof events.$inferInsert;
 
 export const events = createTable("event", {
-  id: varchar("id", { length: 36 }).primaryKey(),
+  id: serial("id").primaryKey(),
   title: varchar("title", { length: 256 }).notNull(),
   description: text("description"),
   date: timestamp("date").notNull().notNull(),
