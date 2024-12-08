@@ -40,10 +40,10 @@ export type Page = typeof pages.$inferSelect;
 export type InsertPage = typeof pages.$inferInsert;
 
 export const pages = createTable("page", {
-  id: varchar("id", { length: 36 }).primaryKey(),
+  id: serial("id").primaryKey(),
   title: varchar("title", { length: 256 }).notNull(),
   content: text("content").notNull(), // Ensure content is not null to store markdown data
-  slug: varchar("slug", { length: 256 }).notNull(),
+  slug: varchar("slug", { length: 256 }).notNull().unique(),
   lastModified: timestamp("last_modified")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),

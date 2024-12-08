@@ -1,11 +1,11 @@
-
 .markdown {
   /* Headers */
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 600;
+    @apply font-semibold;
     line-height: 1.25;
     margin-top: 1.5em;
     margin-bottom: 0.75em;
+    color: hsl(var(--foreground));
   }
   
   h1 { font-size: 2em; }
@@ -17,11 +17,13 @@
 
   /* Links */
   a {
-    color: #0969da;
+    color: hsl(var(--primary));
     text-decoration: none;
+    transition: all 0.2s ease-out;
   }
   a:hover {
     text-decoration: underline;
+    opacity: 0.8;
   }
 
   /* Lists */
@@ -35,17 +37,18 @@
   
   /* Blockquotes */
   blockquote {
-    border-left: 4px solid #ddd;
+    border-left: 4px solid hsl(var(--muted));
     padding-left: 1em;
-    color: #666;
+    color: hsl(var(--muted-foreground));
     margin: 1em 0;
   }
 
   /* Code */
   code {
-    background: #f6f8fa;
+    background: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
     padding: 0.2em 0.4em;
-    border-radius: 3px;
+    border-radius: var(--radius);
     font-size: 0.9em;
     font-family: ui-monospace, monospace;
   }
@@ -57,29 +60,13 @@
     margin: 1em 0;
   }
   th, td {
-    border: 1px solid #ddd;
+    border: 1px solid hsl(var(--border));
     padding: 0.5em;
     text-align: left;
   }
   th {
-    background: #f6f8fa;
-  }
-
-  /* Dark mode */
-  @media (prefers-color-scheme: dark) {
-    a { color: #58a6ff; }
-    blockquote { 
-      border-color: #484848;
-      color: #999;
-    }
-    code, pre {
-      background: #161b22;
-    }
-    th, td {
-      border-color: #30363d;
-    }
-    th {
-      background: #161b22;
-    }
+    background: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+    font-weight: 600;
   }
 }
