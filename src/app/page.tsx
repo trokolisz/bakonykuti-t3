@@ -12,6 +12,8 @@ import { CookieConsent } from "~/components/shared/cookie-consent"
 import { AccessibilityMenu } from "~/components/shared/accessibility-menu"
 import { SignedIn } from "@clerk/nextjs"
 import { db } from "~/server/db"
+import CardGrid from "./cardGrid"
+import { NewsCarousel } from "~/components/shared/news-carousel"
 
 type Weather = {
   temp: number
@@ -94,37 +96,10 @@ export default async function Home() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                <Newspaper className="h-6 w-6 text-primary" />
-                Legfrissebb Hírek
-              </h2>
-              <div className="grid gap-4">
-                {latestNews.map((item) => (
-                  <Link href={`/news/${item.id}`} key={item.id}>
-                    <Card className="hover:bg-primary/5 transition-colors">
-                      <div className="md:flex">
-                        <div className="relative w-full md:w-48 h-48">
-                          <Image
-                            src={item.thumbnail}
-                            alt={item.title}
-                            fill
-                            className="object-cover rounded-t-lg md:rounded-l-lg md:rounded-t-none"
-                          />
-                        </div>
-                        <div className="flex-1">
-                          <CardHeader>
-                            <CardTitle>{item.title}</CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <p className="text-muted-foreground line-clamp-2">{item.content}</p>
-                          </CardContent>
-                        </div>
-                      </div>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </section>
+              <CardGrid />
+
+
+            </section>           
           </div>
 
           <div className="space-y-8">
@@ -158,6 +133,18 @@ export default async function Home() {
                <VillageMap />
                */}
 
+              </CardContent>
+            </Card>
+
+            <Card className="bg-primary/5">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Newspaper className="h-5 w-5 text-primary" />
+                  Legfrissebb hírek
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <NewsCarousel news={latestNews} />
               </CardContent>
             </Card>
 
