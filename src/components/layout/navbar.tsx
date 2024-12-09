@@ -38,10 +38,9 @@ const sections = [
       "Dokumentumok",
       "Iszkaszentgyörgyi Közös Önkormányzati Hivatal",
       "Munkatársak",
-      "Elérhetőségek",      
-      "Letölthető dokumentumok",
+      "Elérhetőségek",
       "Közérdekű adatok",      
-      "Hirdetmények ",
+      "Hirdetmények",
       'Szabályzatok',
       'Helyi Esélyegyenlőségi Program',
       'Településrendezési eszközök és arculati kézikönyv',
@@ -79,7 +78,7 @@ const sections = [
     subsections: [
       "Magyar Honvédség Böszörményi Géza Csapatgyakorlótér Parancsnokság",
       "DRV",
-      "E - ON",
+      "E-ON",
       "Telekom",
       "Kémény ellenőrzés és tisztítás"
     ]

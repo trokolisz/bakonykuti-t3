@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import { Button } from "~/components/ui/button"
 import {
   CommandDialog,
@@ -47,7 +48,9 @@ export function SearchDialog({ pages, news }: SearchDialogProps) {
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>
+      
       <CommandDialog open={open} onOpenChange={setOpen}>
+        <VisuallyHidden>Keresés</VisuallyHidden>
         <CommandInput placeholder="Írja be a keresett kifejezést..." />
         <CommandList>
           <CommandEmpty>Nincs találat.</CommandEmpty>
