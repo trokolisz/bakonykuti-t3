@@ -15,12 +15,12 @@ import { images } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
 
 
-
 export const metadata: Metadata = {
   title: {
     default: 'Bakonykúti - A Természet Ölelésében',
     template: '%s | Bakonykúti'
   },
+  icons: '/logo.ico',
   description: 'Fedezze fel Bakonykúti természeti szépségeit, kulturális értékeit és közösségi életét.',
   keywords: ['Bakonykúti', 'falu', 'önkormányzat', 'turizmus', 'Bakony', 'természet'],
   authors: [{ name: 'Bakonykúti Önkormányzat' }],
