@@ -64,6 +64,12 @@ export default async function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-8">
+          <section>
+              <CardGrid />
+
+
+            </section>   
+
             <section className="bg-primary/5 p-8 rounded-lg border border-primary/10">
               <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
                 <Leaf className="h-8 w-8 text-primary" />
@@ -95,15 +101,23 @@ export default async function Home() {
               </p>
             </section>
 
-            <section>
-              <CardGrid />
-
-
-            </section>           
+                   
           </div>
 
           <div className="space-y-8">
             <WeatherWidget weather={weather} />
+
+            <Card className="bg-primary/5">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Newspaper className="h-5 w-5 text-primary" />
+                  Legfrissebb hírek
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <NewsCarousel news={latestNews} />
+              </CardContent>
+            </Card>
 
             <Card className="bg-primary/5">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -136,17 +150,7 @@ export default async function Home() {
               </CardContent>
             </Card>
 
-            <Card className="bg-primary/5">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Newspaper className="h-5 w-5 text-primary" />
-                  Legfrissebb hírek
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <NewsCarousel news={latestNews} />
-              </CardContent>
-            </Card>
+           
 
 
           </div>
