@@ -14,6 +14,7 @@ import { SignedIn } from "@clerk/nextjs"
 import { db } from "~/server/db"
 import CardGrid from "./cardGrid"
 import { NewsCarousel } from "~/components/shared/news-carousel"
+import GoogleMapEmbed from "~/components/GoogleMapEmbed"
 
 type Weather = {
   temp: number
@@ -141,12 +142,8 @@ export default async function Home() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-
-                MAP PLACEHOLDER
-                {/*
-               <VillageMap />
-               */}
-
+                <GoogleMapEmbed />
+                {/* <VillageMap /> */}
               </CardContent>
             </Card>
 
