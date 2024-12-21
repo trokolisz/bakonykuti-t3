@@ -27,8 +27,8 @@
     --popover: 82 25% 38%; /* Matches card for consistency */
     --popover-foreground: 82 15% 90%; /* Matches card foreground */
 
-    --primary: 204 70% 40%; /* Vibrant teal for emphasis */
-    --primary-foreground: 82 20% 95%; /* High contrast for text on primary */
+    --primary: 170 0% 60%; 
+    --primary-foreground: 170 10% 95%; /* High contrast text matching primary hue */
 
     --secondary: 82 35% 50%; /* Subtle green for secondary elements */
     --secondary-foreground: 82 15% 90%; /* Matches secondary tone */
@@ -36,7 +36,7 @@
     --muted: 82 30% 35%; /* Muted green */
     --muted-foreground: 82 15% 80%; /* Dimmer contrast */
 
-    --accent: 204 70% 40%; /* Matches primary for cohesive accents */
+    --accent: 160 70% 40%; /* Matches primary for cohesive accents */
     --accent-foreground: 82 20% 95%; /* High contrast on accent */
 
     --destructive: 0 84.2% 50%; /* Softer red for destructive actions */

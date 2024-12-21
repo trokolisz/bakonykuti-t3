@@ -20,6 +20,7 @@ import type { WeatherData } from "~/types"
 import { AccessibilityMenu } from "~/components/shared/accessibility-menu"
 import { CookieConsent } from "~/components/shared/cookie-consent"
 import { DocumentArchive } from "~/components/documents/document-archive"
+import GoogleMapEmbed from "~/components/GoogleMapEmbed"
 
 
 type Weather = {
@@ -113,10 +114,7 @@ export default async function StaticPage() {
               </CardHeader>
               <CardContent>
 
-                MAP PLACEHOLDER! WIP
-                {/*
-               <VillageMap />
-               */}
+             <GoogleMapEmbed />
 
               </CardContent>
             </Card>

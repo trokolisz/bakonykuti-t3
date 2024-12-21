@@ -29,7 +29,7 @@ const documents: Document[] = [
     title: "Költségvetési rendelet 2024",
     category: "rendeletek",
     type: "PDF",
-    date: new Date("2024-01-15"),
+    date: new Date("2023-01-15"),
     fileUrl: "/documents/temp.pdf",
     fileSize: "2.4 MB"
   },
@@ -73,6 +73,7 @@ export function DocumentArchive() {
   const filteredDocuments = documents.filter(doc => {
     const matchesSearch = doc.title.toLowerCase().includes(search.toLowerCase())
     const matchesCategory = !selectedCategory || doc.category === selectedCategory
+    if (selectedYear === "-1") return matchesSearch && matchesCategory
     const matchesYear = !selectedYear || doc.date.getFullYear().toString() === selectedYear
     return matchesSearch && matchesCategory && matchesYear
   })
@@ -112,6 +113,7 @@ export function DocumentArchive() {
             <SelectValue placeholder="Év" />
           </SelectTrigger>
           <SelectContent>
+            <SelectItem key="-1" value="-1">Minden Év</SelectItem>
             {years.map(year => (
               <SelectItem key={year} value={year}>
                 {year}
@@ -131,7 +133,7 @@ export function DocumentArchive() {
                   {doc.title}
                 </div>
               </CardTitle>
-              <Button variant="outline" size="sm" asChild>
+                <Button variant="outline" size="sm" asChild>
                 <a href={doc.fileUrl} download>
                   <Download className="mr-2 h-4 w-4" />
                   Letöltés

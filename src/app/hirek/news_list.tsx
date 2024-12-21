@@ -9,9 +9,10 @@ import { Pagination } from "~/components/ui/pagination"
 import { SignedIn } from "@clerk/nextjs"
 import { formatDate } from "~/lib/utils"
 import { Plus } from "lucide-react"
+import { type News } from "~/types"
 
 type NewsListProps = {
-  initialNews: any[]
+  initialNews: News[]
   itemsPerPage: number
   totalPages: number
 }
@@ -40,7 +41,7 @@ export default function NewsList({ initialNews, itemsPerPage, totalPages }: News
 
       <div className="grid gap-6 mb-8">
         {paginatedNews.map((item) => (
-          <Link href={`/news/${item.id}`} key={item.id}>
+          <Link href={`/hirek/${item.id}`} key={item.id}>
             <Card className="hover:bg-primary/5 transition-colors">
               <div className="md:flex">
                 <div className="relative w-full md:w-48 h-48">

@@ -8,7 +8,7 @@ import "~/styles/markdown.css"
 import { db } from "~/server/db"
 import { EditPageButton } from "~/components/EditPageButton"
 
-
+import GoogleMapEmbed from "~/components/GoogleMapEmbed"
 import { eq } from "drizzle-orm"
 import { pages } from "~/server/db/schema"
 import { notFound } from "next/navigation"
@@ -130,10 +130,7 @@ export default async function StaticPage({ params }: Props) {
               </CardHeader>
               <CardContent>
 
-                MAP PLACEHOLDER! WIP
-                {/*
-               <VillageMap />
-               */}
+             <GoogleMapEmbed />
 
               </CardContent>
             </Card>
