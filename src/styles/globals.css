@@ -18,29 +18,29 @@
 
 @layer base {
   :root {
-    --background: 82 39% 30%; /* New background color */
-    --foreground: 82 20% 95%; /* Light text for strong contrast */
+    --background: 82 45% 20%; /* New background color */
+    --foreground: 100 100% 100%; /* Light text for strong contrast */
 
     --card: 82 25% 38%; /* Slightly lighter than background */
-    --card-foreground: 82 15% 90%; /* Contrasts with card */
+    --card-foreground: 100 100% 100%; /* Contrasts with card */
 
     --popover: 82 25% 38%; /* Matches card for consistency */
-    --popover-foreground: 82 15% 90%; /* Matches card foreground */
+    --popover-foreground: 100 100% 100%; /* Matches card foreground */
 
     --primary: 170 0% 60%; 
-    --primary-foreground: 170 10% 95%; /* High contrast text matching primary hue */
+    --primary-foreground: 100 100% 100%; /* High contrast text matching primary hue */
 
     --secondary: 82 35% 50%; /* Subtle green for secondary elements */
-    --secondary-foreground: 82 15% 90%; /* Matches secondary tone */
+    --secondary-foreground: 100 100% 100%; /* Matches secondary tone */
 
     --muted: 82 30% 35%; /* Muted green */
-    --muted-foreground: 82 15% 80%; /* Dimmer contrast */
+    --muted-foreground: 100 100% 100%; /* Dimmer contrast */
 
     --accent: 160 70% 40%; /* Matches primary for cohesive accents */
-    --accent-foreground: 82 20% 95%; /* High contrast on accent */
+    --accent-foreground: 100 100% 100%; /* High contrast on accent */
 
     --destructive: 0 84.2% 50%; /* Softer red for destructive actions */
-    --destructive-foreground: 0 0% 95%; /* Light text for red background */
+    --destructive-foreground: 100 100% 100%; /* Light text for red background */
 
     --border: 82 25% 50%; /* Subtle border tone */
     --input: 82 25% 50%; /* Matches border for cohesion */

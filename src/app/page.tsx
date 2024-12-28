@@ -1,59 +1,35 @@
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card"
-import { MapPin, Newspaper, Leaf } from "lucide-react"
-import Link from "next/link"
-import Image from "next/image"
-import { EventCalendar } from "~/components/calendar/event-calendar"
-import { Button } from "~/components/ui/button"
-import { VillageMap } from "~/components/map/village-map"
+import { Leaf } from "lucide-react"
+
 import { SearchDialog } from "~/components/shared/search-dialog"
-import { WeatherWidget } from "~/components/shared/weather-widget"
-import type { WeatherData } from "~/types"
+
 import { CookieConsent } from "~/components/shared/cookie-consent"
 import { AccessibilityMenu } from "~/components/shared/accessibility-menu"
-import { SignedIn } from "@clerk/nextjs"
+
 import { db } from "~/server/db"
-import CardGrid from "./cardGrid"
-import { NewsCarousel } from "~/components/shared/news-carousel"
-import GoogleMapEmbed from "~/components/GoogleMapEmbed"
+import CardGrid from "~/components/cardGrid"
 
-type Weather = {
-  temp: number
-  weatherMain: "Clear" | "Clouds" | "Rain" | "Snow" | "Thunderstorm" | "Drizzle" | "Mist" | "Smoke" | "Haze" | "Dust" | "Fog" | "Sand" | "Ash" | "Squall" | "Tornado"
-}
+import { type Card as CardTypes } from "~/types"
 
-async function fetchWeather() {
-  const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=Bakonykúti&appid=${process.env.OPENWEATHERMAP_API_KEY}&units=metric`,
-    {
-      next: {
-        revalidate: 1800 // Cache for 30 minutes
-      }
-    }
-  )
-  const data = await response.json() as WeatherData
+import { Widgets } from '~/components/layout/widgets'
 
 
-  if (!data.main || !data.weather?.[0]) {
-    throw new Error("Invalid weather data")
-  }
+const cards: CardTypes[] = [
+  { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECIyJSHCF3U6xf5SojbkZpQ2y7DV0lPOWMeCBq", title: 'Köszöntő', text: 'Card description goes here.', href: '/' },
+  { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECcDloPqMGlVyP5pWMY6DoSU8zQmEbCBJ0Nt2O", title: 'Bakonykúti', text: 'Card description goes here.', href: '/bakonykuti' },
+  { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECUHsDTHkJpuP41irqDG3So0BQOfy2weHZmdjT", title: 'Hírek', text: 'Card description goes here.', href: '/hirek' },
+  { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECo0dXRGAu3SMxWU2adZA8VJYKbfw6OtzGmPIQ", title: 'Önkormányzat', text: 'Card description goes here.', href: '/onkormanyzat' },
+  { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECIaccBCbF3U6xf5SojbkZpQ2y7DV0lPOWMeCB", title: 'Intézmények, egézségügy', text: 'Card description goes here.', href: '/intezmenyek' },
+  { id: 6, image: "https://utfs.io/f/26L8Sk7UnuECSheGIErBJwXMmcgpOnyY6qTPFChLG0Sl2ukN", title: 'Turisztika', text: 'Card description goes here.', href: '/turisztika' },
+  { id: 7, image: "https://utfs.io/f/26L8Sk7UnuECXtaSj3cZENFc91oCB07LqidpvXmUWH4VeMwx", title: 'Galéria', text: 'Card description goes here.', href: '/galeria' },
+  { id: 8, image: "https://utfs.io/f/26L8Sk7UnuECXjCxYrcZENFc91oCB07LqidpvXmUWH4VeMwx", title: 'Közérdekü', text: 'Card description goes here.', href: '/kozerdeku' },
+  { id: 9, image: "https://utfs.io/f/26L8Sk7UnuECctyHHfMGlVyP5pWMY6DoSU8zQmEbCBJ0Nt2O", title: 'Ügyintézés', text: 'Card description goes here.', href: '/ugyintezes' },
+];
 
-  const temp = data.main.temp
-  const weatherMain = data.weather[0].main as Weather["weatherMain"]
-
-  return { temp, weatherMain }
-}
 
 export default async function Home() {
   const pages = await db.query.pages.findMany()
   const news = await db.query.news.findMany()
-  const weather = await fetchWeather()
 
-
-
-  const latestNews = await db.query.news.findMany({
-    orderBy: (news, { desc }) => [desc(news.createdAt)],
-    limit: 3
-  })
 
   return (
     <>
@@ -65,11 +41,11 @@ export default async function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-8">
-          <section>
-              <CardGrid />
+            <section>
+              <CardGrid cards={cards} />
 
 
-            </section>   
+            </section>
 
             <section className="bg-primary/5 p-8 rounded-lg border border-primary/10">
               <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
@@ -102,55 +78,10 @@ export default async function Home() {
               </p>
             </section>
 
-                   
-          </div>
-
-          <div className="space-y-8">
-            <WeatherWidget weather={weather} />
-
-            <Card className="bg-primary/5">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Newspaper className="h-5 w-5 text-primary" />
-                  Legfrissebb hírek
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <NewsCarousel news={latestNews} />
-              </CardContent>
-            </Card>
-
-            <Card className="bg-primary/5">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-xl font-semibold">Események</CardTitle>
-                <SignedIn>
-                  <Link href="/admin/events">
-                    <Button variant="outline" size="sm">Kezelés</Button>
-                  </Link>
-                </SignedIn>
-              </CardHeader>
-              <CardContent>
-                <EventCalendar />
-              </CardContent>
-            </Card>
-
-            <Card className="bg-primary/5">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MapPin className="h-5 w-5 text-primary" />
-                  Elhelyezkedés
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <GoogleMapEmbed />
-                {/* <VillageMap /> */}
-              </CardContent>
-            </Card>
-
-           
-
 
           </div>
+
+          <Widgets />
         </div>
       </div>
       <CookieConsent />

@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/com
 
 import { ImageIcon, NewspaperIcon, FileTextIcon, CalendarIcon } from "lucide-react"
 import { Button } from "~/components/ui/button"
-import { SignedIn, SignedOut } from "@clerk/nextjs"
+
 
 export default function AdminDashboard() {
 
@@ -16,10 +16,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="container py-8">
-      <SignedOut>
-        <div className="text-center">Lépj be </div>
-      </SignedOut>
-      <SignedIn>
+
       <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Link href="/admin/news/create">
@@ -102,7 +99,7 @@ export default function AdminDashboard() {
           </Card>
         </Link>
       </div>
-      </SignedIn>
+
     </div>
   )
 }

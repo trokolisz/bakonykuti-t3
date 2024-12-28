@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Mail, LogIn } from "lucide-react"
+import { Facebook, Instagram, Mail, Phone } from "lucide-react"
 import Link from "next/link"
 
 import { Button } from "~/components/ui/button"
@@ -12,42 +12,21 @@ export default function Footer() {
       <div className="container py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact</h3>
-            <p>Village Hall</p>
-            <p>Main Street</p>
-            <p>Village Name</p>
-            <p>Postal Code</p>
+            <h3 className="text-lg font-semibold mb-4">Cím</h3>
+            <p>Polgármesteri Hívatal</p>
+            <p>Szabadság Utca 41</p>
+            <p>8046</p>
+            <p>8046</p>
           </div>
+         
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><Link href="/news" className="hover:underline">News</Link></li>
-              <li><Link href="/events" className="hover:underline">Events</Link></li>
-              <li><Link href="/gallery" className="hover:underline">Gallery</Link></li>
-              <li><Link href="/contact" className="hover:underline">Contact</Link></li>
-            </ul>
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2"><Phone className="h-6 w-6"/>Telefon és Fax</h3>
+            <p>+36 22 595 001</p>
+            <br/>
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2"><Mail className="h-6 w-6" />Email</h3>
+            <p><Link href="mailto:polgarmester@bakonykuti.hu" className="hover:underline">polgarmester@bakonykuti.hu</Link></p>
           </div>
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Services</h3>
-            <ul className="space-y-2">
-              <li><Link href="/services/local-services" className="hover:underline">Local Services</Link></li>
-              <li><Link href="/services/transportation" className="hover:underline">Transportation</Link></li>
-              <li><Link href="/services/healthcare" className="hover:underline">Healthcare</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
-            <div className="flex space-x-4 mb-6">
-              <Link href="#" className="hover:text-primary">
-                <Facebook className="h-6 w-6" />
-              </Link>
-              <Link href="#" className="hover:text-primary">
-                <Instagram className="h-6 w-6" />
-              </Link>
-              <Link href="#" className="hover:text-primary">
-                <Mail className="h-6 w-6" />
-              </Link>
-            </div>
+          <div> 
             <SignedIn>
               <Link href="/admin/dashboard">
                 <Button variant="outline" className="w-full">

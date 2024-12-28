@@ -37,7 +37,6 @@ const sections = [
       "Önkormányzati rendeletek",
       "Dokumentumok",
       "Iszkaszentgyörgyi Közös Önkormányzati Hivatal",
-      "Munkatársak",
       "Elérhetőségek",
       "Közérdekű adatok",      
       "Hirdetmények",

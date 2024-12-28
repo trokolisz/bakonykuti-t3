@@ -16,7 +16,7 @@ export default function ImageBanner({ imageURLs }: { imageURLs: string[] }) {
   }, [])
 
   return (
-    <div className="relative w-full h-[300px] overflow-hidden">
+    <div className="relative w-full h-[400px] overflow-hidden">
       {imageURLs.map((src, index) => (
         <Image
           key={src}
@@ -30,8 +30,8 @@ export default function ImageBanner({ imageURLs }: { imageURLs: string[] }) {
         />
       ))}
       <div className="absolute inset-0 bg-black/20" />
-      <div className="absolute inset-0 flex items-center justify-center">
-        <h1 className="text-4xl md:text-6xl font-bold text-white text-center">
+      <div className="absolute inset-0 flex items-end justify-end p-8">
+        <h1 className="text-4xl md:text-6xl font-bold text-white ">
           Bakonykúti
         </h1>
       </div>

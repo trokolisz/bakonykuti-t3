@@ -1,3 +1,5 @@
+import { Card } from "./components/ui/card"
+
 export type Image = {
   id: number
   title: string
@@ -76,4 +78,12 @@ export type WeatherData = {
   id: number
   name: string
   cod: number
+}
+
+export type Card = {
+  id: number;
+  image: string;
+  title: string;
+  text: string;
+  href: string;
 }
