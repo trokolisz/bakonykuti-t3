@@ -1,4 +1,6 @@
 "use client"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from 'remark-gfm'
 
 import { useState } from "react"
 import Link from "next/link"
@@ -10,6 +12,7 @@ import { SignedIn } from "@clerk/nextjs"
 import { formatDate } from "~/lib/utils"
 import { Plus } from "lucide-react"
 import { type News } from "~/types"
+import "~/styles/markdown.css"
 
 type NewsListProps = {
   initialNews: News[]
@@ -59,8 +62,10 @@ export default function NewsList({ initialNews, itemsPerPage, totalPages }: News
                       By {item.creatorName} on {formatDate(item.createdAt)}
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground line-clamp-2">{item.content}</p>
+                  <CardContent className="markdown">
+                    
+                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{(item.content ?? '').split('\n').slice(0, 2).join('\n')}</ReactMarkdown>
+                                 
                   </CardContent>
                 </div>
               </div>

@@ -20,7 +20,7 @@
   :root {
     --background: 82 45% 20%; /* New background color */
     --foreground: 100 100% 100%; /* Light text for strong contrast */
-
+    --link: 220 90% 50%; /* Blue link */
     --card: 82 25% 38%; /* Slightly lighter than background */
     --card-foreground: 100 100% 100%; /* Contrasts with card */
 
@@ -157,3 +157,6 @@
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
+
+
+

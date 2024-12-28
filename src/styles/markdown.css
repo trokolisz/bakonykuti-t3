@@ -16,15 +16,16 @@
   h6 { font-size: 0.85em; }
 
   /* Links */
-  /* a {
-    color: hsl(var(--primary));
+   a {
+    color: hsl(214 100% 60%);
+    
     text-decoration: none;
     transition: all 0.2s ease-out;
   }
   a:hover {
     text-decoration: underline;
     opacity: 0.8;
-  } */
+  } 
 
   /* Lists */
   ul, ol {

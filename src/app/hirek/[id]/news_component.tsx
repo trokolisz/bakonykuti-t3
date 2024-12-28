@@ -1,5 +1,5 @@
 'use client'
-
+import remarkGfm from 'remark-gfm'
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import Image from "next/image"
@@ -10,7 +10,9 @@ import { ArrowLeft, Edit } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import { SocialShare } from "~/components/shared/social-share"
 import { SignedIn } from "@clerk/nextjs"
-import { type News } from "~/server/db/schema"
+import { type News } from "~/server/db/schema";
+
+import "~/styles/markdown.css";
 
 interface NewsComponentProps {
   newsItem: News
@@ -66,14 +68,16 @@ export function NewsComponent({ newsItem }: NewsComponentProps) {
           <Image
             src={newsItem.thumbnail}
             alt={newsItem.title}
-            fill
+            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            fill                     
             className="object-cover rounded-lg"
+            
             priority
           />
         </div>
 
-        <Card className="p-6 prose prose-green dark:prose-invert max-w-none">
-          <ReactMarkdown>{newsItem.content}</ReactMarkdown>
+        <Card className="p-6 prose prose-green dark:prose-invert max-w-none markdown">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{newsItem.content}</ReactMarkdown>
         </Card>
       </div>
     </div>
