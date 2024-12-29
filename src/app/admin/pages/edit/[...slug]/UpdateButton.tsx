@@ -13,11 +13,12 @@ import { type Page } from "~/server/db/schema";
 type UpdateButtonProps = {
   updateAction: (title: string, slug: string, content: string) => Promise<void>;
   page: Page;
+  slug: string;
 };
 
 
 
-export default function UpdateButton({ updateAction, page }: UpdateButtonProps) {
+export default function UpdateButton({ updateAction, page, slug }: UpdateButtonProps) {
   const [content, setContent] = useState(page.content ?? '');
 
 
@@ -25,7 +26,7 @@ export default function UpdateButton({ updateAction, page }: UpdateButtonProps) 
     const content = formData.get('content') as string;
     const title = formData.get('title') as string;
     console.log("handleSubmit with title: ", title);
-    await updateAction(title, "slug", content);
+    await updateAction(title, slug, content);
   }
 
   return (

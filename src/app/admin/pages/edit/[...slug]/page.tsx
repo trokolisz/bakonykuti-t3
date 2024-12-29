@@ -23,7 +23,7 @@ export default async function StaticPage({ params }: Props) {
 
   return (
     <div className="container py-8">
-       <UpdateButton updateAction={updateLastModified} page={page}/>
+       <UpdateButton updateAction={updateLastModified} page={page} slug={slugPath}/>
     </div>
   );
 }
