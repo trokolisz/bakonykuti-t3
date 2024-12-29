@@ -4,7 +4,7 @@ import { pages } from "~/server/db/schema";
 import { notFound } from "next/navigation";
 import { updateLastModified } from './actions';
 import UpdateButton from './UpdateButton';
-
+import { Toaster } from '~/components/ui/toaster';
 
 interface Props {
   params: Promise<{ slug: string[] }>;
@@ -23,6 +23,7 @@ export default async function StaticPage({ params }: Props) {
 
   return (
     <div className="container py-8">
+      <Toaster />
        <UpdateButton updateAction={updateLastModified} page={page} slug={slugPath}/>
     </div>
   );
