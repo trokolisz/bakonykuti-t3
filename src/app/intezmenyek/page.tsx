@@ -10,11 +10,11 @@ import { type Card as CardTypes } from "~/types"
 
 
 const cards: CardTypes[] = [
-    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECujhDAazmDBpZYSAVG1czbfeQOu9yK3WLdFln", title: 'Bemutatás', text: 'Card description goes here.', href: '/bakonykuti/bemutatas' },
-    { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Történetünk', text: 'Card description goes here.', href: '/bakonykuti/tortenet' },
-    { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Környékünk', text: 'Card description goes here.', href: '/bakonykuti/kornyekunk' },
-    { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Látnivalók', text: 'Card description goes here.', href: '/bakonykuti/latnivalok' },
-
+    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECujhDAazmDBpZYSAVG1czbfeQOu9yK3WLdFln", title: 'Iszkaszentgyörgyi Szociális Intézményi Társulás', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-szocialis-intezmenyi-tarsulas' },
+    { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Iszkaszentgyörgyi Szociális Alapszolgáltatási Intézmény', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-szocialis-alapszolgaltatasi-intezmeny' },
+    { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Iszkaszentgyörgyi Általános Iskola', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-altalanos-iskola' },
+    { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Iszkaszentgyörgyi Vackor Óvoda és Konyha', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-vackor-ovoda-es-konyha' },
+    { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Közösségi Ház és Könyvtár', text: 'Card description goes here.', href: '/intezmenyek/kozossegi-haz-es-konyvtar' },
 ];
 
 

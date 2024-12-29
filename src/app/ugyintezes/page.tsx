@@ -10,11 +10,8 @@ import { type Card as CardTypes } from "~/types"
 
 
 const cards: CardTypes[] = [
-    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECujhDAazmDBpZYSAVG1czbfeQOu9yK3WLdFln", title: 'Bemutatás', text: 'Card description goes here.', href: '/bakonykuti/bemutatas' },
-    { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Történetünk', text: 'Card description goes here.', href: '/bakonykuti/tortenet' },
-    { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Környékünk', text: 'Card description goes here.', href: '/bakonykuti/kornyekunk' },
-    { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Látnivalók', text: 'Card description goes here.', href: '/bakonykuti/latnivalok' },
-
+    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECujhDAazmDBpZYSAVG1czbfeQOu9yK3WLdFln", title: 'Ügyfélfogadás', text: 'Card description goes here.', href: '/ugyintezes/ugyfelfogadas' },
+    { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Bejelentés köteles tevékenységek', text: 'Card description goes here.', href: '/ugyintezes/bejelentes-koteles-tevekenysegek' },
 ];
 
 
