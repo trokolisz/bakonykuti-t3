@@ -26,7 +26,7 @@ export const images = createTable("image", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 256 }).notNull(),
   url: varchar("url", { length: 1024 }).notNull(),
-  description: text("description"),
+  description: text("description").default(""),
   createdAt: timestamp("created_at")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
