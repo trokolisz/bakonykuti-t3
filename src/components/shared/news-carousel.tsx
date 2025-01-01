@@ -1,4 +1,3 @@
-
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -31,6 +30,7 @@ export function NewsCarousel({ news }: { news: News[] }) {
                       src={item.thumbnail}
                       alt={item.title}
                       fill
+                      loading="eager"
                       className="object-cover rounded-t-lg md:rounded-l-lg md:rounded-t-none"
                     />
                   </div>

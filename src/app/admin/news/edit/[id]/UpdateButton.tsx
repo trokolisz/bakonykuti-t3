@@ -27,8 +27,9 @@ export default function UpdateButton({ updateAction, news }: UpdateButtonProps) 
   async function handleSubmit(formData: FormData) {
     const content = formData.get('content') as string;
     const title = formData.get('title') as string;
+    const thumbnail = formData.get('thumbnail') as string;
     console.log("handleSubmit with title: ", title);
-    await updateAction(news.id, title, news.thumbnail, content);
+    await updateAction(news.id, title, thumbnail , content);
   }
 
   return (
