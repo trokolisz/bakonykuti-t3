@@ -23,13 +23,12 @@ type NewsListProps = {
 export default function NewsList({ initialNews, itemsPerPage, totalPages }: NewsListProps) {
   const [currentPage, setCurrentPage] = useState(1)
 
-  // Get paginated news items
-  const startIndex = (currentPage - 1) * itemsPerPage
-  const endIndex = startIndex + itemsPerPage
-  const paginatedNews = initialNews.slice(startIndex, endIndex)
+  // Remove client-side slicing as it causes hydration issues
+  const paginatedNews = initialNews
 
   return (
-    <div className="container py-8">
+    <>
+    <div className="container py-8"></div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Latest News</h1>
         <SignedIn>
@@ -52,6 +51,7 @@ export default function NewsList({ initialNews, itemsPerPage, totalPages }: News
                     src={item.thumbnail}
                     alt={item.title}
                     fill
+                    priority
                     className="object-cover rounded-t-lg md:rounded-l-lg md:rounded-t-none"
                   />
                 </div>
@@ -63,10 +63,9 @@ export default function NewsList({ initialNews, itemsPerPage, totalPages }: News
                     </div>
                   </CardHeader>
                   <CardContent className="markdown">
-                    
-                    
-                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{(item.content ?? '').split('\n').slice(0, 2).join('\n')}</ReactMarkdown>
-                                 
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {item.content?.split('\n').slice(0, 2).join('\n') ?? ''}
+                    </ReactMarkdown>
                   </CardContent>
                 </div>
               </div>
@@ -82,6 +81,8 @@ export default function NewsList({ initialNews, itemsPerPage, totalPages }: News
           onPageChange={setCurrentPage}
         />
       )}
-    </div>
+    
+
+</>
   )
 }

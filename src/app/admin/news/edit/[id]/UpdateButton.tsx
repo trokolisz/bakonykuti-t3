@@ -22,7 +22,7 @@ type UpdateButtonProps = {
 
 export default function UpdateButton({ updateAction, news }: UpdateButtonProps) {
   const [content, setContent] = useState(news.content ?? '');
-
+  const [thumbnailUrl, setThumbnailUrl] = useState(news.thumbnail);
 
   async function handleSubmit(formData: FormData) {
     const content = formData.get('content') as string;
@@ -54,24 +54,26 @@ export default function UpdateButton({ updateAction, news }: UpdateButtonProps) 
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="thumbnail" className="text-lg font-medium">
+                <Label htmlFor="thumbnail" className="text-lg font-medium">
                 Thumbnail URL
-              </Label>
-              <Input
+                </Label>
+                <Input
+                type='url'
                 id="thumbnail"
                 name="thumbnail"
                 defaultValue={news.thumbnail}
                 placeholder="Enter image URL..."
-              />
-              {news.thumbnail && (
+                onChange={(e) => setThumbnailUrl(e.target.value)}
+                />
+                {thumbnailUrl && (
                 <div className="mt-3 rounded-lg overflow-hidden">
                   <Image
-                    src={news.thumbnail}
-                    alt="Thumbnail preview"
-                    width={450}
-                    height={300}
-                    className="w-full object-cover"
-                    onError={(e) => (e.currentTarget.style.display = 'none')}
+                  src={thumbnailUrl}
+                  alt="Thumbnail preview"
+                  width={450}
+                  height={300}
+                  className="w-full object-cover"
+                  onError={(e) => (e.currentTarget.style.display = 'none')}
                   />
                 </div>
               )}
