@@ -1,11 +1,12 @@
 "use client";
 
-import { type ChangeEvent, useEffect } from "react";
+import { type ChangeEvent, useEffect, useState } from "react";
 import { EditorForm } from "./editor-form";
 import { Preview } from "./preview";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "~/components/ui/resizable";
 import { Card } from "~/components/ui/card";
 import { useEditorHistory } from "./hooks/use-editor-history";
+import { Skeleton } from "~/components/ui/skeleton";
 
 const initialMarkdown = `# Welcome to the Markdown Editor!
 
@@ -30,7 +31,7 @@ interface MarkdownEditorProps {
   onChange: (value: string) => void;
 }
 
-export function MarkdownEditor({ name, value, onChange }: MarkdownEditorProps) {
+function MarkdownEditorContent({ name, value, onChange }: MarkdownEditorProps) {
   const { text, setText, undo, redo } = useEditorHistory(value);
 
   // Sync external value changes
@@ -69,24 +70,46 @@ export function MarkdownEditor({ name, value, onChange }: MarkdownEditorProps) {
   }, [undo, redo]);
 
   return (
-    <Card className="min-h-[500px]">
+    <div className="h-[600px]">
       <input type="hidden" name={name} value={text} />
       <ResizablePanelGroup
         direction="horizontal"
-        className="h-full rounded-lg"
+        className="h-full rounded-none"
       >
         <ResizablePanel defaultSize={50}>
-          <EditorForm 
-            name={'markdown'}
-            markdown={text} 
-            onChange={setText} 
-          />
+          <div className="h-full border-r">
+            <EditorForm 
+              name={'markdown'}
+              markdown={text} 
+              onChange={setText} 
+            />
+          </div>
         </ResizablePanel>
-        <ResizableHandle />
-        <ResizablePanel className="markdown" defaultSize={50}>
-          <Preview markdown={text} />
+        <ResizableHandle withHandle />
+        <ResizablePanel className="markdown bg-muted/30" defaultSize={50}>
+          <div className="h-full p-4 overflow-auto">
+            <Preview markdown={text} />
+          </div>
         </ResizablePanel>
       </ResizablePanelGroup>
-    </Card>
+    </div>
   );
+}
+
+export function MarkdownEditor(props: MarkdownEditorProps) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return (
+      <div className="h-[600px] space-y-3">
+        <Skeleton className="h-full w-full" />
+      </div>
+    );
+  }
+
+  return <MarkdownEditorContent {...props} />;
 }

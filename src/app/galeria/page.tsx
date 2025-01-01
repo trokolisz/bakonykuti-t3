@@ -44,9 +44,7 @@ export default async function GalleryPage() {
             </div>
             <CardContent className="p-4">
               <h3 className="font-semibold mb-1">{image.title}</h3>
-              <p className="text-sm text-muted-foreground mb-2">
-                {image.description}
-              </p>
+              
               <p className="text-xs text-muted-foreground">
                 Added on {formatDate(image.createdAt)}
               </p>
