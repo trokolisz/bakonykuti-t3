@@ -34,7 +34,7 @@ export function NewsComponent({ newsItem }: NewsComponentProps) {
           <Button
             variant="ghost"
             className="mb-4"
-            onClick={() => router.push("/news")}
+            onClick={() => router.push("/hirek")}
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Vissza a hírekhez
