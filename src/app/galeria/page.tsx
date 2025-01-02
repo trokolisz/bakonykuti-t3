@@ -17,7 +17,7 @@ export default async function GalleryPage() {
   return (
     <div className="container py-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Gallery</h1>
+        <h1 className="text-3xl font-bold">Képgaléria</h1>
         <SignedIn>
           <Link href="/admin/gallery/upload">
             <Button>

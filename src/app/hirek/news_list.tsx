@@ -63,7 +63,12 @@ export default function NewsList({ initialNews, itemsPerPage, totalPages }: News
                     </div>
                   </CardHeader>
                   <CardContent className="markdown">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    <ReactMarkdown 
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                      a: ({node, ...props}) => <span {...props} />
+                      }}
+                    >
                       {item.content?.split('\n').slice(0, 2).join('\n') ?? ''}
                     </ReactMarkdown>
                   </CardContent>

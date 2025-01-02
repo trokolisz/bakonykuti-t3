@@ -16,7 +16,7 @@ export default function Footer() {
             <p>Polgármesteri Hívatal</p>
             <p>Szabadság Utca 41</p>
             <p>8046</p>
-            <p>8046</p>
+
           </div>
          
           <div>

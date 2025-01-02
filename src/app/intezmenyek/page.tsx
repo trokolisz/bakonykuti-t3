@@ -14,7 +14,7 @@ const cards: CardTypes[] = [
     { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Iszkaszentgyörgyi Szociális Alapszolgáltatási Intézmény', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-szocialis-alapszolgaltatasi-intezmeny' },
     { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Iszkaszentgyörgyi Általános Iskola', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-altalanos-iskola' },
     { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Iszkaszentgyörgyi Vackor Óvoda és Konyha', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-vackor-ovoda-es-konyha' },
-    { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Közösségi Ház és Könyvtár', text: 'Card description goes here.', href: '/intezmenyek/kozossegi-haz-es-konyvtar' },
+    { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECRucf2egOMzl8R0LVyP71WfxAQKYCqZmBGUud", title: 'Közösségi Ház és Könyvtár', text: 'Card description goes here.', href: '/intezmenyek/kozossegi-haz-es-konyvtar' },
 ];
 
 
