@@ -13,8 +13,8 @@ const cards: CardTypes[] = [
     { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECwcWT6w9heWP5jZyfGnp24M8Jrbm0t9vNAFka", title: 'Magyar Honvégség', text: 'Card description goes here.', href: '/kozerdeku/magyar-honvedseg-boszormenyi-geza-csapatgyakorloter-parancsnoksag' },
     { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECpiiFxR0tYOVN4SgU2xuoem6swRjIQKAFZBLf", title: 'DRV', text: 'Card description goes here.', href: '/kozerdeku/drv' },
     { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECoz5xrnAu3SMxWU2adZA8VJYKbfw6OtzGmPIQ", title: 'E-ON', text: 'Card description goes here.', href: '/kozerdeku/e-on' },
-    { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Telekom', text: 'Card description goes here.', href: '/kozerdeku/telekom' },
-    { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Kémény ellenörzés és tisztítás', text: 'Card description goes here.', href: '/kozerdeku/kemeny-ellenorzes-es-tisztitas' },
+    { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECLM7LgGKbp6Sh14YX5LERKwtFsGya3UVgiH8Q", title: 'Telekom', text: 'Card description goes here.', href: '/kozerdeku/telekom' },
+    { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECIabjJ3zF3U6xf5SojbkZpQ2y7DV0lPOWMeCB", title: 'Kémény ellenörzés és tisztítás', text: 'Card description goes here.', href: '/kozerdeku/kemeny-ellenorzes-es-tisztitas' },
 ];
 
 

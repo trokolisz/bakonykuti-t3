@@ -30,12 +30,12 @@ export default function NewsList({ initialNews, itemsPerPage, totalPages }: News
     <>
     <div className="container py-8"></div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Legfrissebb hírek</h1>
+        <h1 className="text-3xl font-bold">Latest News</h1>
         <SignedIn>
           <Link href="/admin/news/create">
             <Button>
               <Plus className="mr-2 h-4 w-4" />
-              Új hír létrehozása
+              Create News
             </Button>
           </Link>
         </SignedIn>
@@ -59,7 +59,7 @@ export default function NewsList({ initialNews, itemsPerPage, totalPages }: News
                   <CardHeader>
                     <CardTitle>{item.title}</CardTitle>
                     <div className="text-sm text-muted-foreground">
-                      Feltöltő: {item.creatorName}, {formatDate(item.createdAt)}
+                      By {item.creatorName} on {formatDate(item.createdAt)}
                     </div>
                   </CardHeader>
                   <CardContent className="markdown">

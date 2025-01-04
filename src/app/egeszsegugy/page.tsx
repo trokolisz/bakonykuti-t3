@@ -10,9 +10,9 @@ import { type Card as CardTypes } from "~/types"
 
 
 const cards: CardTypes[] = [
-    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECujhDAazmDBpZYSAVG1czbfeQOu9yK3WLdFln", title: 'Háziorvosi Ellátás', text: 'Card description goes here.', href: '/egeszsegugy/haziorvosi-ellatas' },
+    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECC7hPjSoD3h5BTWPtNcop4XHGVmvlbLQxAy71", title: 'Háziorvosi Ellátás', text: 'Card description goes here.', href: '/egeszsegugy/haziorvosi-ellatas' },
     { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Fogászati rendelés', text: 'Card description goes here.', href: '/egeszsegugy/fogaszati-rendeles' },
-    { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Védőnői ellátás', text: 'Card description goes here.', href: '/egeszsegugy/vedonoi-ellatas' },
+    { id: 3, image: "https://utfs.io/f/26L8Sk7UnuEC3pZ6QfUGVEstpDrH4YmojWGN9uMyOIeCwJlK", title: 'Védőnői ellátás', text: 'Card description goes here.', href: '/egeszsegugy/vedonoi-ellatas' },
     { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Vérvétel', text: 'Card description goes here.', href: '/egeszsegugy/vervetel' },
 ];
 
