@@ -16,7 +16,7 @@ export const ourFileRouter = {
        * @see https://docs.uploadthing.com/file-routes#route-config
        */
       maxFileSize: "4MB",
-      maxFileCount: 1,
+      maxFileCount: 5,
     },
   })
     .middleware(async ({ req }) => {
@@ -31,11 +31,11 @@ export const ourFileRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
-      await db.insert(images).values({
-        title: file.name,
-        url: file.url,
-        });
-      console.log("Upload complete for userId:", metadata.userId);
+      // await db.insert(images).values({
+      //   title: file.name,
+      //   url: file.url,
+      //   });
+      // console.log("Upload complete for userId:", metadata.userId);
 
       console.log("file url", file.url);
 

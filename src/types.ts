@@ -4,7 +4,6 @@ export type Image = {
   id: number
   title: string
   url: string
-  description: string | null
   createdAt: Date
   carousel: boolean
 }
@@ -84,6 +83,5 @@ export type Card = {
   id: number;
   image: string;
   title: string;
-  text: string;
   href: string;
 }

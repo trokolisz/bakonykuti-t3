@@ -14,15 +14,15 @@ import { Widgets } from '~/components/layout/widgets'
 
 
 const cards: CardTypes[] = [
-  { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECIyJSHCF3U6xf5SojbkZpQ2y7DV0lPOWMeCBq", title: 'Köszöntő', text: 'Card description goes here.', href: '/' },
-  { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECcDloPqMGlVyP5pWMY6DoSU8zQmEbCBJ0Nt2O", title: 'Bakonykúti', text: 'Card description goes here.', href: '/bakonykuti' },
-  { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECUHsDTHkJpuP41irqDG3So0BQOfy2weHZmdjT", title: 'Hírek', text: 'Card description goes here.', href: '/hirek' },
-  { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECo0dXRGAu3SMxWU2adZA8VJYKbfw6OtzGmPIQ", title: 'Önkormányzat', text: 'Card description goes here.', href: '/onkormanyzat' },
-  { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECIaccBCbF3U6xf5SojbkZpQ2y7DV0lPOWMeCB", title: 'Intézmények', text: 'Card description goes here.', href: '/intezmenyek' },
-  { id: 6, image: "https://utfs.io/f/26L8Sk7UnuECC7hPjSoD3h5BTWPtNcop4XHGVmvlbLQxAy71", title: 'Egészségügy', text: 'Card description goes here.', href: '/egeszsegugy' },
-  { id: 7, image: "https://utfs.io/f/26L8Sk7UnuECXtaSj3cZENFc91oCB07LqidpvXmUWH4VeMwx", title: 'Galéria', text: 'Card description goes here.', href: '/galeria' },
-  { id: 8, image: "https://utfs.io/f/26L8Sk7UnuECXjCxYrcZENFc91oCB07LqidpvXmUWH4VeMwx", title: 'Közérdekü', text: 'Card description goes here.', href: '/kozerdeku' },
-  { id: 9, image: "https://utfs.io/f/26L8Sk7UnuECctyHHfMGlVyP5pWMY6DoSU8zQmEbCBJ0Nt2O", title: 'Ügyintézés', text: 'Card description goes here.', href: '/ugyintezes' },
+  { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECIyJSHCF3U6xf5SojbkZpQ2y7DV0lPOWMeCBq", title: 'Köszöntő',  href: '/' },
+  { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECcDloPqMGlVyP5pWMY6DoSU8zQmEbCBJ0Nt2O", title: 'Bakonykúti',  href: '/bakonykuti' },
+  { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECUHsDTHkJpuP41irqDG3So0BQOfy2weHZmdjT", title: 'Hírek',  href: '/hirek' },
+  { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECo0dXRGAu3SMxWU2adZA8VJYKbfw6OtzGmPIQ", title: 'Önkormányzat',  href: '/onkormanyzat' },
+  { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECIaccBCbF3U6xf5SojbkZpQ2y7DV0lPOWMeCB", title: 'Intézmények',  href: '/intezmenyek' },
+  { id: 6, image: "https://utfs.io/f/26L8Sk7UnuECC7hPjSoD3h5BTWPtNcop4XHGVmvlbLQxAy71", title: 'Egészségügy',  href: '/egeszsegugy' },
+  { id: 7, image: "https://utfs.io/f/26L8Sk7UnuECXtaSj3cZENFc91oCB07LqidpvXmUWH4VeMwx", title: 'Galéria',  href: '/galeria' },
+  { id: 8, image: "https://utfs.io/f/26L8Sk7UnuECXjCxYrcZENFc91oCB07LqidpvXmUWH4VeMwx", title: 'Közérdekü',  href: '/kozerdeku' },
+  { id: 9, image: "https://utfs.io/f/26L8Sk7UnuECctyHHfMGlVyP5pWMY6DoSU8zQmEbCBJ0Nt2O", title: 'Ügyintézés',  href: '/ugyintezes' },
 ];
 
 

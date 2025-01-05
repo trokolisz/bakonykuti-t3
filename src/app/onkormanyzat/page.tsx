@@ -10,19 +10,19 @@ import { type Card as CardTypes } from "~/types"
 
 
 const cards: CardTypes[] = [
-    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECkX3kokmwPCJb48Ar2U9okYnfdSWvR5pDwstV", title: 'Képviselő-testület', text: 'Card description goes here.', href: '/onkormanyzat/kepviselo-testulet' },
-    { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECWhcnJojMe78C4Hl1gVLjSdwtzqbmKROP0uki", title: 'Testületi ülések', text: 'Card description goes here.', href: '/onkormanyzat/testuleti-ulesek' },
-    { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Önkormányzati rendeletek', text: 'Card description goes here.', href: '/onkormanyzat/onkormanyzati-rendeletek' },
-    { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Dokumentumok', text: 'Card description goes here.', href: '/onkormanyzat/dokumentumok' },
-    { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECbdzcV2WbPq5eHr31oBZJLQdxS6Gvi8k2mFjA", title: 'Iszkaszentgyörgyi Közös Önkormányzati Hivatal', text: 'Card description goes here.', href: '/onkormanyzat/iszkaszentgyorgyi-kozos-onkormanyzati-hivatal' },
-    { id: 6, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Elérhetőségek', text: 'Card description goes here.', href: '/onkormanyzat/elerhetosegek' },
-    { id: 7, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Közérdekű adatok', text: 'Card description goes here.', href: '/onkormanyzat/kozerdeku-adatok' },
-    { id: 8, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Hirdetmények', text: 'Card description goes here.', href: '/onkormanyzat/hirdetmenyek' },
-    { id: 9, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Szabályzatok', text: 'Card description goes here.', href: '/onkormanyzat/szabalyzatok' },
-    { id: 10, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Helyi Esélyegyenlőségi Program', text: 'Card description goes here.', href: '/onkormanyzat/helyi-eselyegyenlosegi-program' },
-    { id: 11, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Településrendezési eszközök és arculati kézikönyv', text: 'Card description goes here.', href: '/onkormanyzat/telepulesrendezesi-eszkozok-es-arculati-kezikonyv' },
-    { id: 12, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Pályázatok', text: 'Card description goes here.', href: '/onkormanyzat/palyazatok' },
-    { id: 13, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Választás', text: 'Card description goes here.', href: '/onkormanyzat/valasztas' },
+    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECkX3kokmwPCJb48Ar2U9okYnfdSWvR5pDwstV", title: 'Képviselő-testület',  href: '/onkormanyzat/kepviselo-testulet' },
+    { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECWhcnJojMe78C4Hl1gVLjSdwtzqbmKROP0uki", title: 'Testületi ülések',  href: '/onkormanyzat/testuleti-ulesek' },
+    { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Önkormányzati rendeletek',  href: '/onkormanyzat/onkormanyzati-rendeletek' },
+    { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Dokumentumok',  href: '/onkormanyzat/dokumentumok' },
+    { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECbdzcV2WbPq5eHr31oBZJLQdxS6Gvi8k2mFjA", title: 'Iszkaszentgyörgyi Közös Önkormányzati Hivatal',  href: '/onkormanyzat/iszkaszentgyorgyi-kozos-onkormanyzati-hivatal' },
+    { id: 6, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Elérhetőségek',  href: '/onkormanyzat/elerhetosegek' },
+    { id: 7, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Közérdekű adatok',  href: '/onkormanyzat/kozerdeku-adatok' },
+    { id: 8, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Hirdetmények',  href: '/onkormanyzat/hirdetmenyek' },
+    { id: 9, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Szabályzatok',  href: '/onkormanyzat/szabalyzatok' },
+    { id: 10, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Helyi Esélyegyenlőségi Program',  href: '/onkormanyzat/helyi-eselyegyenlosegi-program' },
+    { id: 11, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Településrendezési eszközök és arculati kézikönyv',  href: '/onkormanyzat/telepulesrendezesi-eszkozok-es-arculati-kezikonyv' },
+    { id: 12, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Pályázatok',  href: '/onkormanyzat/palyazatok' },
+    { id: 13, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Választás',  href: '/onkormanyzat/valasztas' },
 
 ];
 

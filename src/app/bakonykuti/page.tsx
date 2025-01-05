@@ -10,10 +10,10 @@ import { type Card as CardTypes } from "~/types"
 
 
 const cards: CardTypes[] = [
-    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECfHTSdRu3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Bemutatás', text: 'Card description goes here.', href: '/bakonykuti/bemutatas' },
-    { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECbBp2vGWbPq5eHr31oBZJLQdxS6Gvi8k2mFjA", title: 'Történetünk', text: 'Card description goes here.', href: '/bakonykuti/tortenet' },
-    { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECEYY81GxeDfCRWZAPiqY1BUG5V8Mz3t920HXw", title: 'Környékünk', text: 'Card description goes here.', href: '/bakonykuti/kornyekunk' },
-    { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECWA2n7jMe78C4Hl1gVLjSdwtzqbmKROP0uki5", title: 'Látnivalók', text: 'Card description goes here.', href: '/bakonykuti/latnivalok' },
+    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECfHTSdRu3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Bemutatás',  href: '/bakonykuti/bemutatas' },
+    { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECbBp2vGWbPq5eHr31oBZJLQdxS6Gvi8k2mFjA", title: 'Történetünk',  href: '/bakonykuti/tortenet' },
+    { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECEYY81GxeDfCRWZAPiqY1BUG5V8Mz3t920HXw", title: 'Környékünk',  href: '/bakonykuti/kornyekunk' },
+    { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECWA2n7jMe78C4Hl1gVLjSdwtzqbmKROP0uki5", title: 'Látnivalók',  href: '/bakonykuti/latnivalok' },
 
 ];
 
