@@ -10,10 +10,10 @@ import { type Card as CardTypes } from "~/types"
 
 
 const cards: CardTypes[] = [
-    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECujhDAazmDBpZYSAVG1czbfeQOu9yK3WLdFln", title: 'Iszkaszentgyörgyi Szociális Intézményi Társulás', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-szocialis-intezmenyi-tarsulas' },
-    { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Iszkaszentgyörgyi Szociális Alapszolgáltatási Intézmény', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-szocialis-alapszolgaltatasi-intezmeny' },
-    { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Iszkaszentgyörgyi Általános Iskola', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-altalanos-iskola' },
-    { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECfSFxOau3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Iszkaszentgyörgyi Vackor Óvoda és Konyha', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-vackor-ovoda-es-konyha' },
+    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuEC1G7e7b489QX6bm0v4B8adyiMJAnfwWCDKkVO", title: 'Iszkaszentgyörgyi Szociális Intézményi Társulás', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-szocialis-intezmenyi-tarsulas' },
+    { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECwgAWYHheWP5jZyfGnp24M8Jrbm0t9vNAFkaB", title: 'Iszkaszentgyörgyi Szociális Alapszolgáltatási Intézmény', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-szocialis-alapszolgaltatasi-intezmeny' },
+    { id: 3, image: "https://utfs.io/f/26L8Sk7UnuEC5hGvIGKkVqBcO9XlC0318ZTQN4s6Axy7fgoJ", title: 'Iszkaszentgyörgyi Általános Iskola', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-altalanos-iskola' },
+    { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECBsKCA3LtiGAb1WuzdjMZ6rO9S2U8Ll3D75pI", title: 'Iszkaszentgyörgyi Vackor Óvoda és Konyha', text: 'Card description goes here.', href: '/intezmenyek/iszkaszentgyorgyi-vackor-ovoda-es-konyha' },
     { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECRucf2egOMzl8R0LVyP71WfxAQKYCqZmBGUud", title: 'Közösségi Ház és Könyvtár', text: 'Card description goes here.', href: '/intezmenyek/kozossegi-haz-es-konyvtar' },
 ];
 
