@@ -34,11 +34,18 @@ export function Calendar({
     0
   ).getDate()
 
-  const firstDayOfMonth = new Date(
-    currentMonth.getFullYear(),
-    currentMonth.getMonth(),
-    1
-  ).getDay()
+  // Helper function to adjust day number to start from Monday
+  const adjustDayToMondayStart = (day: number) => {
+    return day === 0 ? 6 : day - 1
+  }
+
+  const firstDayOfMonth = adjustDayToMondayStart(
+    new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth(),
+      1
+    ).getDay()
+  )
 
   const prevMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))
@@ -52,7 +59,7 @@ export function Calendar({
     onSelect?.(date)
   }
 
-  const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  const weekDays = ["H", "K", "Sze", "Cs", "P", "Szo", "V"]
 
   const renderDay = (date: Date) => {
     const isSelected = selected?.toDateString() === date.toDateString()
@@ -106,7 +113,7 @@ export function Calendar({
           <ChevronLeft className="h-4 w-4" />
         </Button>
         <div className="font-semibold">
-          {currentMonth.toLocaleDateString("en-US", {
+          {currentMonth.toLocaleDateString("hu-Eu", {
             month: "long",
             year: "numeric",
           })}
