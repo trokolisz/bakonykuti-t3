@@ -10,6 +10,7 @@ import {
   timestamp,
   varchar,
   text,
+  integer,
 } from "drizzle-orm/pg-core";
 import { title } from "process";
 
@@ -24,13 +25,13 @@ export const createTable = pgTableCreator((name) => `bakonykuti-t3_${name}`);
 
 export const images = createTable("image", {
   id: serial("id").primaryKey(),
-  title: varchar("title", { length: 256 }).notNull(),
-  url: varchar("url", { length: 1024 }).notNull(),
-  gallery: boolean("gallery").default(false).notNull(),
-  createdAt: timestamp("created_at")
-    .default(sql`CURRENT_TIMESTAMP`)
-    .notNull(),
-  carousel: boolean("carousel").default(false).notNull()
+  url: varchar("url", {length: 1024}).notNull(),
+  title: varchar("title", {length: 256}).default("").notNull(),
+  carousel: boolean("carousel").default(false),
+  gallery: boolean("gallery").default(true),
+  image_size: integer("image_size").notNull().default(0),
+  createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
+  updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
 });
 
 export type Image = typeof images.$inferSelect;

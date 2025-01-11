@@ -79,7 +79,7 @@ const sections = [
       "DRV",
       "E-ON",
       "Telekom",
-      "Kémény ellenőrzés és tisztítás"
+      "Kéményellenőrzés és tisztítás"
     ]
   },
   {

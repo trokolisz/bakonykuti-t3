@@ -37,7 +37,7 @@ export default async function GalleryPage() {
           <Link href={image.url}>
             <Image
               src={image.url}
-              alt={image.title}
+              alt={image.title?? 'Uploaded image'}
               fill
               className="object-cover transition-transform hover:scale-105"
             />
