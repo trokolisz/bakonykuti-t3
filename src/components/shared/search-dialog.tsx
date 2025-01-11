@@ -72,7 +72,7 @@ export function SearchDialog({ pages, news }: SearchDialogProps) {
               <CommandItem
                 key={item.id}
                 onSelect={() => {
-                  router.push(`/news/${item.id}`)
+                  router.push(`/hirek/${item.id}`)
                   setOpen(false)
                 }}
               >

@@ -109,51 +109,53 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
           <button onClick={closeViewer} className="absolute top-4 right-4">
             X
           </button>
-          <div className="relative w-full h-full max-w-3xl flex items-center justify-center">
-            <button
-              onClick={prevImage}
-              className="absolute left-4 z-10 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
-              aria-label="Previous image"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+          <div className="relative w-full h-full max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl flex items-center justify-center">
+            <div className="relative w-full h-full flex items-center">
+              <button
+                onClick={prevImage}
+                className="fixed left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+                aria-label="Previous image"
               >
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </button>
-            <Image
-              src={images[index]?.url ?? ""}
-              alt={images[index]?.title ?? "Uploaded image"}
-              fill
-              className="object-contain"
-            />
-            <button
-              onClick={nextImage}
-              className="absolute right-4 z-10 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
-              aria-label="Next image"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <Image
+                src={images[index]?.url ?? ""}
+                alt={images[index]?.title ?? "Uploaded image"}
+                fill
+                className="object-contain transition-transform scale-125 lg:scale-150"
+              />
+              <button
+                onClick={nextImage}
+                className="fixed right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+                aria-label="Next image"
               >
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
           </div>
           {/* Optional thumbnail preview */}
           <div ref={thumbnailRef} className="flex gap-2 mt-4 overflow-x-auto p-2">
