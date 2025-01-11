@@ -30,7 +30,7 @@ export default function NewsList({ initialNews, itemsPerPage, totalPages }: News
     <>
     <div className="container py-8"></div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Latest News</h1>
+        <h1 className="text-3xl font-bold">Legfrissebb hírek</h1>
         <SignedIn>
           <Link href="/admin/news/create">
             <Button>

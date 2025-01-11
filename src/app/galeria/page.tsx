@@ -29,28 +29,28 @@ export default async function GalleryPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {images.map((image) => (
-          <Card key={image.id} className="overflow-hidden">
-            <div className="relative aspect-square">
-               <Link href={image.url}>
-                <Image
-                  src={image.url}
-                  alt={image.title}
-                  fill
-                  className="object-cover transition-transform hover:scale-105"
-                />
-               </Link>
-              
-            </div>
-            <CardContent className="p-4">
-              <h3 className="font-semibold mb-1">{image.title}</h3>
-              
-              <p className="text-xs text-muted-foreground">
-                Added on {formatDate(image.createdAt)}
-              </p>
-            </CardContent>
-          </Card>
-        ))}
+        {images
+          .filter((image) => image.gallery === true)
+          .map((image) => (
+            <Card key={image.id} className="overflow-hidden">
+              <div className="relative aspect-square">
+          <Link href={image.url}>
+            <Image
+              src={image.url}
+              alt={image.title}
+              fill
+              className="object-cover transition-transform hover:scale-105"
+            />
+          </Link>
+              </div>
+              <CardContent className="p-4">
+          <h3 className="font-semibold mb-1">{image.title}</h3>
+          <p className="text-xs text-muted-foreground">
+            Added on {formatDate(image.createdAt)}
+          </p>
+              </CardContent>
+            </Card>
+          ))}
       </div>
     </div>
   )
