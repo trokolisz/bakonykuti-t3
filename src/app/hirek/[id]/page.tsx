@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm"
 import { news } from "~/server/db/schema"
 import { NewsComponent } from "./news_component"
 import "~/styles/markdown.css"
+import { deleteNews } from './actions';
 
 interface Props {
   params: Promise<{ id: string[] }>
@@ -16,5 +17,5 @@ export default async function NewsItemPage({ params }: Props) {
   
   if (!newsItem) return null
 
-  return <NewsComponent newsItem={newsItem} />
+  return <NewsComponent newsItem={newsItem} deleteNews={deleteNews} />
 }

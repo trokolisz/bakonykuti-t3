@@ -13,10 +13,13 @@ import { SignedIn } from "@clerk/nextjs"
 import { type News } from "~/server/db/schema";
 
 import "~/styles/markdown.css";
+import { deleteNews } from './actions'
 
 interface NewsComponentProps {
-  newsItem: News
-}
+  newsItem: News  ;
+  deleteNews: (id:number) => Promise<void>;
+};
+
 
 export function NewsComponent({ newsItem }: NewsComponentProps) {
   const router = useRouter()
@@ -56,8 +59,15 @@ export function NewsComponent({ newsItem }: NewsComponentProps) {
                   variant="outline"
                   onClick={() => router.push(`/admin/news/edit/${newsItem.id}`)}
                 >
+                  
                   <Edit className="mr-2 h-4 w-4" />
                   Szerkesztés
+                </Button>
+                <Button variant="destructive" onClick={async () => {
+                  await deleteNews(newsItem.id);
+                  window.location.href = "/hirek";
+                }} className="ml-2">
+                  Delete
                 </Button>
               </SignedIn>
             </div>
