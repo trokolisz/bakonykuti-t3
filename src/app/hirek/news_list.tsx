@@ -37,7 +37,11 @@ export default function NewsList({ initialNews, itemsPerPage, totalPages }: News
               <Plus className="mr-2 h-4 w-4" />
               Create News
             </Button>
+            
           </Link>
+          <Button variant="destructive" className="ml-2">
+              Delete
+            </Button>
         </SignedIn>
       </div>
 

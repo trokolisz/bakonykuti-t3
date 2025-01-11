@@ -28,12 +28,6 @@ export default function UpdateButton({ updateAction, news }: UpdateButtonProps) 
     const content = formData.get('content') as string;
     const title = formData.get('title') as string;
     const thumbnail = formData.get('thumbnail') as string;
-
-    formData.set('content', '');
-    formData.set('title', '');
-    formData.set('thumbnail', '');
-    setContent('');
-    setThumbnailUrl('');
    
     console.log("handleSubmit with title: ", title);
     await updateAction(news.id, title, thumbnail , content);
