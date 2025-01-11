@@ -12,6 +12,8 @@ import {
   Sheet,
   SheetContent,
   SheetTrigger,
+  SheetHeader,
+  SheetTitle,
 } from "~/components/ui/sheet"
 
 const sections = [
@@ -159,42 +161,62 @@ export default function Navbar() {
   const MobileNav = () => (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden">
+        <Button variant="ghost" size="icon" className="md:hidden" aria-label="Főmenü megnyitása">
           <Menu className="h-6 w-6" />
           <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-        <nav className="flex flex-col gap-4">
-          {sections.map((section) => (
-            <div key={section.title} className="space-y-3">
-              <Link
-                href={section.href}
-                className={cn(
-                  "block text-lg font-medium",
-                  pathname === section.href && "text-primary"
+      <SheetContent side="left" className="w-[300px] sm:w-[400px] p-0">
+        <SheetHeader className="border-b px-6 py-4">
+          <SheetTitle>Bakonykúti</SheetTitle>
+          <p className="text-sm text-muted-foreground">Községi Önkormányzat</p>
+        </SheetHeader>
+        <nav className="h-full pb-16 overflow-y-auto" aria-label="Főmenü">
+          <div className="space-y-2 py-4">
+            {sections.map((section) => (
+              <div key={section.title} className="px-6 py-2">
+                <Link
+                  href={section.href}
+                  className={cn(
+                    "block text-lg font-medium transition-colors hover:text-primary",
+                    pathname === section.href ? "text-primary font-semibold" : "text-foreground/90"
+                  )}
+                >
+                  {section.title}
+                </Link>
+                {section.subsections && (
+                  <div className="ml-4 mt-2 flex flex-col gap-1">
+                    {section.subsections.map((subsection) => (
+                      <Link
+                        key={subsection}
+                        href={`${section.href}/${subsection.toLowerCase()
+                          .replace(/\s+/g, '-')
+                          .replace(/[á]/g, 'a')
+                          .replace(/[é]/g, 'e')
+                          .replace(/[í]/g, 'i')
+                          .replace(/[óöő]/g, 'o')
+                          .replace(/[úüű]/g, 'u')}`}
+                        className={cn(
+                          "text-sm py-1 px-2 rounded-md transition-colors",
+                          pathname === `${section.href}/${subsection.toLowerCase()
+                            .replace(/\s+/g, '-')
+                            .replace(/[á]/g, 'a')
+                            .replace(/[é]/g, 'e')
+                            .replace(/[í]/g, 'i')
+                            .replace(/[óöő]/g, 'o')
+                            .replace(/[úüű]/g, 'u')}` 
+                            ? "bg-primary/10 text-primary font-medium"
+                            : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                        )}
+                      >
+                        {subsection}
+                      </Link>
+                    ))}
+                  </div>
                 )}
-              >
-                {section.title}
-              </Link>
-              {section.subsections && (
-                <div className="ml-4 flex flex-col gap-2">
-                  {section.subsections.map((subsection) => (
-                    <Link
-                      key={subsection}
-                      href={`${section.href}/${subsection.toLowerCase().replace(/\s+/g, '-')}`}
-                      className={cn(
-                        "text-sm text-muted-foreground",
-                        pathname === `${section.href}/${subsection.toLowerCase().replace(/\s+/g, '-')}` && "text-primary"
-                      )}
-                    >
-                      {subsection}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </nav>
       </SheetContent>
     </Sheet>
