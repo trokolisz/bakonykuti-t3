@@ -19,6 +19,7 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
   const [open, setOpen] = useState(false)
   const [index, setIndex] = useState(0)
   const thumbnailRef = useRef<HTMLDivElement>(null)
+  const touchStartX = useRef<number | null>(null)
 
   const handleClick = (i: number) => {
     setIndex(i)
@@ -35,6 +36,19 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
   )
 
   const closeViewer = useCallback(() => setOpen(false), [])
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!e.touches[0]) return
+    touchStartX.current = e.touches[0].clientX
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null || !e.changedTouches[0]) return
+    const delta = e.changedTouches[0].clientX - touchStartX.current
+    if (delta > 40) prevImage()    // swipe right
+    if (delta < -40) nextImage()   // swipe left
+    touchStartX.current = null
+  }
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -87,7 +101,11 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
       </div>
 
       {open && (
-        <div className="fixed inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center z-50">
+        <div
+          className="fixed inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center z-50"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <button onClick={closeViewer} className="absolute top-4 right-4">
             X
           </button>
@@ -138,7 +156,7 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
             </button>
           </div>
           {/* Optional thumbnail preview */}
-          <div ref={thumbnailRef} className="flex gap-2 mt-4 overflow-hiden p-2">
+          <div ref={thumbnailRef} className="flex gap-2 mt-4 overflow-x-auto p-2">
             {visibleIndices.map((i) => (
               <div
                 key={images[i]?.id}
