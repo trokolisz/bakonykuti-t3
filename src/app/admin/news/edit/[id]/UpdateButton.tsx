@@ -28,8 +28,18 @@ export default function UpdateButton({ updateAction, news }: UpdateButtonProps) 
     const content = formData.get('content') as string;
     const title = formData.get('title') as string;
     const thumbnail = formData.get('thumbnail') as string;
+
+    formData.set('content', '');
+    formData.set('title', '');
+    formData.set('thumbnail', '');
+    setContent('');
+    setThumbnailUrl('');
+   
     console.log("handleSubmit with title: ", title);
     await updateAction(news.id, title, thumbnail , content);
+    
+    // Reset form values
+    
   }
 
   return (
@@ -45,6 +55,7 @@ export default function UpdateButton({ updateAction, news }: UpdateButtonProps) 
                 Article Title
               </Label>
               <Input
+              required
                 id="title"
                 name="title"
                 defaultValue={news.title}
@@ -58,6 +69,7 @@ export default function UpdateButton({ updateAction, news }: UpdateButtonProps) 
                 Thumbnail URL
                 </Label>
                 <Input
+                required
                 type='url'
                 id="thumbnail"
                 name="thumbnail"
