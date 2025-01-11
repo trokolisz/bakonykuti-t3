@@ -86,7 +86,7 @@ export function NewsComponent({ newsItem }: NewsComponentProps) {
           />
         </div>
 
-        <Card className="p-6 prose prose-green dark:prose-invert max-w-none markdown">
+        <Card className="p-6 prose prose-green dark:prose-invert max-w-none markdown bg-[hsla(80,30%,17%,1)]">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{newsItem.content}</ReactMarkdown>
         </Card>
       </div>
