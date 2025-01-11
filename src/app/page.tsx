@@ -16,7 +16,7 @@ import { Widgets } from '~/components/layout/widgets'
 const cards: CardTypes[] = [
   { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECIyJSHCF3U6xf5SojbkZpQ2y7DV0lPOWMeCBq", title: 'Köszöntő',  href: '/' },
   { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECcDloPqMGlVyP5pWMY6DoSU8zQmEbCBJ0Nt2O", title: 'Bakonykúti',  href: '/bakonykuti' },
-  { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECUHsDTHkJpuP41irqDG3So0BQOfy2weHZmdjT", title: 'Hírek',  href: '/hirek' },
+  { id: 3, image: "https://qh0hg1d52r.ufs.sh/f/26L8Sk7UnuECyd37IXvN5Ci9zgbl18T6LeS24FroQGx7wRkH", title: 'Hírek',  href: '/hirek' },
   { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECo0dXRGAu3SMxWU2adZA8VJYKbfw6OtzGmPIQ", title: 'Önkormányzat',  href: '/onkormanyzat' },
   { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECIaccBCbF3U6xf5SojbkZpQ2y7DV0lPOWMeCB", title: 'Intézmények',  href: '/intezmenyek' },
   { id: 6, image: "https://utfs.io/f/26L8Sk7UnuECC7hPjSoD3h5BTWPtNcop4XHGVmvlbLQxAy71", title: 'Egészségügy',  href: '/egeszsegugy' },
