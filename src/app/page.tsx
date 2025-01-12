@@ -14,7 +14,7 @@ import { Widgets } from '~/components/layout/widgets'
 
 
 const cards: CardTypes[] = [
-  { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECIyJSHCF3U6xf5SojbkZpQ2y7DV0lPOWMeCBq", title: 'Köszöntő',  href: '/' },
+  { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECIyJSHCF3U6xf5SojbkZpQ2y7DV0lPOWMeCBq", title: 'Köszöntő',  href: '/#welcome' },
   { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECcDloPqMGlVyP5pWMY6DoSU8zQmEbCBJ0Nt2O", title: 'Bakonykúti',  href: '/bakonykuti' },
   { id: 3, image: "https://qh0hg1d52r.ufs.sh/f/26L8Sk7UnuECyd37IXvN5Ci9zgbl18T6LeS24FroQGx7wRkH", title: 'Hírek',  href: '/hirek' },
   { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECo0dXRGAu3SMxWU2adZA8VJYKbfw6OtzGmPIQ", title: 'Önkormányzat',  href: '/onkormanyzat' },
@@ -32,7 +32,7 @@ export default async function Home() {
 
 
   return (
-    <>
+    <>  
       <div className="container py-8">
         <div className="flex justify-between items-center mb-6">
           <SearchDialog pages={pages} news={news} />
@@ -46,7 +46,8 @@ export default async function Home() {
 
 
             </section>
-
+            
+            <div id="welcome" className="scroll-mt-20"/>
             <section className="bg-primary/5 p-8 rounded-lg border border-primary/10">
               <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
                 <Leaf className="h-8 w-8 text-primary" />
