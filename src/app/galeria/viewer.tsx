@@ -165,7 +165,7 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
                 className={`relative w-24 h-16 cursor-pointer ${i === index ? "border-4 border-white" : "border"}`}
                 onClick={() => setIndex(i)}
               >
-                <Image src={images[i]?.url ?? ""} alt="" fill className="object-cover border" />
+                <Image src={images[i]?.url ?? ""} alt={images[i]?.url ?? ""} fill className="object-cover border" />
               </div>
             ))}
           </div>

@@ -51,26 +51,34 @@ export default async function Home() {
             <section className="bg-primary/5 p-8 rounded-lg border border-primary/10">
               <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
                 <Leaf className="h-8 w-8 text-primary" />
-                Kedves Látogató
+                Tisztelt Látogató!
               </h2>
               <p className="text-lg text-muted-foreground mb-4">
-                Nagy örömmel és tisztelettel köszöntöm Önt Fejér megye legkisebb önálló településének honlapján!
+              Örömmel és tisztelettel köszöntöm Önt Fejér vármegye legkisebb önálló települése, Bakonykúti község
+              honlapján!
               </p>
               <p className="text-lg text-muted-foreground mb-4">
-                Bakonykúti a Kelet-Bakony hegység lábánál, a Burok-völgy természetvédelmi terület mentén, csodálatos természeti környezetben fekszik. A mai rohanó világunkban egyre több embert ragad meg a gyönyörû természeti környezet, az eredeti településszerkezetét és építési hagyományait megõrzõ, emberléptékû, rendezett településünk. Az Önkormányzat, a Bakonykúti Községért Közalapítvány és a lakosság összefogásával készült köztéri faszobrok még egyedibbé és vonzóvá teszik a kis falu arculatát.
+              Bakonykúti a Kelet-Bakony hegység lábánál, a Burok-völgyi természetvédelmi terület mentén, csodálatos
+természeti környezetben fekszik. A mai rohanó világunkban egyre több embert ragad meg a gyönyörű természeti
+környezet, az eredeti településszerkezetét és építési hagyományait megőrző, emberléptékű településünk. Ennek
+köszönhetően egyre többen választják állandó lakóhelyül Bakonykútit, így az ezredfordulón még alig 100 fős
+lélekszámú településünk napjainkban már 170 főnek az otthona. De egyre több látogató is felkeresi Bakonykútit és
+környékét, nemcsak a településünkön áthaladó Országos Kéktúra útvonalán a bakancsos turisták, hanem olyanok
+is, akik több napot töltenek el Bakonykútiban, kihasználva a településünkön egyre több falusi szálláshely és
+vendégház szolgáltatásait.
               </p>
               <p className="text-lg text-muted-foreground mb-4">
-                A múlt században, a mindenkori gazdasági folyamatok tükörképeként változó mértékben, de folyamatosan csökkent a falu lakossága. Örvendetes, hogy napjainkra már megfordult ez a folyamat és a népesség növekedése figyelhetõ meg. Kezdetben csak a hétvégi házak szaporodtak, de ma már egyre többen választják állandó lakhelyül is településünket, melyet az egyre több új építésû lakóház is jelez.
+              Önkormányzatunk legfontosabb célkitűzései közé tartozik, hogy megőrizzük mindazon értékeket, amelyek
+miatt vonzó ez a kicsiny zsáktelepülés, továbbá biztosítani, hogy az alacsony lélekszám ellenére élhető település
+maradjon Bakonykúti, hogy mindazon szolgáltatás, amely a XXI. században elvárható, az helyben vagy elérhető
+közelségben, a szomszédos településekkel összefogva a lakosság rendelkezésére álljon.
               </p>
               <p className="text-lg text-muted-foreground mb-4">
-                Településünk mellett található a Magyar Honvédség központi lõ- és gyakorlótere, amely Közép-Európa legnagyobb összefüggõ katonai területe. Mindez okoz néhány zajosabb napot is nálunk, ugyanakkor a terület viszonylagos zártsága miatt csökkent az értékes élõhelyek pusztulása, ezért számos védett állat és növény talált itt menedéket.
+              A honlapunkon az érdeklődők további információt találhatnak Bakonykúti múltjáról, jelenéről és
+természeti környezetéről, településünk lakói pedig nyomon követhetik az önkormányzat képviselő-testületének
+munkáját, megtalálhatják a községünkkel kapcsolatos közérdekű információkat, aktuális híreket.
               </p>
-              <p className="text-lg text-muted-foreground mb-4">
-                A múlt örökségének megõrzése mellett jelentõs változások is történtek községünk életében. Kezdeményezésünkre az Országgyûlés 2007-ben módosította a kistérségek besorolásáról szóló törvényt, amelynek értelmében Bakonykúti a móri kistérségbõl átkerült a székesfehérvári kistérségbe. Ezzel összhangban hozta meg a képviselõ testület azt a döntést, hogy 2008. január 01-tõl az azonos kistérséghez tartozó Iszkaszentgyörggyel alakítottunk közös körjegyzõséget.
-              </p>
-              <p className="text-lg text-muted-foreground mb-4">
-                A jövõt illetõen két fontos célt tûztünk magunk elé. Egyrészt megõrizni mindazon értékeket, ami miatt vonzó ez a település. Másrészt az alacsony lélekszám ellenére biztosítani, hogy élhetõ település maradjon Bakonykúti, hogy mindaz a szolgáltatás, amely a XXI. században elvárható, az helyben vagy elérhetõ közelségben, a szomszédos településekkel összefogva a lakosság rendelkezésére álljon.
-              </p>
+              
               <p className="text-lg text-muted-foreground mb-0 text-center">
                 Marics József
               </p>
