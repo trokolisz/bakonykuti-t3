@@ -56,7 +56,7 @@ export type InsertNews = typeof news.$inferInsert;
 export const news = createTable("news", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 256 }).notNull(),
-  thumbnail: varchar("thumbnail", { length: 256 }).notNull(),
+  thumbnail: varchar("thumbnail", { length: 2056 }).notNull(),
   content: text("content"),
   creatorName: varchar("creator_name", { length: 256 }),
   createdAt: timestamp("created_at")

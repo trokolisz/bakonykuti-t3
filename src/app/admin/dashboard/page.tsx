@@ -39,7 +39,7 @@ export default function AdminDashboard() {
           </Card>
         </Link>
 
-        <Link href="/admin/gallery/upload">
+        <Link href="/admin/gallery/">
           <Card className="hover:bg-primary/5 transition-colors cursor-pointer">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">

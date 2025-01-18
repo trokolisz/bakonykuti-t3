@@ -110,5 +110,8 @@
   },
   "ct3aMetadata": {
     "initVersion": "7.38.1"
-  }
+  },
+  "trustedDependencies": [
+    "@clerk/shared"
+  ]
 }

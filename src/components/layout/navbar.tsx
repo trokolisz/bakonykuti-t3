@@ -85,6 +85,10 @@ const sections = [
     ]
   },
   {
+    title: "Események",
+    href: "/esemenyek",
+  },
+  {
     title: "Ügyintézés",
     href: "/ugyintezes",
     subsections: ["Ügyfélfogadás", "Bejelentés köteles tevékenységek",]
