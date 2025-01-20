@@ -1,4 +1,4 @@
-export type EventType = 'community' | 'cultural' | 'sports' | 'education' | 'lőtér'
+export type EventType = 'community' | 'cultural' | 'sports' | 'education' | 'gun_range'
 
 export type Event = {
   id: string
@@ -15,7 +15,7 @@ export const eventTypeColors: Record<EventType, string> = {
   cultural: 'bg-purple-500',
   sports: 'bg-blue-500',
   education: 'bg-amber-500',
-  lőtér: 'bg-gray-500',
+  gun_range: 'bg-gray-500',
 }
 
 export const eventTypeLabels: Record<EventType, string> = {
@@ -23,7 +23,7 @@ export const eventTypeLabels: Record<EventType, string> = {
   cultural: 'Cultural Event',
   sports: 'Sports Event',
   education: 'Educational Event',
-  lőtér: 'Lőtér Event',
+  gun_range: 'Lőtér Event',
 }
 
 // In-memory storage for events

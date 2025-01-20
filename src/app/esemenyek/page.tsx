@@ -1,11 +1,11 @@
 import { db } from "~/server/db"
-import NewsList from "./news_list"
+import EventList from "./event_list"
 
 const ITEMS_PER_PAGE = 5
 
 export default async function NewsPage() {
-  const allNews = (await db.query.news.findMany()).reverse()
-  const totalPages = Math.ceil(allNews.length / ITEMS_PER_PAGE)
+  const allEvents = (await db.query.events.findMany()).reverse()
+  const totalPages = Math.ceil(allEvents.length / ITEMS_PER_PAGE)
 
-  return <NewsList initialNews={allNews} itemsPerPage={ITEMS_PER_PAGE} totalPages={totalPages} />
+  return <EventList initialEvents={allEvents} itemsPerPage={ITEMS_PER_PAGE} totalPages={totalPages} />
 }

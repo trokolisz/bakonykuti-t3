@@ -67,12 +67,15 @@ export const news = createTable("news", {
 export type Event = typeof events.$inferSelect;
 export type InsertEvent = typeof events.$inferInsert;
 
+export type EventType = 'community' | 'cultural' | 'sports' | 'education' | 'gun_range';
+
 export const events = createTable("event", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 256 }).notNull(),
-  description: text("description"),
-  date: timestamp("date").notNull().notNull(),
-  type: varchar("type", { length: 256 }),
+  thumbnail: varchar("thumbnail", { length: 2056 }).notNull(),
+  content: text("content"),
+  date: timestamp("date").notNull().default(sql`CURRENT_TIMESTAMP`),
+  type: varchar("type", { length: 256 }).notNull().default("community"),
   createdBy: varchar("created_by", { length: 256 }),
   createdAt: timestamp("created_at")
     .default(sql`CURRENT_TIMESTAMP`)

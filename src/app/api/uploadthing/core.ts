@@ -31,11 +31,11 @@ export const ourFileRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
-      // await db.insert(images).values({
-      //   title: file.name,
-      //   url: file.url,
-      //   });
-      // console.log("Upload complete for userId:", metadata.userId);
+      await db.insert(images).values({
+        title: file.name,
+        url: file.url,
+        });
+      console.log("Upload complete for userId:", metadata.userId);
 
       console.log("file url", file.url);
 
