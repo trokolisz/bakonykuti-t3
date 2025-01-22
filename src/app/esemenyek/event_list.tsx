@@ -41,7 +41,7 @@ export default function EventList({ initialEvents: initialEvents, itemsPerPage, 
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Események</h1>
         <SignedIn>
-          <Link href="/admin/esemenyek/create">
+          <Link href="/admin/events/create">
             <Button>
               <Plus className="mr-2 h-4 w-4" />
               Új esemény

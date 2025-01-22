@@ -15,7 +15,7 @@ export default function CreateNewsPage() {
 
   return (
     <div className="container py-8"> 
-          <div className="text-center justify-center pb-6"><h1 className="text-5xl justify-center">Esemény létrehozása</h1></div>
+          <div className="text-center justify-center pb-6"><h1 className="text-5xl justify-center">Hír létrehozása</h1></div>
           <UpdateButton updateAction={updateLastModified}/>
     </div>
   )
