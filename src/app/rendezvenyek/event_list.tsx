@@ -33,26 +33,26 @@ export default function EventList({ initialEvents: initialEvents, itemsPerPage, 
   const [currentPage, setCurrentPage] = useState(1)
 
   // Remove client-side slicing as it causes hydration issues
-  const paginatedNews = initialEvents
+  const paginatedEvents = initialEvents
 
   return (
     <>
       <div className="container py-8"></div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Események</h1>
+        <h1 className="text-3xl font-bold">Rendezvenyek</h1>
         <SignedIn>
           <Link href="/admin/events/create">
             <Button>
               <Plus className="mr-2 h-4 w-4" />
-              Új esemény
+              Új rendezvenyek
             </Button>
           </Link>
         </SignedIn>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {paginatedNews.map((item) => (
-          <Link href={`/esemenyek/${item.id}`} key={item.id}>
+        {paginatedEvents.map((item) => (
+          <Link href={`/rendezvenyek/${item.id}`} key={item.id}>
             <Card className="hover:bg-primary/5 transition-colors h-full">
               <div className="flex flex-col h-full">
                 <div className="relative w-full pt-[56.25%]">

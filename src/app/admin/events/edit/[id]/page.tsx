@@ -1,6 +1,6 @@
 import { db } from "~/server/db";
 import { eq } from "drizzle-orm";
-import { news} from "~/server/db/schema";
+import { events} from "~/server/db/schema";
 import { notFound } from "next/navigation";
 import { updateLastModified } from './actions';
 import UpdateButton from './UpdateButton';
@@ -14,18 +14,18 @@ export default async function StaticPage({ params }: Props) {
   const id = await params;
   const num_id = parseInt(id.id);
   
-  const my_new = await db.query.news.findFirst({
-      where: eq(news.id, num_id),
+  const my_event = await db.query.events.findFirst({
+      where: eq(events.id, num_id),
     });
 
-    if (!my_new) {
+    if (!my_event) {
       notFound();
     }
 
   return (
     <div className="container py-8">
       <Toaster />
-       <UpdateButton updateAction={updateLastModified} news={my_new}/>
+       <UpdateButton updateAction={updateLastModified} event={my_event}/>
     </div>
   );
 }

@@ -17,7 +17,7 @@ export async function Widgets() {
     const weather = await fetchWeather()
     const latestNews = await db.query.news.findMany({
         orderBy: (news, { desc }) => [desc(news.createdAt)],
-        limit: 3
+        limit: 5
     })
     return (<div className="space-y-8">
         <WeatherWidget weather={weather} />
@@ -30,7 +30,7 @@ export async function Widgets() {
                 </CardTitle>
             </CardHeader>
             <CardContent>
-                <NewsCarousel news={latestNews} />
+            <NewsCarousel news={latestNews} />
             </CardContent>
         </Card>
 

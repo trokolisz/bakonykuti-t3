@@ -30,30 +30,37 @@ export function NewsCarousel({ news }: { news: News[] }) {
             <Link href={`/hirek/${item.id}`}>
               <Card className="overflow-hidden transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
                 <div className="md:flex bg-card rounded-lg overflow-hidden">
-                  
-                <Image
+
+                  <Image
                     src={item.thumbnail}
                     alt={item.title}
-                    fill                  
+                    fill
                     className="object-cover"
                   />
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                  <h2 className="text-white text-lg font-semibold">{item.title}</h2>
-                </div>
+                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <h2 className="text-white text-lg font-semibold">{item.title}</h2>
+                  </div>
                   <div className="flex-1 relative md:p-6 ">
-                  <CardHeader className="md:px-0">
-                    <CardTitle className="text-2xl font-bold leading-tight">
-                    {item.title}
-                    </CardTitle>
-                    <time className="text-sm text-muted-foreground">
-                    {new Date(item.createdAt).toUTCString()}
-                    </time>
-                  </CardHeader>
-                  <CardContent className="md:px-0"></CardContent>
+                    <CardHeader className="md:px-0">
+                      <CardTitle className="text-2xl font-bold leading-tight">
+                        {item.title}
+                      </CardTitle>
+                      <time className="text-sm text-muted-foreground">
+                        {new Date(item.createdAt).toUTCString()}
+                      </time>
+                    </CardHeader>
+                    <CardContent className="md:px-0"></CardContent>
                     <CardContent className="md:px-0">
-                      <p className="text-muted-foreground line-clamp-3 markdown text-base">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{item.content}</ReactMarkdown>
-                      </p>
+                      <div className="text-muted-foreground line-clamp-3 markdown text-base">
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm]}
+                          components={{
+                            a: ({ node, ...props }) => <span {...props} />
+                          }}
+                        >
+                          {item.content?.split('\n').slice(0, 2).join('\n') ?? ''}
+                        </ReactMarkdown>
+                      </div>
                     </CardContent>
                   </div>
                 </div>

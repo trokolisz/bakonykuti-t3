@@ -26,6 +26,10 @@ const config = {
             protocol: 'https',
             hostname: 'qh0hg1d52r.ufs.sh',
           },
+          {
+            protocol: 'http',
+            hostname: 'www.bakonykuti.hu',
+          }
         ]
         
     },

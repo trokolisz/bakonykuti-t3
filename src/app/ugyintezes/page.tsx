@@ -10,8 +10,7 @@ import { type Card as CardTypes } from "~/types"
 
 
 const cards: CardTypes[] = [
-    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECujhDAazmDBpZYSAVG1czbfeQOu9yK3WLdFln", title: 'Ügyfélfogadás',  href: '/ugyintezes/ugyfelfogadas' },
-    { id: 2, image: "https://utfs.io/f/26L8Sk7UnuEC0I8Vk8EYgMm2V6QTdDeskPUBxKEy4LHFr9pO", title: 'Bejelentés köteles tevékenységek',  href: '/ugyintezes/bejelentes-koteles-tevekenysegek' },
+    
 ];
 
 

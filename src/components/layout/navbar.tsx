@@ -46,7 +46,10 @@ const sections = [
       'Helyi Esélyegyenlőségi Program',
       'Településrendezési eszközök és arculati kézikönyv',
       'Pályázatok',
-      'Választás'
+      'Választás',
+      "Ügyfélfogadás",
+      "Bejelentés köteles tevékenységek",
+      "Akadálymentesitési Nyilatkozat",
     ]
   },
   {
@@ -74,25 +77,21 @@ const sections = [
     href: "/galeria",
   },
   {
-    title: "Közérdekű",
+    title: "Közérdekű Információk",
     href: "/kozerdeku",
     subsections: [
       "Magyar Honvédség Böszörményi Géza Csapatgyakorlótér Parancsnokság",
       "DRV",
       "E-ON",
       "Telekom",
-      "Kéményellenőrzés és tisztítás"
+      "Kéményellenőrzés és tisztítás",
+      "Körzeti Megbízott",
     ]
   },
   {
-    title: "Események",
-    href: "/esemenyek",
+    title: "Rendezvények",
+    href: "/rendezvenyek",
   },
-  {
-    title: "Ügyintézés",
-    href: "/ugyintezes",
-    subsections: ["Ügyfélfogadás", "Bejelentés köteles tevékenységek",]
-  }
 ]
 
 export default function Navbar() {

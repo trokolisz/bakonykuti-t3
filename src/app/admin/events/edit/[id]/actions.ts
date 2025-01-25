@@ -2,20 +2,22 @@
 
 import { db } from "~/server/db";
 import { eq } from "drizzle-orm";
-import { news } from "~/server/db/schema";
+import { events } from "~/server/db/schema";
 
 export async function updateLastModified(
   id: number,
   title: string,
   thumbnail: string,
   content: string,
+  type: string,
 ) {
   await db
-    .update(news)
+    .update(events)
     .set({
       title: title,
-      thumbnail: thumbnail,     
+      thumbnail: thumbnail,   
+      type: type,  
       content: content,
     })
-    .where(eq(news.id, id));
+    .where(eq(events.id, id));
 }

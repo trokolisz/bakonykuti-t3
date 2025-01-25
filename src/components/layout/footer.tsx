@@ -21,7 +21,7 @@ export default function Footer() {
          
           <div>
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2"><Phone className="h-6 w-6"/>Telefon és Fax</h3>
-            <p>+36 22 595 001</p>
+            <p>+36 22 596-026</p>
             <br/>
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2"><Mail className="h-6 w-6" />Email</h3>
             <p><Link href="mailto:polgarmester@bakonykuti.hu" className="hover:underline">polgarmester@bakonykuti.hu</Link></p>

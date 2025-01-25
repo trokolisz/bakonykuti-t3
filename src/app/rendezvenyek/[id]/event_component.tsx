@@ -10,25 +10,25 @@ import { ArrowLeft, Edit } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import { SocialShare } from "~/components/shared/social-share"
 import { SignedIn } from "@clerk/nextjs"
-import { type News } from "~/server/db/schema";
+import { type Event } from "~/server/db/schema";
 
 import "~/styles/markdown.css";
-import { deleteNews } from './actions'
+import { deleteEvent } from './actions'
 
-interface NewsComponentProps {
-  newsItem: News  ;
-  deleteNews: (id:number) => Promise<void>;
+interface EventComponentProps {
+  eventItem: Event  ;
+  deleteEvent: (id:number) => Promise<void>;
 };
 
 
-export function NewsComponent({ newsItem }: NewsComponentProps) {
+export function EventComponent({ eventItem: eventItem }: EventComponentProps) {
   const router = useRouter()
 
   useEffect(() => {
-    if (!newsItem) {
-      router.push("/news")
+    if (!eventItem) {
+      router.push("/rendezvenyek")
     }
-  }, [newsItem, router])
+  }, [eventItem, router])
 
   return (
     <div className="container py-8">
@@ -44,28 +44,28 @@ export function NewsComponent({ newsItem }: NewsComponentProps) {
           </Button>
           <div className="flex justify-between items-start">
             <div>
-              <h1 className="text-3xl font-bold mb-2">{newsItem.title}</h1>
+              <h1 className="text-3xl font-bold mb-2">{eventItem.title}</h1>
               <p className="text-sm text-muted-foreground">
-                Szerző: {newsItem.creatorName} • {formatDate(newsItem.createdAt)}
+                Szerző: {eventItem.createdBy} • {formatDate(eventItem.createdAt)}
               </p>
             </div>
             <div className="flex gap-2">
               <SocialShare 
-                title={newsItem.title} 
-                url={`https://bakonykuti.hu/news/${newsItem.id}`} 
+                title={eventItem.title} 
+                url={`https://bakonykuti.hu/rendezvenyek/${eventItem.id}`} 
               />
               <SignedIn>
                 <Button
                   variant="outline"
-                  onClick={() => router.push(`/admin/news/edit/${newsItem.id}`)}
+                  onClick={() => router.push(`/admin/events/edit/${eventItem.id}`)}
                 >
                   
                   <Edit className="mr-2 h-4 w-4" />
                   Szerkesztés
                 </Button>
                 <Button variant="destructive" onClick={async () => {
-                  await deleteNews(newsItem.id);
-                  window.location.href = "/hirek";
+                  await deleteEvent(eventItem.id);
+                  window.location.href = "/rendezvenyek";
                 }} className="ml-2">
                   Delete
                 </Button>
@@ -76,8 +76,8 @@ export function NewsComponent({ newsItem }: NewsComponentProps) {
 
         <div className="relative w-full h-[400px] mb-6">
           <Image
-            src={newsItem.thumbnail}
-            alt={newsItem.title}
+            src={eventItem.thumbnail}
+            alt={eventItem.title}
             sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
             fill                     
             className="object-cover rounded-lg"
@@ -87,7 +87,7 @@ export function NewsComponent({ newsItem }: NewsComponentProps) {
         </div>
 
         <Card className="p-6 prose prose-green dark:prose-invert max-w-none markdown bg-[hsla(80,30%,17%,1)]">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{newsItem.content}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{eventItem.content}</ReactMarkdown>
         </Card>
       </div>
     </div>

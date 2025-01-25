@@ -76,7 +76,7 @@ export default async function StaticPage() {
             <section className="bg-primary/5 p-8 rounded-lg border border-primary/10">
               <div className="flex justify-between items-start">
                 <div>
-                  <h1 className="text-3xl font-bold mb-2">Dokumentumok</h1>                  
+                  <h1 className="text-3xl font-bold mb-2">Letölthető Dokumentumok</h1>                  
                 </div>
                 <EditPageButton slugPath="onkormanyzat/dokumentumok" />
               </div>
