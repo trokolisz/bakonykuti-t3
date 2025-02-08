@@ -39,7 +39,7 @@ export default function EventList({ initialEvents: initialEvents, itemsPerPage, 
     <>
       <div className="container py-8"></div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Rendezvenyek</h1>
+        <h1 className="text-3xl font-bold">Rendezvények</h1>
         <SignedIn>
           <Link href="/admin/events/create">
             <Button>

@@ -80,8 +80,7 @@ export function EventComponent({ eventItem: eventItem }: EventComponentProps) {
             alt={eventItem.title}
             sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
             fill                     
-            className="object-cover rounded-lg"
-            
+            className="object-contain rounded-lg"
             priority
           />
         </div>
