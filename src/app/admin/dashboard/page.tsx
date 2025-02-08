@@ -59,7 +59,7 @@ export default function AdminDashboard() {
           </Card>
         </Link>
 
-        <Link href="/admin/events">
+        <Link href="/admin/events/create">
           <Card className="hover:bg-primary/5 transition-colors cursor-pointer">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -74,6 +74,26 @@ export default function AdminDashboard() {
               </p>
               <Button variant="outline" className="w-full">
                 Manage Events
+              </Button>
+            </CardContent>
+          </Card>
+        </Link>
+
+        <Link href="/admin/documents/create">
+          <Card className="hover:bg-primary/5 transition-colors cursor-pointer">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <CalendarIcon className="h-5 w-5 text-primary" />
+                Document Management
+              </CardTitle>
+              <CardDescription>Upload documents</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Manage documents
+              </p>
+              <Button variant="outline" className="w-full">
+                Manage Documents
               </Button>
             </CardContent>
           </Card>

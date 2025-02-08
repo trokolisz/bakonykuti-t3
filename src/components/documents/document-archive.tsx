@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card"
 import { Input } from "~/components/ui/input"
-import { Search, FileText, Download } from "lucide-react"
+import { Search, FileText, Download, Trash } from "lucide-react"
 import { Button } from "~/components/ui/button"
 import {
   Select,
@@ -12,56 +12,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select"
+import type { Document } from "~/server/db/schema"
+import { SignedIn } from "@clerk/nextjs"
+import {deleteDocument} from "./action"
 
-type Document = {
-  id: string
-  title: string
-  category: string
-  type: string
-  date: Date
-  fileUrl: string
-  fileSize: string
-}
-
-const documents: Document[] = [
-  {
-    id: "1",
-    title: "Költségvetési rendelet 2024",
-    category: "rendeletek",
-    type: "PDF",
-    date: new Date("2023-01-15"),
-    fileUrl: "/documents/temp.pdf",
-    fileSize: "2.4 MB"
-  },
-  {
-    id: "2",
-    title: "Képviselő-testületi ülés jegyzőkönyv - 2024 Január",
-    category: "jegyzokonyvek",
-    type: "PDF",
-    date: new Date("2024-01-20"),
-    fileUrl: "/documents/temp.pdf",
-    fileSize: "1.8 MB"
-  },
-  {
-    id: "3",
-    title: "Szociális támogatás igénylőlap",
-    category: "nyomtatvanyok",
-    type: "PDF",
-    date: new Date("2024-01-05"),
-    fileUrl: "/documents/temp.pdf",
-    fileSize: "156 KB"
-  }
-]
 
 const categories = {
-  rendeletek: "Rendeletek",
-  hatarozatok: "Határozatok",
-  jegyzokonyvek: "Jegyzőkönyvek",
-  nyomtatvanyok: "Nyomtatványok",
-  palyazatok: "Pályázatok"
+  Rendeletek: "Rendeletek",
+  Hatarozatok: "Határozatok",
+  Jegyzokonyvek: "Jegyzőkönyvek",
+  Nyomtatvanyok: "Nyomtatványok",
+  Palyazatok: "Pályázatok"
 }
 
-export function DocumentArchive() {
+export function DocumentArchive({ documents }: { documents: Document[] }) {
   const [search, setSearch] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedYear, setSelectedYear] = useState<string | null>(null)
@@ -133,21 +97,37 @@ export function DocumentArchive() {
                   {doc.title}
                 </div>
               </CardTitle>
+              <div className="flex gap-4">
+              <SignedIn>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="bg-red-500 hover:bg-red-300"
+                  onClick={() => deleteDocument(doc.id)}
+                >
+                  <Trash className="mr-2 h-4 w-4" />
+                  Törlés
+                </Button>
+              </SignedIn>
                 <Button variant="outline" size="sm" asChild>
-                <a href={doc.fileUrl} download>
+                <a href={doc.fileUrl} download={doc.title} target="_blank" rel="noopener noreferrer">
                   <Download className="mr-2 h-4 w-4" />
                   Letöltés
                 </a>
               </Button>
+              
+              </div>
+             
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
                 <div>Kategória: {categories[doc.category as keyof typeof categories]}</div>
-                <div>Típus: {doc.type}</div>
+         
                 <div>Méret: {doc.fileSize}</div>
                 <div>Dátum: {doc.date.toLocaleDateString('hu-HU')}</div>
               </div>
             </CardContent>
+            
           </Card>
         ))}
       </div>

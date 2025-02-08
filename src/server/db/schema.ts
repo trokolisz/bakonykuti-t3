@@ -83,10 +83,9 @@ export const events = createTable("event", {
 });
 
 export const documents = createTable("document", {
-  id: varchar("id", { length: 256 }).primaryKey(),
+  id: serial("id").primaryKey(),
   title: varchar("title", { length: 256 }).notNull(),
   category: varchar("category", { length: 256 }).notNull(),
-  type: varchar("type", { length: 256 }).notNull(),
   date: timestamp("date").notNull(),
   fileUrl: varchar("file_url", { length: 1024 }).notNull(),
   fileSize: varchar("file_size", { length: 256 }).notNull(),
