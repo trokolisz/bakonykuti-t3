@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card"
-import { EventCalendar } from "~/components/calendar/event-calendar"
+import EventCalendar from "~/components/calendar/event-calendar"
 import { Button } from "~/components/ui/button"
 import { VillageMap } from "~/components/map/village-map"
 import { WeatherWidget } from "~/components/shared/weather-widget"
@@ -19,6 +19,7 @@ export async function Widgets() {
         orderBy: (news, { desc }) => [desc(news.createdAt)],
         limit: 5
     })
+    const events = await db.query.events.findMany()
     return (<div className="space-y-8">
         <WeatherWidget weather={weather} />
 
@@ -44,7 +45,7 @@ export async function Widgets() {
                 </SignedIn>
             </CardHeader>
             <CardContent>
-                <EventCalendar />
+                <EventCalendar events={events}/>
             </CardContent>
         </Card>
 

@@ -1,153 +1,69 @@
 "use client"
 
 import * as React from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { DayPicker } from "react-day-picker"
+import { hu } from "date-fns/locale"
 import { cn } from "~/lib/utils"
-import { Button } from "~/components/ui/button"
+import { buttonVariants } from "~/components/ui/button"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
-export type CalendarProps = {
-  mode?: "single"
-  selected?: Date
-  onSelect?: (date: Date | undefined) => void
-  className?: string
-  modifiers?: Record<string, (date: Date) => boolean>
-  modifiersStyles?: Record<string, React.CSSProperties>
-  components?: {
-    DayContent?: React.ComponentType<{ date: Date }>
-  }
-}
+export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
-export function Calendar({
-  mode = "single",
-  selected,
-  onSelect,
+function Calendar({
   className,
-  modifiers = {},
-  modifiersStyles = {},
-  components = {},
+  classNames,
+  showOutsideDays = true,
+  components,
+  ...props
 }: CalendarProps) {
-  const [currentMonth, setCurrentMonth] = React.useState(new Date())
-
-  const daysInMonth = new Date(
-    currentMonth.getFullYear(),
-    currentMonth.getMonth() + 1,
-    0
-  ).getDate()
-
-  // Helper function to adjust day number to start from Monday
-  const adjustDayToMondayStart = (day: number) => {
-    return day === 0 ? 6 : day - 1
-  }
-
-  const firstDayOfMonth = adjustDayToMondayStart(
-    new Date(
-      currentMonth.getFullYear(),
-      currentMonth.getMonth(),
-      1
-    ).getDay()
-  )
-
-  const prevMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))
-  }
-
-  const nextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))
-  }
-
-  const handleDateClick = (date: Date) => {
-    onSelect?.(date)
-  }
-
-  const weekDays = ["H", "K", "Sze", "Cs", "P", "Szo", "V"]
-
-  const renderDay = (date: Date) => {
-    const isSelected = selected?.toDateString() === date.toDateString()
-    const modifierClasses = Object.entries(modifiers).reduce(
-      (acc, [key, fn]) => ({
-        ...acc,
-        [key]: fn(date),
-      }),
-      {}
-    )
-
-    const dayStyle = Object.entries(modifierClasses).reduce(
-      (acc, [key, value]) => ({
-        ...acc,
-        ...(value ? modifiersStyles[key] : {}),
-      }),
-      {}
-    )
-
-    const DayContent = components.DayContent
-
-    return (
-      <Button
-        key={date.toISOString()}
-        variant="ghost"
-        className={cn(
-          "h-9 w-9",
-          isSelected && "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground",
-          "hover:bg-accent hover:text-accent-foreground"
-        )}
-        style={dayStyle}
-        onClick={() => handleDateClick(date)}
-      >
-        {DayContent ? (
-          <DayContent date={date} />
-        ) : (
-          date.getDate()
-        )}
-      </Button>
-    )
-  }
-
   return (
-    <div className={cn("p-3", className)}>
-      <div className="flex items-center justify-between mb-4">
-        <Button
-          variant="outline"
-          className="h-7 w-7 p-0"
-          onClick={prevMonth}
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </Button>
-        <div className="font-semibold">
-          {currentMonth.toLocaleDateString("hu-Eu", {
-            month: "long",
-            year: "numeric",
-          })}
-        </div>
-        <Button
-          variant="outline"
-          className="h-7 w-7 p-0"
-          onClick={nextMonth}
-        >
-          <ChevronRight className="h-4 w-4" />
-        </Button>
-      </div>
-
-      <div className="grid grid-cols-7 gap-1 text-center text-sm mb-2">
-        {weekDays.map((day) => (
-          <div key={day} className="text-muted-foreground">
-            {day}
-          </div>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-7 gap-1">
-        {Array.from({ length: firstDayOfMonth }).map((_, i) => (
-          <div key={`empty-${i}`} />
-        ))}
-        {Array.from({ length: daysInMonth }).map((_, i) => {
-          const date = new Date(
-            currentMonth.getFullYear(),
-            currentMonth.getMonth(),
-            i + 1
-          )
-          return renderDay(date)
-        })}
-      </div>
-    </div>
+    <DayPicker
+      locale={hu}
+      showOutsideDays={showOutsideDays}
+      className={cn("p-3", className)}
+      classNames={{
+        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+        month: "space-y-4",
+        caption: "flex justify-center pt-1 relative items-center",
+        caption_label: "text-sm font-medium",
+        nav: "space-x-1 flex items-center",
+        nav_button: cn(
+          buttonVariants({ variant: "outline" }),
+          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
+        ),
+        nav_button_previous: "absolute left-1",
+        nav_button_next: "absolute right-1",
+        table: "w-full border-collapse space-y-1",
+        head_row: "flex",
+        head_cell:
+          "text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]",
+        row: "flex w-full mt-2",
+        cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
+        day: cn(
+          buttonVariants({ variant: "ghost" }),
+          "h-9 w-9 p-0 font-normal aria-selected:opacity-100"
+        ),
+        day_range_end: "day-range-end",
+        day_selected:
+          "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+        day_today: "bg-accent text-accent-foreground",
+        day_outside:
+          "day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
+        day_disabled: "text-muted-foreground opacity-50",
+        day_range_middle:
+          "aria-selected:bg-accent aria-selected:text-accent-foreground",
+        day_hidden: "invisible",
+        ...classNames,
+      }}
+      components={{
+        IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
+        IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
+        ...components,
+      }}
+      {...props}
+    />
   )
 }
+Calendar.displayName = "Calendar"
+
+export { Calendar }
