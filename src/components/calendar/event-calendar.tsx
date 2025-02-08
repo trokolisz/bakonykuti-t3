@@ -13,6 +13,8 @@ import {
 import { ScrollArea } from "~/components/ui/scroll-area";
 import Image from "next/image";
 import { cn } from "~/lib/utils";
+import remarkGfm from 'remark-gfm';
+import ReactMarkdown from "react-markdown";
 
 interface Event {
   id: number;
@@ -114,9 +116,9 @@ const EventCalendar = ({ events }: EventCalendarProps) => {
             <div className="flex-1">
             <h3 className="font-bold">{event.title}</h3>
             {event.content && (
-              <p className="text-sm text-muted-foreground">
-              {event.content}
-              </p>
+              <div className="text-sm text-muted-foreground markdown">
+               <ReactMarkdown remarkPlugins={[remarkGfm]}>{event.content}</ReactMarkdown>
+              </div>
             )}
             <p className="text-xs text-muted-foreground mt-2">
               Típus: {event.type}
