@@ -21,10 +21,11 @@ type NewsListProps = {
 }
 
 export default function NewsList({ initialNews, itemsPerPage, totalPages }: NewsListProps) {
+
   const [currentPage, setCurrentPage] = useState(1)
 
   // Remove client-side slicing as it causes hydration issues
-  const paginatedNews = initialNews
+  const paginatedNews = initialNews.sort((a, b) => b.createdAt.toISOString().localeCompare(a.createdAt.toISOString()))
 
   return (
     <>
