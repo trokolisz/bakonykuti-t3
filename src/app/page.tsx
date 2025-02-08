@@ -22,7 +22,7 @@ const cards: CardTypes[] = [
   { id: 6, image: "https://utfs.io/f/26L8Sk7UnuECC7hPjSoD3h5BTWPtNcop4XHGVmvlbLQxAy71", title: 'Egészségügy',  href: '/egeszsegugy' },
   { id: 7, image: "https://utfs.io/f/26L8Sk7UnuECXtaSj3cZENFc91oCB07LqidpvXmUWH4VeMwx", title: 'Galéria',  href: '/galeria' },
   { id: 8, image: "https://utfs.io/f/26L8Sk7UnuECXjCxYrcZENFc91oCB07LqidpvXmUWH4VeMwx", title: 'Közérdekü',  href: '/kozerdeku' },
-  { id: 9, image: "https://utfs.io/f/26L8Sk7UnuECctyHHfMGlVyP5pWMY6DoSU8zQmEbCBJ0Nt2O", title: 'Rendezvények',  href: '/rendezvenyek' },
+  { id: 9, image: "https://qh0hg1d52r.ufs.sh/f/26L8Sk7UnuECYvN5Mqn5diVuyFRbKC6l9PrQOtLBvmwhEopq", title: 'Rendezvények',  href: '/rendezvenyek' },
 ];
 
 

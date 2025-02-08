@@ -25,7 +25,7 @@ const cards: CardTypes[] = [
     { id: 13, image: "https://qh0hg1d52r.ufs.sh/f/26L8Sk7UnuEC7fDonaYfT4oHPt2OMnIkBr9dgYUcXqmjSeFC", title: 'Választás',  href: '/onkormanyzat/valasztas' },
     { id: 14, image: "https://utfs.io/f/26L8Sk7UnuECujhDAazmDBpZYSAVG1czbfeQOu9yK3WLdFln", title: 'Ügyfélfogadás',  href: '/onkormanyzat/ugyfelfogadas' },
     { id: 15, image: "https://utfs.io/f/26L8Sk7UnuEC0I8Vk8EYgMm2V6QTdDeskPUBxKEy4LHFr9pO", title: 'Bejelentés köteles tevékenységek',  href: '/onkormanyzat/bejelentes-koteles-tevekenysegek' },
-    { id: 16, image: "https://utfs.io/f/26L8Sk7UnuEC0I8Vk8EYgMm2V6QTdDeskPUBxKEy4LHFr9pO", title: 'Akadálymentesitési Nyilatkozat',  href: '/onkormanyzat/akadalymentesitesi-nyilatkozat' },
+    { id: 16, image: "https://qh0hg1d52r.ufs.sh/f/26L8Sk7UnuECW1nPh4jMe78C4Hl1gVLjSdwtzqbmKROP0uki", title: 'Akadálymentesitési Nyilatkozat',  href: '/onkormanyzat/akadalymentesitesi-nyilatkozat' },
 ];
 
 
