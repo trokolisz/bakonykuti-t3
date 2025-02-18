@@ -8,7 +8,6 @@ export async function updateDocument(title: string, category: string, date: stri
   if (!user) throw new Error('User not found');
 
   await db.insert(documents).values({
-    id: crypto.randomUUID(),
     title,
     category,
     date: new Date(date),

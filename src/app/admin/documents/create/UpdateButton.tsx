@@ -89,6 +89,7 @@ export default function UpdateButton({ updateAction }: UpdateButtonProps) {
                     <option value="Jegyzokonyvek">Jegyzőkönyvek</option>
                     <option value="Nyomtatvanyok">Nyomtatványok</option>
                     <option value="Palyazatok">Pályázatok</option>
+                    <option value="Egyeb">Egyéb</option>
                 </select>
             </div>
 

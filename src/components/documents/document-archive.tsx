@@ -22,7 +22,8 @@ const categories = {
   Hatarozatok: "Határozatok",
   Jegyzokonyvek: "Jegyzőkönyvek",
   Nyomtatvanyok: "Nyomtatványok",
-  Palyazatok: "Pályázatok"
+  Palyazatok: "Pályázatok",
+  Egyeb: "Egyéb",
 }
 
 export function DocumentArchive({ documents }: { documents: Document[] }) {
