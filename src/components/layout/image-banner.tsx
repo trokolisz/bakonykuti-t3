@@ -30,8 +30,10 @@ export default function ImageBanner({ imageURLs }: { imageURLs: string[] }) {
         />
       ))}
       <div className="absolute inset-0 bg-black/20" />
-      <div className="absolute inset-0 flex items-end justify-end p-8">
-        <h1 className="text-4xl md:text-6xl font-bold text-white ">
+      
+      <div className="absolute inset-0 flex items-end justify-between p-8">
+        <Image src="/logo.ico" alt="Logo" width={100} height={100} />
+        <h1 className="text-4xl md:text-6xl font-bold text-white">
           Bakonykúti
         </h1>
       </div>

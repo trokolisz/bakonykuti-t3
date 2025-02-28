@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="text-lg font-semibold mb-4">Cím</h3>
-            <p>Polgármesteri Hívatal</p>
+            <p>Polgármesteri Hivatal</p>
             <p>Szabadság Utca 41</p>
             <p>8046</p>
 
