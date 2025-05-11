@@ -8,7 +8,7 @@ import Image from "next/image"
 import { Button } from "~/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card"
 import { Pagination } from "~/components/ui/pagination"
-import { SignedIn } from "@clerk/nextjs"
+import { useSession } from "next-auth/react"
 import { formatDate } from "~/lib/utils"
 import { Plus, Calendar } from "lucide-react"
 import { type Event, type EventType } from "~/server/db/schema"
@@ -30,6 +30,7 @@ const eventTypeLabels: Record<EventType, string> = {
 }
 
 export default function EventList({ initialEvents: initialEvents, itemsPerPage, totalPages }: EventListProps) {
+  const { data: session } = useSession()
   const [currentPage, setCurrentPage] = useState(1)
 
   // Remove client-side slicing as it causes hydration issues
@@ -40,14 +41,14 @@ export default function EventList({ initialEvents: initialEvents, itemsPerPage, 
       <div className="container py-8"></div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Rendezvények</h1>
-        <SignedIn>
+        {session?.user?.role === 'admin' && (
           <Link href="/admin/events/create">
             <Button>
               <Plus className="mr-2 h-4 w-4" />
               Új rendezvenyek
             </Button>
           </Link>
-        </SignedIn>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -83,7 +84,7 @@ export default function EventList({ initialEvents: initialEvents, itemsPerPage, 
                     </div>
                   </CardHeader>
                   <CardContent className="markdown flex-1">
-                    <ReactMarkdown 
+                    <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       components={{
                         a: ({node, ...props}) => <span {...props} />

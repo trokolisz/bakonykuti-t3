@@ -9,7 +9,7 @@ import { formatDate } from "~/lib/utils"
 import { ArrowLeft, Edit } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import { SocialShare } from "~/components/shared/social-share"
-import { SignedIn } from "@clerk/nextjs"
+import { useSession } from "next-auth/react"
 import { type Event } from "~/server/db/schema";
 
 import "~/styles/markdown.css";
@@ -23,6 +23,7 @@ interface EventComponentProps {
 
 export function EventComponent({ eventItem: eventItem }: EventComponentProps) {
   const router = useRouter()
+  const { data: session } = useSession()
 
   useEffect(() => {
     if (!eventItem) {
@@ -50,26 +51,27 @@ export function EventComponent({ eventItem: eventItem }: EventComponentProps) {
               </p>
             </div>
             <div className="flex gap-2">
-              <SocialShare 
-                title={eventItem.title} 
-                url={`https://bakonykuti.hu/rendezvenyek/${eventItem.id}`} 
+              <SocialShare
+                title={eventItem.title}
+                url={`https://bakonykuti.hu/rendezvenyek/${eventItem.id}`}
               />
-              <SignedIn>
-                <Button
-                  variant="outline"
-                  onClick={() => router.push(`/admin/events/edit/${eventItem.id}`)}
-                >
-                  
-                  <Edit className="mr-2 h-4 w-4" />
-                  Szerkesztés
-                </Button>
-                <Button variant="destructive" onClick={async () => {
-                  await deleteEvent(eventItem.id);
-                  window.location.href = "/rendezvenyek";
-                }} className="ml-2">
-                  Delete
-                </Button>
-              </SignedIn>
+              {session?.user?.role === 'admin' && (
+                <>
+                  <Button
+                    variant="outline"
+                    onClick={() => router.push(`/admin/events/edit/${eventItem.id}`)}
+                  >
+                    <Edit className="mr-2 h-4 w-4" />
+                    Szerkesztés
+                  </Button>
+                  <Button variant="destructive" onClick={async () => {
+                    await deleteEvent(eventItem.id);
+                    window.location.href = "/rendezvenyek";
+                  }} className="ml-2">
+                    Delete
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -79,7 +81,7 @@ export function EventComponent({ eventItem: eventItem }: EventComponentProps) {
             src={eventItem.thumbnail}
             alt={eventItem.title}
             sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            fill                     
+            fill
             className="object-contain rounded-lg"
             priority
           />

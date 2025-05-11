@@ -5,7 +5,7 @@ import { VillageMap } from "~/components/map/village-map"
 import { WeatherWidget } from "~/components/shared/weather-widget"
 import type { WeatherData } from "~/types"
 import { NewsCarousel } from "~/components/shared/news-carousel"
-import GoogleMapEmbed from "~/components/GoogleMapEmbed"
+import MapEmbed from "~/components/MapEmbed"
 import { fetchWeather } from "~/server/fetchWeather"
 import { db } from "~/server/db"
 import { MapPin, Newspaper, Leaf } from "lucide-react"
@@ -60,8 +60,7 @@ export async function Widgets() {
                 </CardTitle>
             </CardHeader>
             <CardContent>
-                <GoogleMapEmbed />
-                {/* <VillageMap /> */}
+                <MapEmbed />
             </CardContent>
         </Card>
 

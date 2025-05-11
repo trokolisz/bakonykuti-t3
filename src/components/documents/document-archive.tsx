@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "~/components/ui/select"
 import type { Document } from "~/server/db/schema"
-import { SignedIn } from "@clerk/nextjs"
+import { useSession } from "next-auth/react"
 import {deleteDocument} from "./action"
 
 
@@ -27,6 +27,7 @@ const categories = {
 }
 
 export function DocumentArchive({ documents }: { documents: Document[] }) {
+  const { data: session } = useSession()
   const [search, setSearch] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedYear, setSelectedYear] = useState<string | null>(null)
@@ -99,36 +100,36 @@ export function DocumentArchive({ documents }: { documents: Document[] }) {
                 </div>
               </CardTitle>
               <div className="flex gap-4">
-              <SignedIn>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
+              {session?.user?.role === 'admin' && (
+                <Button
+                  variant="outline"
+                  size="sm"
                   className="bg-red-500 hover:bg-red-300"
                   onClick={() => deleteDocument(doc.id)}
                 >
                   <Trash className="mr-2 h-4 w-4" />
                   Törlés
                 </Button>
-              </SignedIn>
+              )}
                 <Button variant="outline" size="sm" asChild>
                 <a href={doc.fileUrl} download={doc.title} target="_blank" rel="noopener noreferrer">
                   <Download className="mr-2 h-4 w-4" />
                   Letöltés
                 </a>
               </Button>
-              
+
               </div>
-             
+
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
                 <div>Kategória: {categories[doc.category as keyof typeof categories]}</div>
-         
+
                 <div>Méret: {doc.fileSize}</div>
                 <div>Dátum: {doc.date.toLocaleDateString('hu-HU')}</div>
               </div>
             </CardContent>
-            
+
           </Card>
         ))}
       </div>

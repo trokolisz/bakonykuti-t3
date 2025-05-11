@@ -8,7 +8,7 @@ import Image from "next/image"
 import { Button } from "~/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card"
 import { Pagination } from "~/components/ui/pagination"
-import { SignedIn } from "@clerk/nextjs"
+import { useSession } from "next-auth/react"
 import { formatDate } from "~/lib/utils"
 import { Plus } from "lucide-react"
 import { type News } from "~/types"
@@ -21,7 +21,7 @@ type NewsListProps = {
 }
 
 export default function NewsList({ initialNews, itemsPerPage, totalPages }: NewsListProps) {
-
+  const { data: session } = useSession()
   const [currentPage, setCurrentPage] = useState(1)
 
   // Remove client-side slicing as it causes hydration issues
@@ -32,16 +32,14 @@ export default function NewsList({ initialNews, itemsPerPage, totalPages }: News
     <div className="container py-8"></div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Legfrissebb hírek</h1>
-        <SignedIn>
+        {session?.user?.role === 'admin' && (
           <Link href="/admin/news/create">
             <Button>
               <Plus className="mr-2 h-4 w-4" />
               Create News
             </Button>
-            
           </Link>
-          
-        </SignedIn>
+        )}
       </div>
 
       <div className="grid gap-6 mb-8">
@@ -66,7 +64,7 @@ export default function NewsList({ initialNews, itemsPerPage, totalPages }: News
                     </div>
                   </CardHeader>
                   <CardContent className="markdown">
-                    <ReactMarkdown 
+                    <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       components={{
                       a: ({node, ...props}) => <span {...props} />
@@ -89,7 +87,7 @@ export default function NewsList({ initialNews, itemsPerPage, totalPages }: News
           onPageChange={setCurrentPage}
         />
       )}
-    
+
 
 </>
   )

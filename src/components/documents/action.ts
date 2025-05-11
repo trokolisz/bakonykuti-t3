@@ -1,15 +1,15 @@
 'use server';
 import { db } from '~/server/db';
 import { documents } from '~/server/db/schema';
-import { currentUser } from '@clerk/nextjs/server'
+import { auth } from '~/auth';
 import { eq } from 'drizzle-orm';
 
 export async function deleteDocument(id: number) {
+  const session = await auth();
 
-  const user = await currentUser()
-  if (!user) {
-    throw new Error('User not found')
+  if (!session?.user || session.user.role !== 'admin') {
+    throw new Error('Unauthorized');
   }
-  await db.delete(documents).where(eq(documents.id, id))
 
+  await db.delete(documents).where(eq(documents.id, id));
 }

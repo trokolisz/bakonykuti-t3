@@ -1,11 +1,15 @@
-import { auth } from "~/auth";
+import NextAuth from "next-auth";
 import { NextResponse } from "next/server";
+import { authConfig } from "./auth.config";
 
-export default auth((req) => {
-  // req.auth contains the user's session
+// Create a middleware that doesn't depend on database
+export const middleware = NextAuth(authConfig).auth((_req) => {
+  // _req.auth contains the user's session
   // This middleware is already handled by NextAuth's authorized callback
   return NextResponse.next();
-})
+});
+
+export default middleware;
 
 export const config = {
   matcher: [
