@@ -2,16 +2,16 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import { desc, sql } from "drizzle-orm";
-import { boolean, primaryKey, unique } from "drizzle-orm/pg-core";
+import { boolean, primaryKey, unique } from "drizzle-orm/mysql-core";
 import {
   index,
-  pgTableCreator,
+  mysqlTableCreator,
   serial,
   timestamp,
   varchar,
   text,
-  integer,
-} from "drizzle-orm/pg-core";
+  int,
+} from "drizzle-orm/mysql-core";
 import { title } from "process";
 import { type AdapterAccount } from "next-auth/adapters";
 
@@ -21,7 +21,7 @@ import { type AdapterAccount } from "next-auth/adapters";
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = pgTableCreator((name) => `bakonykuti-t3_${name}`);
+export const createTable = mysqlTableCreator((name) => `bakonykuti-t3_${name}`);
 
 
 export const images = createTable("image", {
@@ -30,7 +30,7 @@ export const images = createTable("image", {
   title: varchar("title", {length: 256}).default("").notNull(),
   carousel: boolean("carousel").default(false).notNull(),
   gallery: boolean("gallery").default(true).notNull(),
-  image_size: integer("image_size").notNull().default(0),
+  image_size: int("image_size").notNull().default(0),
   createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
   updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
 });
@@ -116,7 +116,7 @@ export const accounts = createTable(
     providerAccountId: varchar("providerAccountId", { length: 255 }).notNull(),
     refresh_token: text("refresh_token"),
     access_token: text("access_token"),
-    expires_at: integer("expires_at"),
+    expires_at: int("expires_at"),
     token_type: varchar("token_type", { length: 255 }),
     scope: varchar("scope", { length: 255 }),
     id_token: text("id_token"),

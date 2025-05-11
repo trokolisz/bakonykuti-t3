@@ -44,3 +44,10 @@ yarn-error.log*
 
 # idea files
 .idea
+
+# export
+/export
+# scripts
+/scripts
+
+docker-compose.yml

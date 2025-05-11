@@ -4,6 +4,6 @@ import { createEnv } from "@t3-oss/env-core";
 
 export const env = createEnv({
   server: {
-    POSTGRES_URL: z.string().url(),
+    MARIADB_PASSWORD: z.string().min(1),
   },
 });
