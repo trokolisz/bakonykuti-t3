@@ -15,26 +15,24 @@ export default async function GalleryPage() {
     {
       where: eq( images.gallery, true)
     }
+  );
 
-  )
-
-
+  // Get session outside of JSX
+  const session = await auth();
+  const isAdmin = session?.user?.role === 'admin';
 
   return (
     <div className="container py-8">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Képgaléria</h1>
-        {async () => {
-          const session = await auth();
-          return session?.user?.role === 'admin' ? (
-            <Link href="/admin/gallery/upload">
-              <Button>
-                <Plus className="mr-2 h-4 w-4" />
-                Upload Image
-              </Button>
-            </Link>
-          ) : null;
-        }}
+        {isAdmin && (
+          <Link href="/admin/gallery/upload">
+            <Button>
+              <Plus className="mr-2 h-4 w-4" />
+              Upload Image
+            </Button>
+          </Link>
+        )}
       </div>
 
       <GalleryPageClient images={gallery_images} />
