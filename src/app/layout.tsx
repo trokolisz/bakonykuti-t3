@@ -2,7 +2,6 @@ import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "~/components/theme-provider"
 import ImageBanner from "~/components/layout/image-banner"
 import Navbar from "~/components/layout/navbar"
@@ -13,6 +12,7 @@ import { Toaster } from "~/components/ui/toaster"
 import { db } from "~/server/db";
 import { images } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
+import { Providers } from "~/providers";
 
 
 export const metadata: Metadata = {
@@ -44,7 +44,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default async function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) 
+}: Readonly<{ children: React.ReactNode }>)
 {
   const carouselImages = await db.query.images.findMany({
     where: eq(images.carousel, true),
@@ -52,10 +52,10 @@ export default async function RootLayout({
   })
   const imageURLs = carouselImages.map((image) => image.url)
 
-  return ( 
-      <ClerkProvider>
-        <html lang="hu" suppressHydrationWarning>
-          <body className={inter.className}>
+  return (
+      <html lang="hu" suppressHydrationWarning>
+        <body className={inter.className}>
+          <Providers>
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
@@ -74,9 +74,8 @@ export default async function RootLayout({
               </div>
               <Toaster />
             </ThemeProvider>
-          </body>
-        </html>
-      </ClerkProvider>
-
+          </Providers>
+        </body>
+      </html>
   );
 }

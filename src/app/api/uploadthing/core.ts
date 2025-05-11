@@ -1,6 +1,6 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-import { auth } from "@clerk/nextjs/server";
+import { auth } from "~/auth";
 import {db} from "~/server/db";
 import { images } from "~/server/db/schema";
 
@@ -21,13 +21,13 @@ export const ourFileRouter = {
   })
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
-      const user = await auth();
+      const session = await auth();
 
       // If you throw, the user will not be able to upload
-      if (!user.userId) throw new Error("You must be logged in to upload");
+      if (!session?.user) throw new Error("You must be logged in to upload");
 
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
-      return { userId: user.userId };
+      return { userId: session.user.id };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
@@ -54,13 +54,13 @@ export const ourFileRouter = {
   })
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
-      const user = await auth();
+      const session = await auth();
 
       // If you throw, the user will not be able to upload
-      if (!user.userId) throw new Error("You must be logged in to upload");
+      if (!session?.user) throw new Error("You must be logged in to upload");
 
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
-      return { userId: user.userId };
+      return { userId: session.user.id };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
@@ -91,20 +91,20 @@ export const ourFileRouter = {
       })
         .middleware(async ({ req }) => {
           // This code runs on your server before upload
-          const user = await auth();
-    
+          const session = await auth();
+
           // If you throw, the user will not be able to upload
-          if (!user.userId) throw new Error("You must be logged in to upload");
-    
+          if (!session?.user) throw new Error("You must be logged in to upload");
+
           // Whatever is returned here is accessible in onUploadComplete as `metadata`
-          return { userId: user.userId };
+          return { userId: session.user.id };
         })
         .onUploadComplete(async ({ metadata, file }) => {
           // This code RUNS ON YOUR SERVER after upload
           console.log("Upload complete for userId:", metadata.userId);
-    
+
           console.log("file url", file.url);
-    
+
           // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
           return { uploadedBy: metadata.userId };
         }),

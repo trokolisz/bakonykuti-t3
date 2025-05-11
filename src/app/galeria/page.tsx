@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Button } from "~/components/ui/button"
 import { Plus } from "lucide-react"
 import { db } from "~/server/db"
-import { SignedIn } from "@clerk/nextjs"
+import { auth } from "~/auth"
 import GalleryPageClient from "./viewer"
 import { eq } from 'drizzle-orm';
 import { images } from "~/server/db/schema"
@@ -17,21 +17,24 @@ export default async function GalleryPage() {
     }
 
   )
-  
- 
+
+
 
   return (
     <div className="container py-8">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Képgaléria</h1>
-        <SignedIn>
-          <Link href="/admin/gallery/upload">
-            <Button>
-              <Plus className="mr-2 h-4 w-4" />
-              Upload Image
-            </Button>
-          </Link>
-        </SignedIn>
+        {async () => {
+          const session = await auth();
+          return session?.user?.role === 'admin' ? (
+            <Link href="/admin/gallery/upload">
+              <Button>
+                <Plus className="mr-2 h-4 w-4" />
+                Upload Image
+              </Button>
+            </Link>
+          ) : null;
+        }}
       </div>
 
       <GalleryPageClient images={gallery_images} />

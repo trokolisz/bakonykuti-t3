@@ -9,7 +9,7 @@ import { formatDate } from "~/lib/utils"
 import { ArrowLeft, Edit } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import { SocialShare } from "~/components/shared/social-share"
-import { SignedIn } from "@clerk/nextjs"
+import { useSession } from "next-auth/react"
 import { type News } from "~/server/db/schema";
 
 import "~/styles/markdown.css";
@@ -23,6 +23,8 @@ interface NewsComponentProps {
 
 export function NewsComponent({ newsItem }: NewsComponentProps) {
   const router = useRouter()
+  const { data: session } = useSession()
+  const isAdmin = session?.user?.role === 'admin'
 
   useEffect(() => {
     if (!newsItem) {
@@ -50,26 +52,27 @@ export function NewsComponent({ newsItem }: NewsComponentProps) {
               </p>
             </div>
             <div className="flex gap-2">
-              <SocialShare 
-                title={newsItem.title} 
-                url={`https://bakonykuti.hu/news/${newsItem.id}`} 
+              <SocialShare
+                title={newsItem.title}
+                url={`https://bakonykuti.hu/news/${newsItem.id}`}
               />
-              <SignedIn>
-                <Button
-                  variant="outline"
-                  onClick={() => router.push(`/admin/news/edit/${newsItem.id}`)}
-                >
-                  
-                  <Edit className="mr-2 h-4 w-4" />
-                  Szerkesztés
-                </Button>
-                <Button variant="destructive" onClick={async () => {
-                  await deleteNews(newsItem.id);
-                  window.location.href = "/hirek";
-                }} className="ml-2">
-                  Delete
-                </Button>
-              </SignedIn>
+              {isAdmin && (
+                <>
+                  <Button
+                    variant="outline"
+                    onClick={() => router.push(`/admin/news/edit/${newsItem.id}`)}
+                  >
+                    <Edit className="mr-2 h-4 w-4" />
+                    Szerkesztés
+                  </Button>
+                  <Button variant="destructive" onClick={async () => {
+                    await deleteNews(newsItem.id);
+                    window.location.href = "/hirek";
+                  }} className="ml-2">
+                    Delete
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -79,9 +82,9 @@ export function NewsComponent({ newsItem }: NewsComponentProps) {
             src={newsItem.thumbnail}
             alt={newsItem.title}
             sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            fill                     
+            fill
             className="object-cover rounded-lg"
-            
+
             priority
           />
         </div>

@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 
 import { Button } from "~/components/ui/button"
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs"
+import { AuthButtons } from "~/components/auth/auth-buttons"
 
 export default function Footer() {
 
@@ -28,23 +28,9 @@ export default function Footer() {
             <p><Link href="mailto:polgarmester@bakonykuti.hu" className="hover:underline">polgarmester@bakonykuti.hu</Link></p>
           </div>
           <div>
-            <SignedIn>
-              <Link href="/admin/dashboard">
-                <Button variant="outline" className="w-full">
-                  Admin Dashboard
-                </Button>
-              </Link>
-              <div className="flex justify-center">
-                <UserButton />
-              </div>
-            </SignedIn>
-            <SignedOut>
-              <SignInButton>
-                <Button variant="outline" className="w-full">
-                  Sign In
-                </Button>
-              </SignInButton>
-            </SignedOut>
+            <div className="flex justify-center">
+              <AuthButtons />
+            </div>
           </div>
             <div>
             <Image

@@ -9,7 +9,7 @@ import GoogleMapEmbed from "~/components/GoogleMapEmbed"
 import { fetchWeather } from "~/server/fetchWeather"
 import { db } from "~/server/db"
 import { MapPin, Newspaper, Leaf } from "lucide-react"
-import { SignedIn } from "@clerk/nextjs"
+import { auth } from "~/auth"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -38,11 +38,14 @@ export async function Widgets() {
         <Card className="bg-primary/5">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-xl font-semibold">Események</CardTitle>
-                <SignedIn>
-                    <Link href="/admin/events">
-                        <Button variant="outline" size="sm">Kezelés</Button>
-                    </Link>
-                </SignedIn>
+                {(async () => {
+                    const session = await auth();
+                    return session?.user?.role === 'admin' ? (
+                        <Link href="/admin/events">
+                            <Button variant="outline" size="sm">Kezelés</Button>
+                        </Link>
+                    ) : null;
+                })()}
             </CardHeader>
             <CardContent>
                 <EventCalendar events={events}/>

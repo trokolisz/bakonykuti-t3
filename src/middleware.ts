@@ -1,6 +1,11 @@
-import { clerkMiddleware } from '@clerk/nextjs/server'
+import { auth } from "~/auth";
+import { NextResponse } from "next/server";
 
-export default clerkMiddleware()
+export default auth((req) => {
+  // req.auth contains the user's session
+  // This middleware is already handled by NextAuth's authorized callback
+  return NextResponse.next();
+})
 
 export const config = {
   matcher: [
