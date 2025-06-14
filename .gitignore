@@ -50,4 +50,4 @@ yarn-error.log*
 # scripts
 /scripts
 
-docker-compose.yml
+/db

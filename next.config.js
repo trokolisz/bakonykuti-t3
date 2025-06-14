@@ -8,7 +8,7 @@ await import ("./src/env.js");
 /** @type {import("next").NextConfig} */
 
 const config = {
-    images: { 
+    images: {
         remotePatterns: [
           {
             protocol: 'https',
@@ -31,7 +31,7 @@ const config = {
             hostname: 'www.bakonykuti.hu',
           }
         ]
-        
+
     },
     typescript: {
         ignoreBuildErrors: true,
@@ -39,6 +39,15 @@ const config = {
     eslint: {
         ignoreDuringBuilds: true,
     },
+    // Enable standalone output for Docker deployment
+    output: 'standalone',
+    // Skip certain static generation failures
+    onDemandEntries: {
+        // Don't try to regenerate pages too often
+        maxInactiveAge: 60 * 60 * 1000, // 1 hour
+    },
+    // Disable static optimization for problematic pages
+    serverExternalPackages: ['mysql2'],
 };
 
 export default config;

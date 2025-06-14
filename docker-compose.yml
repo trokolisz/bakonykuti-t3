@@ -1,0 +1,19 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+      - AUTH_SECRET=${AUTH_SECRET}
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:3000}
+      - SKIP_ENV_VALIDATION=1
+      - HOSTNAME=0.0.0.0
+      # Add host network to access the host's localhost
+    network_mode: "host"
+
+# No volumes or networks needed since we're using the host network

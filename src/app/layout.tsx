@@ -46,11 +46,22 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>)
 {
-  const carouselImages = await db.query.images.findMany({
-    where: eq(images.carousel, true),
-    limit: 10
-  })
-  const imageURLs = carouselImages.map((image) => image.url)
+  // Fetch carousel images, but handle the case where they might not be available
+  let imageURLs: string[] = [];
+  try {
+    const carouselImages = await db.query.images.findMany({
+      where: eq(images.carousel, true),
+      limit: 10
+    });
+
+    // Only map if we have images
+    if (carouselImages && carouselImages.length > 0) {
+      imageURLs = carouselImages.map((image) => image.url);
+    }
+  } catch (error) {
+    console.error('Error fetching carousel images:', error);
+    // Use empty array if images can't be fetched
+  }
 
   return (
       <html lang="hu" suppressHydrationWarning>

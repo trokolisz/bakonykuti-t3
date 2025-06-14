@@ -1,13 +1,47 @@
 import NextAuth from "next-auth";
 import { NextResponse } from "next/server";
-import { authConfig } from "./auth.config";
 
-// Create a middleware that doesn't depend on database
-export const middleware = NextAuth(authConfig).auth((_req) => {
-  // _req.auth contains the user's session
-  // This middleware is already handled by NextAuth's authorized callback
-  return NextResponse.next();
-});
+// Create a middleware-specific auth configuration without database dependencies
+export const middleware = NextAuth({
+  pages: {
+    signIn: "/auth/signin",
+    error: "/auth/error",
+  },
+  session: {
+    strategy: "jwt",
+  },
+  trustHost: true,
+  providers: [], // Empty providers for middleware - we only need session validation
+  callbacks: {
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+      const isAdminRoute = nextUrl.pathname.startsWith("/admin");
+
+      if (isAdminRoute) {
+        if (isLoggedIn && auth?.user?.role === "admin") {
+          return true;
+        }
+        return false;
+      }
+
+      return true;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token && session.user) {
+        session.user.role = token.role as string;
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
+  },
+}).auth;
 
 export default middleware;
 

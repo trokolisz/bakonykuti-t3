@@ -11,6 +11,8 @@ export const authConfig: NextAuthConfig = {
   session: {
     strategy: "jwt",
   },
+  // Add trusted hosts configuration
+  trustHost: true,
   providers: [
     Credentials({
       name: "credentials",
