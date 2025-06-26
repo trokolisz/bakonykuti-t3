@@ -8,6 +8,7 @@
 # testing
 /coverage
 
+/migration-data
 # database
 /prisma/db.sqlite
 /prisma/db.sqlite-journal
@@ -48,6 +49,6 @@ yarn-error.log*
 # export
 /export
 # scripts
-/scripts
+
 
 /db

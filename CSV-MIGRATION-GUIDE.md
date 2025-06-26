@@ -25,9 +25,9 @@ The CSV migration process consists of two main steps:
 - Bun package manager installed
 
 ### For Data Import (Step 2)
-- MariaDB server running on localhost:3306
-- Database `bakonykuti-mariadb` created
-- Environment variable `MARIADB_PASSWORD` configured
+- MariaDB server running (configurable via environment variables)
+- Database created in MariaDB (configurable via environment variables)
+- MariaDB connection environment variables configured
 - Required tables created in MariaDB
 
 ## Step 1: Data Export
@@ -84,8 +84,12 @@ cat migration-data/export-summary.txt
 Ensure your `.env` file contains the MariaDB configuration:
 
 ```env
-# MariaDB
+# MariaDB Connection Settings
+MARIADB_HOST=localhost
+MARIADB_PORT=3306
+MARIADB_USER=root
 MARIADB_PASSWORD="your-mariadb-password"
+MARIADB_DATABASE=bakonykuti-mariadb
 ```
 
 ### 2.2 Prepare MariaDB Database

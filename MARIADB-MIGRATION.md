@@ -5,17 +5,23 @@ This document outlines the steps to migrate the database from Vercel Postgres to
 ## Prerequisites
 
 - Bun installed
-- MariaDB server running on localhost:3306
-- A database named `bakonykuti-mariadb` created in MariaDB
+- MariaDB server running (default: localhost:3306)
+- A database created in MariaDB (default: `bakonykuti-mariadb`)
 
 ## Setup Environment Variables
 
 1. Update your `.env` file to include the following variables:
 
 ```env
-# MariaDB
+# MariaDB Connection Settings
+MARIADB_HOST=localhost
+MARIADB_PORT=3306
+MARIADB_USER=root
 MARIADB_PASSWORD="your-mariadb-password"
+MARIADB_DATABASE=bakonykuti-mariadb
 ```
+
+**Note**: All MariaDB connection settings are now configurable via environment variables. If not specified, the system will use the default values shown above.
 
 ## Install Dependencies
 
