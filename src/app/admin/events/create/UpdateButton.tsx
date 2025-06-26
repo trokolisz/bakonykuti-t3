@@ -2,7 +2,7 @@
 import { MarkdownEditor } from "~/components/markdown-editor/editor";
 import '~/styles/markdown.css';
 import { useState } from 'react';
-import { UploadButton } from "~/utils/uploadthing";
+import { UploadButton } from "~/components/file-upload";
 
 interface UploadedFile {
     url: string;
@@ -97,19 +97,16 @@ export default function UpdateButton({ updateAction }: UpdateButtonProps) {
             />
             <div className="p-6 bg-card rounded-lg shadow-md border border-border">
                 <UploadButton
-                    className="ut-button:bg-primary ut-button:text-foreground 
-                                                 ut-button:font-medium ut-button:py-3 ut-button:px-8 
-                                                 ut-button:rounded-full ut-button:hover:opacity-90 
-                                                 ut-button:active:scale-95 ut-button:transition-all 
-                                                 ut-button:duration-200 ut-button:shadow-lg
-                                                 ut-allowed-content:text-muted-foreground
-                                                 ut-upload-container:flex ut-upload-container:flex-col
-                                                 ut-upload-container:items-center ut-upload-container:gap-4"
-                    endpoint="bakonykutiNewsImageUploader"
+                    className="bg-primary text-primary-foreground
+                                                 font-medium py-3 px-8
+                                                 rounded-full hover:opacity-90
+                                                 active:scale-95 transition-all
+                                                 duration-200 shadow-lg"
+                    endpoint="events"
                     onClientUploadComplete={handleImageUpload}
                     onUploadError={(error) => {
                         alert(`Upload Error: ${error.message}`);
-                    }} 
+                    }}
                 />
                 {(document.getElementById('thumbnail_input') as HTMLInputElement)?.value && (
                     <div className="mt-4">

@@ -69,17 +69,13 @@ if (isBuildTime) {
   db = mockDb;
 } else {
   try {
-    // Always connect to localhost since we're using host network mode
-    // This will connect to the host's MariaDB instance
-    const dbHost = 'localhost';
-
-    // Create MySQL connection pool
+    // Create MySQL connection pool using environment variables
     const pool = mysql.createPool({
-      host: dbHost,
-      port: 3306,
-      user: "root",
+      host: env.MARIADB_HOST,
+      port: env.MARIADB_PORT,
+      user: env.MARIADB_USER,
       password: env.MARIADB_PASSWORD,
-      database: "bakonykuti-mariadb",
+      database: env.MARIADB_DATABASE,
       // Add connection timeout to fail fast if DB is not available
       connectTimeout: 5000,
     });

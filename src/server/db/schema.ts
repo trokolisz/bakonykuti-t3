@@ -30,6 +30,8 @@ export const images = createTable("image", {
   title: varchar("title", {length: 256}).default("").notNull(),
   carousel: boolean("carousel").default(false).notNull(),
   gallery: boolean("gallery").default(true).notNull(),
+  visible: boolean("visible").default(true).notNull(), // Admin can control visibility in public gallery
+  localPath: varchar("local_path", {length: 1024}), // Track local file path for cleanup
   image_size: int("image_size").notNull().default(0),
   createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
   updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),

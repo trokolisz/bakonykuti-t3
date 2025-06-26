@@ -7,13 +7,13 @@ import { Plus } from "lucide-react"
 import { db } from "~/server/db"
 import { auth } from "~/auth"
 import GalleryPageClient from "./viewer"
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import { images } from "~/server/db/schema"
 
 export default async function GalleryPage() {
   const gallery_images = await db.query.images.findMany(
     {
-      where: eq( images.gallery, true)
+      where: and(eq(images.gallery, true), eq(images.visible, true))
     }
   );
 

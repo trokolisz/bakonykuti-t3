@@ -61,11 +61,33 @@ bun db:test-direct-connection
 
 ### 4. Migrate Data from Postgres to MariaDB
 
-Run the data migration script to export data from Postgres and import it to MariaDB:
+You have two options for data migration:
+
+#### Option A: Direct Migration (Original Method)
+
+Run the direct data migration script:
 
 ```bash
 bun db:migrate-data
 ```
+
+#### Option B: CSV-Based Migration (Recommended)
+
+Use the two-step CSV migration process for better portability and error handling:
+
+**Step 1 - Export data to CSV files:**
+
+```bash
+bun db:export-to-csv
+```
+
+**Step 2 - Import data from CSV files:**
+
+```bash
+bun db:import-from-csv
+```
+
+For detailed instructions on the CSV migration process, see [CSV-MIGRATION-GUIDE.md](./CSV-MIGRATION-GUIDE.md).
 
 ### 5. Test the Drizzle ORM Connection
 

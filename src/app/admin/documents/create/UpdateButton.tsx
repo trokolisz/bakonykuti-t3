@@ -1,5 +1,5 @@
 'use client';
-import { UploadButton } from "~/utils/uploadthing";
+import { UploadButton } from "~/components/file-upload";
 import '~/styles/markdown.css';
 import { useState } from 'react';
 
@@ -17,7 +17,7 @@ export default function UpdateButton({ updateAction }: UpdateButtonProps) {
     const [uploadError, setUploadError] = useState<string | null>(null);
     const [submissionStatus, setSubmissionStatus] = useState<string | null>(null);
 
-    const handleFileUpload = (res: { url: string; size: number }[]) => {
+    const handleFileUpload = (res: { url: string; filename?: string; size?: number }[]) => {
         if (!res || res.length === 0) {
             setUploadError('Fájl feltöltése sikertelen.');
             return;
@@ -28,7 +28,7 @@ export default function UpdateButton({ updateAction }: UpdateButtonProps) {
         if (fileData) {
             if (fileData.url) {
                 fileUrlInput.value = fileData.url;
-                fileSizeInput.value = `${fileData.size}`;
+                fileSizeInput.value = `${fileData.size || 0}`;
                 setSelectedFile(fileData.url);
                 setUploadError(null);
             }
@@ -110,10 +110,10 @@ export default function UpdateButton({ updateAction }: UpdateButtonProps) {
                 <label htmlFor="file" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fájl feltöltése</label>
                 <div className="flex flex-col items-center justify-center pt-5 pb-6 bg-secondary rounded-lg">
                             <UploadButton
-                                className="ut-button:bg-blue-500 ut-button:text-white 
-                                           ut-button:font-medium ut-button:py-2 ut-button:px-4 
-                                           ut-button:rounded-md ut-button:hover:bg-blue-700"
-                                endpoint="bakonykutiDocumentPdfUploader"
+                                className="bg-blue-500 text-white
+                                           font-medium py-2 px-4
+                                           rounded-md hover:bg-blue-700"
+                                endpoint="documents"
                                 onClientUploadComplete={handleFileUpload}
                                 onUploadError={(error) => {
                                     setUploadError(`Feltöltési hiba: ${error.message}`);

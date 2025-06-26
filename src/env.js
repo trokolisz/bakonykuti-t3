@@ -7,7 +7,11 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
+    MARIADB_HOST: z.string().default("localhost"),
+    MARIADB_PORT: z.coerce.number().default(3306),
+    MARIADB_USER: z.string().default("root"),
     MARIADB_PASSWORD: z.string().min(1),
+    MARIADB_DATABASE: z.string().default("bakonykuti-mariadb"),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -29,7 +33,11 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
+    MARIADB_HOST: process.env.MARIADB_HOST,
+    MARIADB_PORT: process.env.MARIADB_PORT,
+    MARIADB_USER: process.env.MARIADB_USER,
     MARIADB_PASSWORD: process.env.MARIADB_PASSWORD,
+    MARIADB_DATABASE: process.env.MARIADB_DATABASE,
     NODE_ENV: process.env.NODE_ENV,
     AUTH_SECRET: process.env.AUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,

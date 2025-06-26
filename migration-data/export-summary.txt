@@ -1,0 +1,8 @@
+
+=== Migration Summary ===
+Tables processed: 9
+Total rows: 116
+Successful rows: 116
+Failed rows: 0
+Success rate: 100.00%
+

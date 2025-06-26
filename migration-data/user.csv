@@ -1,0 +1,4 @@
+id,name,email,emailVerified,image,password,role
+1a7d21ff-2122-4159-b93a-b1fcdb222330,test123,admin@example.com,,,$2b$10$SKiq.R4Zceiwrb7a/GfCGuJylE.sP7XN.fPakgzFcyMaKABanjXeG,admin
+8b88b6fb-9280-429a-8a1b-c2acfda607b5,Test User,test@example.com,,,$2b$10$Fjs9TVRlUTmJwHtB2HIpO.3fsYboVVMkBAX5jxPgIvO78F007QYEC,admin
+5f61c0b2-4cef-49ea-bf74-86105ab72a3d,Admin User,admin@example.com,,,$2b$10$zeVqbKFntf3g59ixv7F8D.qjP6xzOghpvwxkze6jt8G0j.UetSyS.,admin

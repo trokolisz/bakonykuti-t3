@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { UploadButton } from "~/utils/uploadthing";
+import { UploadButton } from "~/components/file-upload";
 import ImageCard from './ImageCard';
 
 interface UploadedFile {
@@ -54,15 +54,12 @@ export default function UploadForm() {
                 <h2 className="text-2xl font-semibold text-primary mb-2">Upload Images</h2>
                 <div className="p-6 bg-card rounded-lg shadow-md border border-border">
                     <UploadButton
-                        className="ut-button:bg-primary ut-button:text-foreground 
-                                 ut-button:font-medium ut-button:py-3 ut-button:px-8 
-                                 ut-button:rounded-full ut-button:hover:opacity-90 
-                                 ut-button:active:scale-95 ut-button:transition-all 
-                                 ut-button:duration-200 ut-button:shadow-lg
-                                 ut-allowed-content:text-muted-foreground
-                                 ut-upload-container:flex ut-upload-container:flex-col
-                                 ut-upload-container:items-center ut-upload-container:gap-4"
-                        endpoint="bakonykutiGalleryImageUploader"
+                        className="bg-primary text-primary-foreground
+                                 font-medium py-3 px-8
+                                 rounded-full hover:opacity-90
+                                 active:scale-95 transition-all
+                                 duration-200 shadow-lg"
+                        endpoint="gallery"
                         onClientUploadComplete={handleImageUpload}
                         onUploadError={(error) => {
                             alert(`Upload Error: ${error.message}`);
