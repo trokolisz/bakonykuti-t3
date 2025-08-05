@@ -40,7 +40,7 @@ const config = {
         ignoreDuringBuilds: true,
     },
     // Enable standalone output for Docker deployment
-    output: 'standalone',
+    // output: 'standalone', // Commented out to allow regular next start
     // Skip certain static generation failures
     onDemandEntries: {
         // Don't try to regenerate pages too often
