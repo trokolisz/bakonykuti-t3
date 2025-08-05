@@ -118,6 +118,7 @@ If you're setting up on a different machine:
 Execute the CSV import script:
 
 ```bash
+# Import data from CSV files
 bun db:import-from-csv
 ```
 

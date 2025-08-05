@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "next build",
+    "build:verbose": "next build --debug",
+    "build:analyze": "cross-env ANALYZE=true next build",
+    "build:profile": "cross-env NODE_OPTIONS='--inspect' next build",
     "build:standalone": "bun scripts/build-standalone.js",
     "check": "next lint && tsc --noEmit",
     "db:generate": "drizzle-kit generate",
@@ -29,6 +32,7 @@
     "preview": "next build && next start",
     "start": "next start",
     "start:standalone": "node .next/standalone/server.js",
+    "start:standalone:host": "cross-env HOSTNAME=172.30.96.1 PORT=3000 node .next/standalone/server.js",
     "typecheck": "tsc --noEmit",
     "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
@@ -140,5 +144,8 @@
   },
   "trustedDependencies": [
     "@clerk/shared"
-  ]
+  ],
+  "devDependencies": {
+    "cross-env": "^10.0.0"
+  }
 }
