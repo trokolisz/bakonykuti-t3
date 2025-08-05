@@ -6,8 +6,9 @@ import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
 import { users } from "~/server/db/schema";
 
-// Check if we're in build/prerender mode
+// Check if we're in build/prerender mode or if database is not available
 const isBuildTime = process.env.NODE_ENV === 'production' && process.env.NEXT_PHASE === 'phase-production-build';
+const isDatabaseAvailable = process.env.MARIADB_HOST && process.env.MARIADB_DATABASE;
 
 export const {
   handlers: { GET, POST },
@@ -24,8 +25,8 @@ export const {
     strategy: "jwt",
   },
   trustHost: true,
-  // Skip the adapter during build time to avoid database connection issues
-  adapter: isBuildTime ? undefined : DrizzleAdapter(db),
+  // Skip the adapter during build time or when database is not available
+  adapter: (isBuildTime || !isDatabaseAvailable) ? undefined : DrizzleAdapter(db),
   providers: [
     Credentials({
       name: "credentials",
@@ -35,6 +36,12 @@ export const {
       },
       async authorize(credentials) {
         try {
+          // Skip database operations if database is not available
+          if (!isDatabaseAvailable) {
+            console.log("❌ Database not available, skipping authentication");
+            return null;
+          }
+
           console.log("🔐 Authorize function called with credentials:", {
             email: credentials?.email,
             hasPassword: !!credentials?.password,

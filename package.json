@@ -41,7 +41,8 @@
     "docker:stop": "docker-compose down",
     "docker:dev": "docker-compose up -d",
     "docker:prod": "docker-compose -f docker-compose.yml up -d",
-    "docker:logs": "docker-compose logs -f"
+    "docker:logs": "docker-compose logs -f",
+    "setup:env": "node scripts/setup-env.js"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.9.1",
