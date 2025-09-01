@@ -41,6 +41,13 @@ const config = {
     },
     // Enable standalone output for Docker deployment
     // output: 'standalone', // Commented out to allow regular next start
+
+    // Experimental features to help with auth() static generation issues
+    experimental: {
+        // Force dynamic rendering for pages that use auth()
+        dynamicIO: false,
+    },
+
     // Skip certain static generation failures
     onDemandEntries: {
         // Don't try to regenerate pages too often

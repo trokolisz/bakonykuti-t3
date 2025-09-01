@@ -9,6 +9,9 @@ import { Plus, ArrowLeft } from "lucide-react";
 import FileStatistics from "~/components/admin/FileStatistics";
 import ImageManagementClient from "./ImageManagementClient";
 
+// Force dynamic rendering to prevent static generation issues with auth()
+export const dynamic = 'force-dynamic';
+
 export default async function AdminGalleryManagePage() {
   const session = await auth();
   if (!session?.user || session.user.role !== 'admin') {

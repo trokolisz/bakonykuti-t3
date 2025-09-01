@@ -10,6 +10,9 @@ import GalleryPageClient from "./viewer"
 import { eq, and } from 'drizzle-orm';
 import { images } from "~/server/db/schema"
 
+// Force dynamic rendering to prevent static generation issues with auth()
+export const dynamic = 'force-dynamic';
+
 export default async function GalleryPage() {
   const gallery_images = await db.query.images.findMany(
     {

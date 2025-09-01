@@ -9,9 +9,9 @@ import MapEmbed from "~/components/MapEmbed"
 import { fetchWeather } from "~/server/fetchWeather"
 import { db } from "~/server/db"
 import { MapPin, Newspaper, Leaf } from "lucide-react"
-import { auth } from "~/auth"
 import Link from "next/link"
 import Image from "next/image"
+import { AdminEventButton } from "~/components/admin/admin-event-button"
 
 export async function Widgets() {
     const weather = await fetchWeather()
@@ -38,14 +38,7 @@ export async function Widgets() {
         <Card className="bg-primary/5">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-xl font-semibold">Események</CardTitle>
-                {(async () => {
-                    const session = await auth();
-                    return session?.user?.role === 'admin' ? (
-                        <Link href="/admin/events">
-                            <Button variant="outline" size="sm">Kezelés</Button>
-                        </Link>
-                    ) : null;
-                })()}
+                <AdminEventButton />
             </CardHeader>
             <CardContent>
                 <EventCalendar events={events}/>

@@ -7,7 +7,10 @@ import { eq } from "drizzle-orm";
 import { users } from "~/server/db/schema";
 
 // Check if we're in build/prerender mode or if database is not available
-const isBuildTime = process.env.NODE_ENV === 'production' && process.env.NEXT_PHASE === 'phase-production-build';
+const isBuildTime = process.env.NODE_ENV === 'production' && (
+  process.env.NEXT_PHASE === 'phase-production-build' ||
+  process.env.NEXT_PHASE === 'phase-production-server'
+);
 const isDatabaseAvailable = process.env.MARIADB_HOST && process.env.MARIADB_DATABASE;
 
 export const {

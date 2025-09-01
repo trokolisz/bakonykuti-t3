@@ -42,7 +42,8 @@
     "docker:dev": "docker-compose up -d",
     "docker:prod": "docker-compose -f docker-compose.yml up -d",
     "docker:logs": "docker-compose logs -f",
-    "setup:env": "node scripts/setup-env.js"
+    "setup:env": "node scripts/setup-env.js",
+    "test:db": "node scripts/test-db-connection.js"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.9.1",
