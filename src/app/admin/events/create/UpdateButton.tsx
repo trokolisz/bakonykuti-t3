@@ -19,46 +19,34 @@ type UpdateButtonProps = {
 };
 
 export default function UpdateButton({ updateAction }: UpdateButtonProps) {
-
+    const [content, setContent] = useState('');
+    const [thumbnailUrl, setThumbnailUrl] = useState('');
 
     const handleImageUpload = (res: UploadedFile[]) => {
-        const newImages: GalleryImage[] = res.map((file) => ({
-            url: file.url,
-            title: '',
-            isCarousel: false
-        }));
-        const thumbnail_input = document.getElementById('thumbnail_input') as HTMLInputElement;
-        const uploaded_image = document.getElementById('uploaded_image') as HTMLImageElement;
-
         if (res == null || res.length === 0) {
             return;
         }
         if (res[0]?.url) {
-            thumbnail_input.value = res[0].url;
-            uploaded_image.src = res[0].url;
+            setThumbnailUrl(res[0].url);
         }
-
-
     };
 
     async function handleSubmit(formData: FormData) {
         const title = formData.get('title') as string;
-        const thumbnail = formData.get('thumbnail') as string;
+        const thumbnail = thumbnailUrl || (formData.get('thumbnail') as string);
         const description = formData.get('content') as string;
         const type = formData.get('type') as string;
         const date = formData.get('event_date') as string;
-        formData.set('content', '');
-        formData.set('title', '');
-        formData.set('thumbnail', '');
-        formData.set('type', '');
-        formData.set('event_date', '');
-        const go_url = new URL('/esemenyek', window.location.origin);
-
 
         await updateAction(title, thumbnail, description, type, date);
+
+        // Reset form
+        setContent('');
+        setThumbnailUrl('');
+
+        const go_url = new URL('/rendezvenyek', window.location.origin);
         window.location.href = go_url.toString();
     }
-    const [content, setContent] = useState('');
 
     return (
         <form action={handleSubmit} className="flex flex-col gap-6 max-w-6xl mx-auto p-8 bg-secondary rounded-lg shadow-lg">
@@ -88,9 +76,10 @@ export default function UpdateButton({ updateAction }: UpdateButtonProps) {
                 <option value="gun_range">Lőtér</option>
             </select>
             <input
-                id="thumbnail_input"
                 type="url"
                 name="thumbnail"
+                value={thumbnailUrl}
+                onChange={(e) => setThumbnailUrl(e.target.value)}
                 required
                 placeholder="Add meg a borítókép URL-jét"
                 className="border placeholder:text-gray-300 bg-secondary text-foreground border-gray-300 p-3 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
@@ -108,12 +97,11 @@ export default function UpdateButton({ updateAction }: UpdateButtonProps) {
                         alert(`Upload Error: ${error.message}`);
                     }}
                 />
-                {(document.getElementById('thumbnail_input') as HTMLInputElement)?.value && (
+                {thumbnailUrl && (
                     <div className="mt-4">
-                        <img 
-                            id="uploaded_image"
-                            src={(document.getElementById('thumbnail_input') as HTMLInputElement)?.value} 
-                            alt="Uploaded preview" 
+                        <img
+                            src={thumbnailUrl}
+                            alt="Uploaded preview"
                             className="max-w-full h-auto rounded-lg"
                         />
                     </div>

@@ -19,42 +19,32 @@ type UpdateButtonProps = {
 };
 
 export default function UpdateButton({ updateAction }: UpdateButtonProps) {
-
+    const [content, setContent] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
 
     const handleImageUpload = (res: UploadedFile[]) => {
-        const newImages: GalleryImage[] = res.map((file) => ({
-            url: file.url,
-            title: '',
-            isCarousel: false
-        }));
-        const url_input = document.getElementById('url_input') as HTMLInputElement;
-        const uploaded_image = document.getElementById('uploaded_image') as HTMLImageElement;
-
         if (res == null || res.length === 0) {
             return;
         }
         if (res[0]?.url) {
-            url_input.value = res[0].url;
-            uploaded_image.src = res[0].url;
+            setImageUrl(res[0].url);
         }
-
-
     };
 
     async function handleSubmit(formData: FormData) {
         const title = formData.get('title') as string;
-        const url = formData.get('url') as string;
+        const url = imageUrl || (formData.get('url') as string);
         const description = formData.get('content') as string;
-        formData.set('content', '');
-        formData.set('title', '');
-        formData.set('thumbnail', '');
-        const go_url = new URL('/hirek', window.location.origin);
-
 
         await updateAction(title, url, description);
+
+        // Reset form
+        setContent('');
+        setImageUrl('');
+
+        const go_url = new URL('/hirek', window.location.origin);
         window.location.href = go_url.toString();
     }
-    const [content, setContent] = useState('');
 
     return (
         <form action={handleSubmit} className="flex flex-col gap-6 max-w-6xl mx-auto p-8 bg-secondary rounded-lg shadow-lg">
@@ -66,9 +56,10 @@ export default function UpdateButton({ updateAction }: UpdateButtonProps) {
                 className="border placeholder:text-gray-300 bg-secondary text-foreground border-gray-300 p-3 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
             />
             <input
-                id="url_input"
                 type="url"
                 name="url"
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
                 required
                 placeholder="Add meg a boritó kép URL-jét"
                 className="border placeholder:text-gray-300 bg-secondary text-foreground border-gray-300 p-3 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
@@ -86,12 +77,11 @@ export default function UpdateButton({ updateAction }: UpdateButtonProps) {
                         alert(`Upload Error: ${error.message}`);
                     }}
                 />
-                {(document.getElementById('url_input') as HTMLInputElement)?.value && (
+                {imageUrl && (
                     <div className="mt-4">
-                        <img 
-                            id="uploaded_image"
-                            src={(document.getElementById('url_input') as HTMLInputElement)?.value} 
-                            alt="Uploaded preview" 
+                        <img
+                            src={imageUrl}
+                            alt="Uploaded preview"
                             className="max-w-full h-auto rounded-lg"
                         />
                     </div>

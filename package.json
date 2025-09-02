@@ -47,7 +47,9 @@
     "test:db": "node scripts/test-db-connection.js",
     "check:gallery": "node scripts/check-gallery-images.js",
     "check:db": "node scripts/check-database-structure.js",
-    "check:news": "node scripts/check-news.js"
+    "check:news": "node scripts/check-news.js",
+    "check:events": "node scripts/check-events.js",
+    "check:pages": "node scripts/check-pages.js"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.9.1",
