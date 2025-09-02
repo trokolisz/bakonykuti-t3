@@ -13,6 +13,8 @@ import { DocumentArchive } from "~/components/documents/document-archive"
 
 import { Widgets } from '~/components/layout/widgets'
 
+// Force dynamic rendering to ensure we get real database data
+export const dynamic = 'force-dynamic';
 
 
 

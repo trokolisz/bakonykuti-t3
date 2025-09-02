@@ -6,6 +6,9 @@ import { updateLastModified } from './actions';
 import UpdateButton from './UpdateButton';
 import { Toaster } from '~/components/ui/toaster';
 
+// Force dynamic rendering to ensure we get real database data
+export const dynamic = 'force-dynamic';
+
 interface Props {
   params: Promise<{ slug: string[] }>;
 }

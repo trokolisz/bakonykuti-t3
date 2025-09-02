@@ -8,6 +8,8 @@ import { Widgets } from '~/components/layout/widgets'
 
 import { type Card as CardTypes } from "~/types"
 
+// Force dynamic rendering to ensure we get real database data
+export const dynamic = 'force-dynamic';
 
 const cards: CardTypes[] = [
     { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECfHTSdRu3aru6LDUb0V8oGMOFt5cR72B1Qkqh", title: 'Bemutatás',  href: '/bakonykuti/bemutatas' },

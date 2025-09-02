@@ -5,6 +5,9 @@ import GalleryPageClient from "./viewer"
 import { revalidatePath } from "next/cache"
 import Link from "next/link"
 
+// Force dynamic rendering to ensure we get real database data
+export const dynamic = 'force-dynamic';
+
 export default async function GalleryPage() {
   const imageList = await db.select().from(images).orderBy(images.createdAt)
 

@@ -27,6 +27,7 @@
     "db:import-from-csv": "bun scripts/import-data-from-csv.ts",
     "db:test-csv-migration": "bun scripts/test-csv-migration.ts",
     "dev": "next dev --turbo",
+    "dev:https": "next dev --turbo --experimental-https",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "preview": "next build && next start",
@@ -45,7 +46,8 @@
     "setup:env": "node scripts/setup-env.js",
     "test:db": "node scripts/test-db-connection.js",
     "check:gallery": "node scripts/check-gallery-images.js",
-    "check:db": "node scripts/check-database-structure.js"
+    "check:db": "node scripts/check-database-structure.js",
+    "check:news": "node scripts/check-news.js"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.9.1",

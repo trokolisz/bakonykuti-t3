@@ -14,6 +14,9 @@ import { pages } from "~/server/db/schema"
 import { notFound } from "next/navigation"
 import { SearchDialog } from "~/components/shared/search-dialog"
 
+// Force dynamic rendering to ensure we get real database data
+export const dynamic = 'force-dynamic';
+
 import type { WeatherData } from "~/types"
 import { AccessibilityMenu } from "~/components/shared/accessibility-menu"
 import { CookieConsent } from "~/components/shared/cookie-consent"

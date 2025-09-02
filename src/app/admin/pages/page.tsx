@@ -4,6 +4,9 @@ import { formatDate } from "~/lib/utils"
 import { FileText } from "lucide-react"
 import Link from "next/link"
 
+// Force dynamic rendering to ensure we get real database data
+export const dynamic = 'force-dynamic';
+
 export default async function PagesAdminPage() {
   const pages = await db.query.pages.findMany()
 
