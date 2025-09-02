@@ -5,6 +5,9 @@ import UploadForm from './UploadForm'
 import { getExistingGalleryImages } from '~/server/api/gallery' // You'll need to create this
 import { Card, CardHeader, CardTitle, CardDescription } from "~/components/ui/card"
 
+// Force dynamic rendering to ensure we get real database data
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: 'Gallery Upload - Admin',
     description: 'Upload and manage gallery images',

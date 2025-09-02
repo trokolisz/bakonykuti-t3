@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "~/auth";
+import { requireAdmin } from "~/lib/api-auth";
 import { db } from "~/server/db";
 import { images } from "~/server/db/schema";
 import { desc } from "drizzle-orm";
@@ -7,10 +7,8 @@ import { desc } from "drizzle-orm";
 // GET - List all images for admin
 export async function GET(request: NextRequest) {
   try {
-    const session = await auth();
-    if (!session?.user || session.user.role !== 'admin') {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const { session, error } = await requireAdmin();
+    if (error) return error;
 
     const allImages = await db.select().from(images).orderBy(desc(images.createdAt));
 

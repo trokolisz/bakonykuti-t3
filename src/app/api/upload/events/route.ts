@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '~/auth';
+import { requireAuth } from '~/lib/api-auth';
 import { db } from '~/server/db';
 import { images } from '~/server/db/schema';
 import { eq } from 'drizzle-orm';
@@ -8,13 +8,8 @@ import { processMultipleFiles } from '~/lib/file-upload';
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
-    const session = await auth();
-    if (!session?.user) {
-      return NextResponse.json(
-        { error: 'You must be logged in to upload' },
-        { status: 401 }
-      );
-    }
+    const { session, error } = await requireAuth();
+    if (error) return error;
 
     // Parse form data
     const formData = await request.formData();
@@ -75,13 +70,8 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     // Check authentication
-    const session = await auth();
-    if (!session?.user) {
-      return NextResponse.json(
-        { error: 'You must be logged in to delete files' },
-        { status: 401 }
-      );
-    }
+    const { session, error } = await requireAuth();
+    if (error) return error;
 
     const { searchParams } = new URL(request.url);
     const imageId = searchParams.get('id');
