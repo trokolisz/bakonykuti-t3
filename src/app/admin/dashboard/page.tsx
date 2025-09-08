@@ -4,7 +4,7 @@
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card"
 
-import { ImageIcon, NewspaperIcon, FileTextIcon, CalendarIcon } from "lucide-react"
+import { ImageIcon, NewspaperIcon, FileTextIcon, CalendarIcon, Bug } from "lucide-react"
 import { Button } from "~/components/ui/button"
 
 
@@ -114,6 +114,25 @@ export default function AdminDashboard() {
               </p>
               <Button variant="outline" className="w-full">
                 Edit Pages
+              </Button>
+            </CardContent>
+          </Card>
+        </Link>
+
+        <Link href="/admin/debug/images">
+          <Card className="hover:bg-primary/5 transition-colors cursor-pointer">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Bug className="h-5 w-5 text-primary" />
+                Image Debug Tools
+              </CardTitle>
+              <CardDescription>
+                Debug and fix image access issues
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" className="w-full">
+                Debug Images
               </Button>
             </CardContent>
           </Card>

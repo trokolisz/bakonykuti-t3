@@ -9,6 +9,9 @@ import ReactMarkdown from "react-markdown"
 import { updateLastModified } from './actions';
 import UpdateButton from './UpdateButton';
 
+// Force dynamic rendering to avoid auth() bind errors
+export const dynamic = 'force-dynamic';
+
 export default function CreateNewsPage() {
 
 

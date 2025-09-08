@@ -44,8 +44,7 @@ const config = {
 
     // Experimental features to help with auth() static generation issues
     experimental: {
-        // Force dynamic rendering for pages that use auth()
-        dynamicIO: false,
+        // Reserved for future experimental features
     },
 
     // Skip certain static generation failures
