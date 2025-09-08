@@ -8,7 +8,7 @@ import { processMultipleFiles } from '~/lib/file-upload';
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
-    const { session, error } = await requireAuth();
+    const { session, error } = await requireAuth(request);
     if (error) return error;
 
     // Parse form data
@@ -37,14 +37,20 @@ export async function POST(request: NextRequest) {
     }
 
     // Save to database (marked as not for gallery)
-    const [savedImage] = await db.insert(images).values({
+    // MySQL/MariaDB doesn't support .returning()
+    await db.insert(images).values({
       title: result.filename || '',
       url: result.url!,
       gallery: false, // Event images are not shown in gallery by default
       image_size: result.size || 0,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }).returning();
+    });
+
+    // Get the inserted image by URL
+    const savedImage = await db.query.images.findFirst({
+      where: eq(images.url, result.url!),
+    });
 
     return NextResponse.json({
       success: true,
@@ -70,7 +76,7 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     // Check authentication
-    const { session, error } = await requireAuth();
+    const { session, error } = await requireAuth(request);
     if (error) return error;
 
     const { searchParams } = new URL(request.url);

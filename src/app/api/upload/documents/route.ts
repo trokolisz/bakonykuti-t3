@@ -52,14 +52,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Save to documents table
-    const [savedDocument] = await db.insert(documents).values({
+    // Save to documents table (MySQL/MariaDB doesn't support .returning())
+    await db.insert(documents).values({
       title,
       category,
       date: new Date(date),
       fileUrl: result.url!,
       fileSize: formatFileSize(result.size || 0),
-    }).returning();
+    });
+
+    // Get the inserted document by URL
+    const savedDocument = await db.query.documents.findFirst({
+      where: eq(documents.fileUrl, result.url!),
+    });
 
     return NextResponse.json({
       success: true,

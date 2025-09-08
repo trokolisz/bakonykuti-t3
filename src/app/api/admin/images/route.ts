@@ -7,7 +7,7 @@ import { desc } from "drizzle-orm";
 // GET - List all images for admin
 export async function GET(request: NextRequest) {
   try {
-    const { session, error } = await requireAdmin();
+    const { session, error } = await requireAdmin(request);
     if (error) return error;
 
     const allImages = await db.select().from(images).orderBy(desc(images.createdAt));
