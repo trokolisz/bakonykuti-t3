@@ -5,6 +5,7 @@ import { documents } from '~/server/db/schema';
 import { eq } from 'drizzle-orm';
 import { processMultipleFiles } from '~/lib/file-upload';
 import { formatFileSize } from '~/lib/file-management';
+import { createFileRecord, getMimeTypeFromExtension } from '~/lib/file-management-server';
 
 export async function POST(request: NextRequest) {
   try {
@@ -60,6 +61,28 @@ export async function POST(request: NextRequest) {
     const savedDocument = await db.query.documents.findFirst({
       where: eq(documents.fileUrl, result.url!),
     });
+
+    if (savedDocument) {
+      // Create file record for tracking
+      try {
+        await createFileRecord({
+          originalName: result.filename || 'unknown',
+          filename: result.filename || 'unknown',
+          filePath: `public${result.url}`,
+          publicUrl: result.url!,
+          mimeType: getMimeTypeFromExtension(result.filename || ''),
+          fileSize: result.size || 0,
+          uploadType: 'documents',
+          uploadedBy: session.user.id,
+          associatedEntity: 'document',
+          associatedEntityId: savedDocument.id,
+          isOrphaned: false,
+        });
+      } catch (error) {
+        console.error('Error creating file record:', error);
+        // Continue even if file record creation fails
+      }
+    }
 
     return NextResponse.json({
       success: true,

@@ -97,6 +97,34 @@ export const documents = createTable("document", {
 export type Document = typeof documents.$inferSelect;
 export type InsertDocument = typeof documents.$inferInsert;
 
+// File Management Schema
+export const files = createTable("file", {
+  id: serial("id").primaryKey(),
+  originalName: varchar("original_name", { length: 512 }).notNull(),
+  filename: varchar("filename", { length: 512 }).notNull(), // Generated unique filename
+  filePath: varchar("file_path", { length: 1024 }).notNull(), // Full path from project root
+  publicUrl: varchar("public_url", { length: 1024 }).notNull(), // URL for web access
+  mimeType: varchar("mime_type", { length: 128 }).notNull(),
+  fileSize: int("file_size").notNull(), // Size in bytes
+  uploadType: varchar("upload_type", { length: 64 }).notNull(), // gallery, news, events, documents
+  uploadedBy: varchar("uploaded_by", { length: 255 }), // User ID who uploaded
+  associatedEntity: varchar("associated_entity", { length: 64 }), // Type of entity (image, document, etc.)
+  associatedEntityId: int("associated_entity_id"), // ID of the associated entity
+  isOrphaned: boolean("is_orphaned").default(false).notNull(), // Track orphaned files
+  lastAccessedAt: timestamp("last_accessed_at"),
+  createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
+  updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
+}, (file) => ({
+  filePathIdx: index("file_path_idx").on(file.filePath),
+  uploadTypeIdx: index("upload_type_idx").on(file.uploadType),
+  uploadedByIdx: index("uploaded_by_idx").on(file.uploadedBy),
+  associatedEntityIdx: index("associated_entity_idx").on(file.associatedEntity, file.associatedEntityId),
+  orphanedIdx: index("orphaned_idx").on(file.isOrphaned),
+}));
+
+export type File = typeof files.$inferSelect;
+export type InsertFile = typeof files.$inferInsert;
+
 // NextAuth.js Schema
 
 export const users = createTable("user", {
