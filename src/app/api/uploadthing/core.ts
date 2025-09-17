@@ -1,6 +1,6 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-import { auth } from "~/auth";
+import { safeAuthUploadThing } from "~/lib/api-auth";
 import {db} from "~/server/db";
 import { images } from "~/server/db/schema";
 
@@ -21,7 +21,7 @@ export const ourFileRouter = {
   })
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
-      const session = await auth();
+      const session = await safeAuthUploadThing(req);
 
       // If you throw, the user will not be able to upload
       if (!session?.user) throw new Error("You must be logged in to upload");
@@ -54,7 +54,7 @@ export const ourFileRouter = {
   })
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
-      const session = await auth();
+      const session = await safeAuthUploadThing(req);
 
       // If you throw, the user will not be able to upload
       if (!session?.user) throw new Error("You must be logged in to upload");
@@ -91,7 +91,7 @@ export const ourFileRouter = {
       })
         .middleware(async ({ req }) => {
           // This code runs on your server before upload
-          const session = await auth();
+          const session = await safeAuthUploadThing(req);
 
           // If you throw, the user will not be able to upload
           if (!session?.user) throw new Error("You must be logged in to upload");

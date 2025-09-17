@@ -13,13 +13,14 @@ import ImageManagementClient from "./ImageManagementClient";
 export const dynamic = 'force-dynamic';
 
 export default async function AdminGalleryManagePage() {
-  const session = await auth();
-  if (!session?.user || session.user.role !== 'admin') {
-    redirect('/api/auth/signin');
-  }
+  try {
+    const session = await auth();
+    if (!session?.user || session.user.role !== 'admin') {
+      redirect('/api/auth/signin');
+    }
 
-  // Fetch all images for admin
-  const allImages = await db.select().from(images).orderBy(desc(images.createdAt));
+    // Fetch all images for admin
+    const allImages = await db.select().from(images).orderBy(desc(images.createdAt));
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -46,4 +47,8 @@ export default async function AdminGalleryManagePage() {
       <ImageManagementClient images={allImages} />
     </div>
   );
+  } catch (error) {
+    console.error('Error in AdminGalleryManagePage:', error);
+    redirect('/api/auth/signin');
+  }
 }

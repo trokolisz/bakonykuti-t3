@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "~/auth";
+import { requireAdmin } from "~/lib/api-auth";
 import { db } from "~/server/db";
 import { images } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
@@ -10,10 +10,8 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
-    const session = await auth();
-    if (!session?.user || session.user.role !== 'admin') {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const { session, error } = await requireAdmin(request);
+    if (error) return error;
 
     const imageId = parseInt(params.id);
     if (isNaN(imageId)) {

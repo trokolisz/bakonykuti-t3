@@ -90,3 +90,42 @@ export async function requireAdmin(request: NextRequest) {
 
   return { session, error: null };
 }
+
+/**
+ * Safe authentication for UploadThing middleware
+ * Uses JWT tokens instead of auth() to avoid bind errors
+ */
+export async function safeAuthUploadThing(req: any) {
+  try {
+    // Get the secret from environment or use a fallback
+    const secret = process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET;
+
+    if (!secret) {
+      console.error('NEXTAUTH_SECRET or AUTH_SECRET not found in environment');
+      return null;
+    }
+
+    const token = await getToken({
+      req: req,
+      secret: secret
+    });
+
+    if (!token) {
+      return null;
+    }
+
+    // Convert token to session-like object
+    return {
+      user: {
+        id: token.id as string,
+        email: token.email as string,
+        name: token.name as string,
+        role: token.role as string,
+      }
+    };
+  } catch (error) {
+    console.error('Auth error in UploadThing middleware:', error);
+    // Return null session if auth fails
+    return null;
+  }
+}
