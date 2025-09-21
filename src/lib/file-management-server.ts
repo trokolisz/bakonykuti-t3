@@ -161,6 +161,19 @@ export async function deletePhysicalFile(filePath: string): Promise<boolean> {
   }
 }
 
+// Delete file by public URL
+export async function deleteFileByUrl(publicUrl: string): Promise<{ success: boolean; error?: string }> {
+  try {
+    // Convert public URL back to file path
+    const filePath = path.join('public', publicUrl);
+    const success = await deletePhysicalFile(filePath);
+    return { success };
+  } catch (error) {
+    console.error('Error deleting file by URL:', error);
+    return { success: false, error: 'Failed to delete file' };
+  }
+}
+
 export async function fileExistsAsync(filePath: string): Promise<boolean> {
   try {
     await stat(filePath);

@@ -3,18 +3,19 @@ import { requireAdmin } from "~/lib/api-auth";
 import { db } from "~/server/db";
 import { images } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
-import { deleteFileByUrl } from "~/lib/file-management";
+import { deleteFileByUrl } from "~/lib/file-management-server";
 
 // PATCH - Update image metadata (title, carousel status, etc.)
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { session, error } = await requireAdmin(request);
     if (error) return error;
 
-    const imageId = parseInt(params.id);
+    const { id } = await params;
+    const imageId = parseInt(id);
     if (isNaN(imageId)) {
       return NextResponse.json({ error: 'Invalid image ID' }, { status: 400 });
     }
@@ -71,13 +72,14 @@ export async function PATCH(
 // DELETE - Delete specific image
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { session, error } = await requireAdmin(request);
     if (error) return error;
 
-    const imageId = parseInt(params.id);
+    const { id } = await params;
+    const imageId = parseInt(id);
     if (isNaN(imageId)) {
       return NextResponse.json({ error: 'Invalid image ID' }, { status: 400 });
     }

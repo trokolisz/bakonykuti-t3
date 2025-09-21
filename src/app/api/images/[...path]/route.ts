@@ -37,11 +37,12 @@ function logImageAccess(imagePath: string, success: boolean, error?: string) {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: Promise<{ path: string[] }> }
 ) {
   try {
+    const { path: pathSegments } = await params;
     // Reconstruct the file path from the URL segments
-    const requestedPath = params.path.join('/');
+    const requestedPath = pathSegments.join('/');
     
     // Security: Prevent directory traversal attacks
     if (requestedPath.includes('..') || requestedPath.includes('\\')) {
@@ -124,7 +125,7 @@ export async function GET(
   } catch (error) {
     // General server error
     const errorMessage = error instanceof Error ? error.message : 'Unknown server error';
-    logImageAccess(params.path.join('/'), false, `Server error: ${errorMessage}`);
+    logImageAccess(pathSegments.join('/'), false, `Server error: ${errorMessage}`);
     
     console.error('Image serving error:', error);
     
@@ -146,10 +147,11 @@ export async function GET(
 // Handle HEAD requests for image testing
 export async function HEAD(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: Promise<{ path: string[] }> }
 ) {
   try {
-    const requestedPath = params.path.join('/');
+    const { path: pathSegments } = await params;
+    const requestedPath = pathSegments.join('/');
     
     // Security checks (same as GET)
     if (requestedPath.includes('..') || requestedPath.includes('\\')) {
