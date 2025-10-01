@@ -118,10 +118,11 @@ async function createBackup() {
     sqlContent += `-- Generated: ${new Date().toISOString()}\n`;
     sqlContent += `-- Host: ${config.host}:${config.port}\n\n`;
     
-    // Add database creation
-    sqlContent += `DROP DATABASE IF EXISTS \`${config.database}\`;\n`;
-    sqlContent += `CREATE DATABASE \`${config.database}\`;\n`;
-    sqlContent += `USE \`${config.database}\`;\n\n`;
+    // Add database creation (use environment variable for target database name)
+    const targetDatabase = process.env.TARGET_DATABASE || config.database;
+    sqlContent += `DROP DATABASE IF EXISTS \`${targetDatabase}\`;\n`;
+    sqlContent += `CREATE DATABASE \`${targetDatabase}\`;\n`;
+    sqlContent += `USE \`${targetDatabase}\`;\n\n`;
     
     // Backup each table
     for (const table of tables as any[]) {
@@ -386,7 +387,7 @@ async function showBackupInfo() {
 // Helper functions
 function getDbConfig() {
   return {
-    host: process.env.MARIADB_HOST || 'localhost',
+    host: process.env.MARIADB_HOST || '10.200.200.42',
     port: parseInt(process.env.MARIADB_PORT || '3306'),
     user: process.env.MARIADB_USER || 'root',
     password: process.env.MARIADB_PASSWORD || '',
