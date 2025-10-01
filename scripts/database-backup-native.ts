@@ -45,6 +45,8 @@ async function main() {
 }
 
 function showHelp() {
+  const config = getDbConfig();
+
   console.log('🗄️  Native Database Backup & Restore Utility\n');
   console.log('Usage: bun run scripts/database-backup-native.ts <command> [options]\n');
   console.log('Commands:');
@@ -55,8 +57,25 @@ function showHelp() {
   console.log('  bun run scripts/database-backup-native.ts backup');
   console.log('  bun run scripts/database-backup-native.ts restore latest');
   console.log('  bun run scripts/database-backup-native.ts list');
-  console.log('\nEnvironment Variables:');
-  console.log('  MARIADB_HOST, MARIADB_PORT, MARIADB_USER, MARIADB_PASSWORD, MARIADB_DATABASE');
+
+  console.log('\n📋 Current Configuration:');
+  console.log(`  Host: ${config.host}`);
+  console.log(`  Port: ${config.port}`);
+  console.log(`  User: ${config.user}`);
+  console.log(`  Password: ${config.password ? '***set***' : '***NOT SET***'}`);
+  console.log(`  Database: ${config.database}`);
+
+  console.log('\n🔧 Environment Variables:');
+  console.log(`  MARIADB_HOST=${process.env.MARIADB_HOST ?? 'not set (using default: localhost)'}`);
+  console.log(`  MARIADB_PORT=${process.env.MARIADB_PORT ?? 'not set (using default: 3306)'}`);
+  console.log(`  MARIADB_USER=${process.env.MARIADB_USER ?? 'not set (using default: root)'}`);
+  console.log(`  MARIADB_PASSWORD=${process.env.MARIADB_PASSWORD ? '***set***' : '***NOT SET*** (required!)'}`);
+  console.log(`  MARIADB_DATABASE=${process.env.MARIADB_DATABASE ?? 'not set (using default: bakonykuti-mariadb)'}`);
+
+  if (!config.password) {
+    console.log('\n⚠️  WARNING: MARIADB_PASSWORD is not set!');
+    console.log('   Set it in your .env file or as an environment variable.');
+  }
 }
 
 async function createBackup() {
@@ -196,6 +215,43 @@ async function createBackup() {
 
 async function restoreBackup() {
   const backupIdentifier = process.argv[3] || 'latest';
+
+  // Handle help command
+  if (backupIdentifier === 'help' || backupIdentifier === '--help' || backupIdentifier === '-h') {
+    const config = getDbConfig();
+
+    console.log('🔄 Database Restore Help\n');
+    console.log('Usage: bun run scripts/database-backup-native.ts restore [backup-identifier]\n');
+    console.log('Options:');
+    console.log('  latest                    Restore the most recent backup');
+    console.log('  backup-name              Restore specific backup by name');
+    console.log('  help, --help, -h         Show this help message\n');
+    console.log('Examples:');
+    console.log('  bun run scripts/database-backup-native.ts restore latest');
+    console.log('  bun run scripts/database-backup-native.ts restore bakonykuti-mariadb-backup-2025-10-01T15-52-15');
+
+    console.log('\n📋 Current Configuration:');
+    console.log(`  Host: ${config.host}`);
+    console.log(`  Port: ${config.port}`);
+    console.log(`  User: ${config.user}`);
+    console.log(`  Password: ${config.password ? '***set***' : '***NOT SET***'}`);
+    console.log(`  Database: ${config.database}`);
+
+    console.log('\n🔧 Environment Variables:');
+    console.log(`  MARIADB_HOST=${process.env.MARIADB_HOST || 'not set (using default: localhost)'}`);
+    console.log(`  MARIADB_PORT=${process.env.MARIADB_PORT || 'not set (using default: 3306)'}`);
+    console.log(`  MARIADB_USER=${process.env.MARIADB_USER || 'not set (using default: root)'}`);
+    console.log(`  MARIADB_PASSWORD=${process.env.MARIADB_PASSWORD ? '***set***' : '***NOT SET*** (required!)'}`);
+    console.log(`  MARIADB_DATABASE=${process.env.MARIADB_DATABASE || 'not set (using default: bakonykuti-mariadb)'}`);
+
+    if (!config.password) {
+      console.log('\n⚠️  WARNING: MARIADB_PASSWORD is not set!');
+      console.log('   Set it in your .env file or as an environment variable.');
+    }
+
+    return;
+  }
+
   console.log(`🔄 Restoring database backup: ${backupIdentifier}\n`);
   
   const config = getDbConfig();
@@ -334,7 +390,7 @@ function getDbConfig() {
     port: parseInt(process.env.MARIADB_PORT || '3306'),
     user: process.env.MARIADB_USER || 'root',
     password: process.env.MARIADB_PASSWORD || '',
-    database: process.env.MARIADB_DATABASE || 'bakonykuti-mariadb',
+    database: process.env.MARIADB_DATABASE || 'bakonykuti_DB1',
   };
 }
 

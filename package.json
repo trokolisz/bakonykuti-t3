@@ -23,6 +23,8 @@
     "db:restore": "bun scripts/database-backup-native.ts restore",
     "db:backup-list": "bun scripts/database-backup-native.ts list",
     "db:backup-info": "bun scripts/database-backup-native.ts info",
+    "db:test": "bun scripts/test-backup-restore.ts",
+    "db:diagnose": "bun scripts/diagnose-database-connection.ts",
     "db:test-direct-connection": "bun scripts/test-direct-mariadb-connection.ts",
     "db:complete-migration": "bun scripts/complete-mariadb-migration.ts",
     "db:enhanced-migration": "bun scripts/enhanced-mariadb-migration.ts",
