@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-09-25T16:38:16.847Z",
+  "database": "bakonykuti-mariadb",
+  "host": "localhost",
+  "port": 3306,
+  "user": "root",
+  "tableCount": 11,
+  "files": {
+    "complete": "bakonykuti-mariadb-backup-2025-09-25T16-38-16-complete.sql",
+    "restoreScript": "bakonykuti-mariadb-backup-2025-09-25T16-38-16-restore.ts",
+    "info": "bakonykuti-mariadb-backup-2025-09-25T16-38-16-info.json"
+  }
+}
