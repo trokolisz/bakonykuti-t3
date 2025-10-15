@@ -276,14 +276,36 @@ async function restoreBackup() {
     });
     console.log('✅ Connected to database server');
     
+    // Replace database names in SQL content to match target environment
+    console.log('🔄 Adapting backup for target database...');
+    let adaptedContent = sqlContent;
+
+    // Replace any database name with the target database name
+    adaptedContent = adaptedContent.replace(
+      /DROP DATABASE IF EXISTS `[^`]+`;/g,
+      `DROP DATABASE IF EXISTS \`${config.database}\`;`
+    );
+
+    adaptedContent = adaptedContent.replace(
+      /CREATE DATABASE `[^`]+`;/g,
+      `CREATE DATABASE \`${config.database}\`;`
+    );
+
+    adaptedContent = adaptedContent.replace(
+      /USE `[^`]+`;/g,
+      `USE \`${config.database}\`;`
+    );
+
+    console.log(`✅ Adapted backup to use database: ${config.database}`);
+
     // Split SQL into statements (better handling of multi-line statements)
-    const statements = sqlContent
+    const statements = adaptedContent
       .split(';\n')
       .map(stmt => stmt.trim())
       .filter(stmt => stmt.length > 0 && !stmt.startsWith('--') && !stmt.match(/^--.*/));
-    
+
     console.log(`📊 Executing ${statements.length} SQL statements...`);
-    
+
     // Execute statements
     for (let i = 0; i < statements.length; i++) {
       const statement = statements[i];
@@ -431,6 +453,8 @@ async function createRestoreScript(config: any, outputFile: string, sqlFile: str
 /**
  * Database Restore Script
  * Generated on ${new Date().toISOString()}
+ *
+ * This script automatically adapts the backup to use the target environment's database name
  */
 
 import mysql from 'mysql2/promise';
@@ -438,7 +462,7 @@ import { promises as fs } from 'fs';
 
 async function restore() {
   console.log('🚀 Restoring database backup...');
-  
+
   const config = {
     host: process.env.MARIADB_HOST || '${config.host}',
     port: parseInt(process.env.MARIADB_PORT || '${config.port}'),
@@ -446,37 +470,67 @@ async function restore() {
     password: process.env.MARIADB_PASSWORD || '',
     database: process.env.MARIADB_DATABASE || '${config.database}',
   };
-  
+
   if (!config.password) {
     console.error('❌ MARIADB_PASSWORD environment variable is required');
     process.exit(1);
   }
-  
+
   try {
     const sqlContent = await fs.readFile('${sqlFile}', 'utf-8');
+
+    // Adapt backup to target database name
+    console.log('🔄 Adapting backup for target database...');
+    let adaptedContent = sqlContent;
+
+    adaptedContent = adaptedContent.replace(
+      /DROP DATABASE IF EXISTS \`[^\`]+\`;/g,
+      \`DROP DATABASE IF EXISTS \\\`\${config.database}\\\`;\`
+    );
+
+    adaptedContent = adaptedContent.replace(
+      /CREATE DATABASE \`[^\`]+\`;/g,
+      \`CREATE DATABASE \\\`\${config.database}\\\`;\`
+    );
+
+    adaptedContent = adaptedContent.replace(
+      /USE \`[^\`]+\`;/g,
+      \`USE \\\`\${config.database}\\\`;\`
+    );
+
+    console.log(\`✅ Adapted backup to use database: \${config.database}\`);
+
     const connection = await mysql.createConnection({
       host: config.host,
       port: config.port,
       user: config.user,
       password: config.password,
     });
-    
-    const statements = sqlContent
-      .split(';')
+
+    const statements = adaptedContent
+      .split(';\\n')
       .map(stmt => stmt.trim())
-      .filter(stmt => stmt.length > 0 && !stmt.startsWith('--'));
-    
+      .filter(stmt => stmt.length > 0 && !stmt.startsWith('--') && !stmt.match(/^--.*/));
+
     console.log(\`📊 Executing \${statements.length} SQL statements...\`);
-    
-    for (const statement of statements) {
-      if (statement.trim()) {
-        await connection.execute(statement);
+
+    for (let i = 0; i < statements.length; i++) {
+      const statement = statements[i];
+      if (statement && statement.trim()) {
+        try {
+          await connection.execute(statement);
+          if (i % 10 === 0) {
+            console.log(\`  Progress: \${i + 1}/\${statements.length} statements\`);
+          }
+        } catch (error) {
+          console.warn(\`  Warning on statement \${i + 1}: \${error?.message || error}\`);
+        }
       }
     }
-    
+
     await connection.end();
     console.log('✅ Database restored successfully!');
-    
+
   } catch (error) {
     console.error('❌ Restore failed:', error);
     process.exit(1);

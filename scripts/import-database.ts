@@ -192,6 +192,35 @@ async function dropDatabase(options: ImportOptions): Promise<void> {
 }
 
 async function importSqlFile(options: ImportOptions, sqlFile: string): Promise<void> {
+  // First, adapt the SQL file to use the target database name
+  console.log('🔄 Adapting backup for target database...');
+  const fs = require('fs').promises;
+  const sqlContent = await fs.readFile(sqlFile, 'utf-8');
+
+  let adaptedContent = sqlContent;
+
+  // Replace any database name with the target database name
+  adaptedContent = adaptedContent.replace(
+    /DROP DATABASE IF EXISTS `[^`]+`;/g,
+    `DROP DATABASE IF EXISTS \`${options.database}\`;`
+  );
+
+  adaptedContent = adaptedContent.replace(
+    /CREATE DATABASE `[^`]+`;/g,
+    `CREATE DATABASE \`${options.database}\`;`
+  );
+
+  adaptedContent = adaptedContent.replace(
+    /USE `[^`]+`;/g,
+    `USE \`${options.database}\`;`
+  );
+
+  console.log(`✅ Adapted backup to use database: ${options.database}`);
+
+  // Write adapted content to a temporary file
+  const tempFile = sqlFile + '.adapted';
+  await fs.writeFile(tempFile, adaptedContent);
+
   return new Promise((resolve, reject) => {
     const args = [
       `--host=${options.host}`,
@@ -202,10 +231,10 @@ async function importSqlFile(options: ImportOptions, sqlFile: string): Promise<v
     ];
 
     const mysql = spawn('mysql', args);
-    const readStream = require('fs').createReadStream(sqlFile);
+    const readStream = require('fs').createReadStream(tempFile);
 
     readStream.pipe(mysql.stdin);
-    
+
     mysql.stderr.on('data', (data) => {
       const errorMsg = data.toString();
       // Ignore common warnings
@@ -214,7 +243,14 @@ async function importSqlFile(options: ImportOptions, sqlFile: string): Promise<v
       }
     });
 
-    mysql.on('close', (code) => {
+    mysql.on('close', async (code) => {
+      // Clean up temporary file
+      try {
+        await fs.unlink(tempFile);
+      } catch (error) {
+        // Ignore cleanup errors
+      }
+
       if (code === 0) {
         resolve();
       } else {

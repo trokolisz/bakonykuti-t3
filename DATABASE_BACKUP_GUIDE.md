@@ -329,4 +329,39 @@ bash database-backups/latest-backup-restore.sh
 bun start
 ```
 
+## 🆕 **Database Name Adaptation Feature**
+
+### **Automatic Database Name Adaptation**
+
+The backup system now automatically adapts to different database names between environments:
+
+- **Development**: `bakonykuti-mariadb`
+- **Production**: `bakonykuti_DB1`
+- **Staging**: `any-database-name`
+
+### **How It Works**
+
+1. **During Backup**: Creates backup with original database name
+2. **During Restore**: Automatically replaces database names in SQL with target environment's name
+3. **Environment Aware**: Uses `MARIADB_DATABASE` environment variable from target system
+
+### **Example**
+
+```bash
+# Development backup contains:
+# CREATE DATABASE `bakonykuti-mariadb`;
+# USE `bakonykuti-mariadb`;
+
+# Production restore automatically converts to:
+# CREATE DATABASE `bakonykuti_DB1`;
+# USE `bakonykuti_DB1`;
+```
+
+### **Benefits**
+
+✅ **No Manual Editing** - No need to modify backup files
+✅ **Environment Agnostic** - Same backup works everywhere
+✅ **Automatic Adaptation** - Uses target environment's database name
+✅ **Error Prevention** - Eliminates "No database selected" errors
+
 This backup system ensures your data is safe and can be easily restored on any server or environment!
