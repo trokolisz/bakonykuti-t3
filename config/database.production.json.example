@@ -1,0 +1,7 @@
+{
+  "host": "prod-db.example.com",
+  "port": 3306,
+  "user": "prod_user",
+  "password": "your_production_password",
+  "database": "bakonykuti-mariadb-prod"
+}

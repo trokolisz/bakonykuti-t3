@@ -37,6 +37,13 @@ yarn-error.log*
 .env
 .env*.local
 
+# database configuration files (contain passwords)
+config/database.*.json
+
+# csv exports and test data
+csv-exports/
+test-csv/
+
 # vercel
 .vercel
 

@@ -1,0 +1,9 @@
+{
+  "timestamp": "2025-10-26T18:16:44.372Z",
+  "database": "bakonykuti-mariadb",
+  "environment": "development",
+  "type": "schema",
+  "tableCount": 11,
+  "rowCount": 0,
+  "fileSize": 6272
+}

@@ -1,0 +1,7 @@
+{
+  "host": "staging-db.example.com",
+  "port": 3306,
+  "user": "staging_user",
+  "password": "your_staging_password",
+  "database": "bakonykuti-mariadb-staging"
+}
