@@ -106,18 +106,20 @@ export async function GET(
       // File doesn't exist or can't be read
       const errorMessage = fileError instanceof Error ? fileError.message : 'Unknown file error';
       logImageAccess(requestedPath, false, errorMessage);
-      
-      // Return detailed error in development, generic in production
-      const isDevelopment = process.env.NODE_ENV === 'development';
-      const responseMessage = isDevelopment 
-        ? `File not found: ${requestedPath} (${errorMessage})`
-        : 'Not Found';
-      
-      return new NextResponse(responseMessage, { 
-        status: 404,
+
+      // Return a 1x1 transparent PNG instead of an error to prevent Next.js optimization errors
+      const transparentPixel = Buffer.from(
+        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChAI9jU77zgAAAABJRU5ErkJggg==',
+        'base64'
+      );
+
+      return new NextResponse(transparentPixel, {
+        status: 200, // Return 200 to prevent Next.js errors
         headers: {
-          'Content-Type': 'text/plain',
-          'Cache-Control': 'no-cache'
+          'Content-Type': 'image/png',
+          'Cache-Control': 'public, max-age=300', // Cache for 5 minutes
+          'X-Image-Error': 'true', // Custom header to indicate this is an error placeholder
+          'X-Original-Path': requestedPath
         }
       });
     }
@@ -187,7 +189,16 @@ export async function HEAD(
       return new NextResponse(null, { status: 200, headers });
 
     } catch (fileError) {
-      return new NextResponse(null, { status: 404 });
+      // Return headers for a 1x1 transparent PNG placeholder
+      const headers = new Headers({
+        'Content-Type': 'image/png',
+        'Content-Length': '68', // Size of the base64 transparent pixel
+        'Cache-Control': 'public, max-age=300',
+        'X-Image-Error': 'true',
+        'X-Original-Path': requestedPath
+      });
+
+      return new NextResponse(null, { status: 200, headers });
     }
 
   } catch (error) {

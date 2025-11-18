@@ -1,9 +1,8 @@
 "use client"
 import { useState, useRef, useEffect, useCallback } from "react"
-import Image from "next/image"
 import { formatDate } from "~/lib/utils"
-
 import { type Image as imageType} from "~/server/db/schema"
+import RobustImage from "~/components/ui/robust-image"
 
 function getVisibleIndices(current: number, total: number) {
   if (total <= 7) return Array.from(Array(total).keys())
@@ -86,11 +85,12 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
             >
               {/* ...existing card-like structure... */}
               <div className="relative aspect-square">
-                <Image
+                <RobustImage
                   src={img.url}
                   alt={img.title ?? "Uploaded image"}
                   fill
                   className="object-cover transition-transform hover:scale-105"
+                  showErrorDetails={process.env.NODE_ENV === 'development'}
                 />
               </div>
               {/* ...existing content like Title, Added date... */}
@@ -130,11 +130,12 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
                   <path d="M15 18l-6-6 6-6" />
                 </svg>
               </button>
-              <Image
+              <RobustImage
                 src={images[index]?.url ?? ""}
                 alt={images[index]?.title ?? "Uploaded image"}
                 fill
                 className="object-contain transition-transform scale-125 lg:scale-150"
+                showErrorDetails={true}
               />
               <button
                 onClick={nextImage}
@@ -165,7 +166,7 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
                 className={`relative w-24 h-16 cursor-pointer ${i === index ? "border-4 border-white" : "border"}`}
                 onClick={() => setIndex(i)}
               >
-                <Image src={images[i]?.url ?? ""} alt={images[i]?.url ?? ""} fill className="object-cover border" />
+                <RobustImage src={images[i]?.url ?? ""} alt={images[i]?.url ?? ""} fill className="object-cover border" />
               </div>
             ))}
           </div>

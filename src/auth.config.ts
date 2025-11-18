@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 
 export const authConfig: NextAuthConfig = {
-  debug: true,
+  debug: process.env.NODE_ENV === 'development',
   pages: {
     signIn: "/auth/signin",
     error: "/auth/error",

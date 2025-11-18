@@ -19,7 +19,7 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
-  debug: true,
+  debug: process.env.NODE_ENV === 'development',
   pages: {
     signIn: "/auth/signin",
     error: "/auth/error",

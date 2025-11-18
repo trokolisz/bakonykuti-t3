@@ -30,8 +30,13 @@ const config = {
             protocol: 'http',
             hostname: 'www.bakonykuti.hu',
           }
-        ]
-
+        ],
+        // Handle image optimization errors more gracefully
+        dangerouslyAllowSVG: true,
+        contentDispositionType: 'attachment',
+        contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+        // Minimize errors by allowing unoptimized images when needed
+        unoptimized: process.env.NODE_ENV === 'development'
     },
     typescript: {
         ignoreBuildErrors: true,

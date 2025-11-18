@@ -1,8 +1,8 @@
 "use client"
 import { useState } from "react"
-import Image from "next/image"
 import { formatDate } from "~/lib/utils"
 import { type Image as imageType} from "~/server/db/schema"
+import RobustImage from "~/components/ui/robust-image"
 
 export default function GalleryPageClient({ 
   images,
@@ -49,11 +49,12 @@ export default function GalleryPageClient({
           className="overflow-hidden bg-secondary p-4 rounded-lg shadow-md"
         >
           <div className="relative aspect-square mb-4">
-            <Image
+            <RobustImage
               src={img.url}
               alt={img.title}
               fill
               className="object-cover"
+              showErrorDetails={true}
             />
           </div>
 
