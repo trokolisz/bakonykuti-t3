@@ -2,6 +2,9 @@ import { redirect } from 'next/navigation';
 import { auth } from '~/auth';
 import FileManagementClient from './FileManagementClient';
 
+// Force dynamic rendering to prevent static generation issues with auth()
+export const dynamic = 'force-dynamic';
+
 export default async function FileManagementPage() {
   try {
     const session = await auth();

@@ -286,7 +286,7 @@ export default function DebugImage({
                 <Button 
                   size="sm" 
                   variant="outline" 
-                  onClick={() => window.open(`/admin/debug/images?test=${encodeURIComponent(src)}`, '_blank')}
+                  onClick={() => window.open('/admin/debug/images?test=' + encodeURIComponent(src), '_blank')}
                   className="text-xs h-6"
                 >
                   Debug

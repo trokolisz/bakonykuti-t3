@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import { requireAdmin } from '~/lib/api-auth';
 import {
   getAllFileRecords,
@@ -12,7 +13,7 @@ import {
 // GET - List all files or files by type
 export async function GET(request: NextRequest) {
   try {
-    const { session, error } = await requireAdmin(request);
+    const { error } = await requireAdmin(request);
     if (error) return error;
 
     const { searchParams } = new URL(request.url);
@@ -54,7 +55,7 @@ export async function GET(request: NextRequest) {
 // DELETE - Delete a specific file
 export async function DELETE(request: NextRequest) {
   try {
-    const { session, error } = await requireAdmin(request);
+    const { error } = await requireAdmin(request);
     if (error) return error;
 
     const { searchParams } = new URL(request.url);
@@ -93,7 +94,7 @@ export async function DELETE(request: NextRequest) {
 // POST - Bulk operations and cleanup
 export async function POST(request: NextRequest) {
   try {
-    const { session, error } = await requireAdmin(request);
+    const { error } = await requireAdmin(request);
     if (error) return error;
 
     const body = await request.json();

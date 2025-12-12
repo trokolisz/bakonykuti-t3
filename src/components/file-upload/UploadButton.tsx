@@ -64,7 +64,7 @@ export default function UploadButton({
   endpoint,
   onClientUploadComplete,
   onUploadError,
-  onUploadProgress,
+  onUploadProgress: _onUploadProgress,
   disabled = false,
   children,
   maxFiles,

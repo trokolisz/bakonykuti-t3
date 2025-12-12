@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { requireAdmin } from "~/lib/api-auth";
 import { db } from "~/server/db";
 import { images } from "~/server/db/schema";
