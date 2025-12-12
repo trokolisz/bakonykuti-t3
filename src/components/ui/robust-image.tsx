@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { ImageIcon, AlertTriangle } from 'lucide-react';
+import { logImageError, isPlaceholderImage } from '~/lib/image-error-handler';
 
 interface RobustImageProps {
   src: string;
@@ -33,11 +34,25 @@ export default function RobustImage({
   const [isLoading, setIsLoading] = useState(true);
   const [currentSrc, setCurrentSrc] = useState(src);
 
-  const handleLoad = useCallback(() => {
+  const handleLoad = useCallback((event: React.SyntheticEvent<HTMLImageElement>) => {
+    const img = event.currentTarget;
+
+    // Check if this is a placeholder image (1x1 transparent PNG)
+    // The server returns this when the actual image is missing
+    if (isPlaceholderImage(img)) {
+      // This is likely a placeholder - treat as error
+      setIsLoading(false);
+      setHasError(true);
+      const errorMessage = `Image not found: ${src}`;
+      logImageError(src, errorMessage, true);
+      onError?.(errorMessage);
+      return;
+    }
+
     setIsLoading(false);
     setHasError(false);
     onLoad?.();
-  }, [onLoad]);
+  }, [src, onLoad, onError]);
 
   const handleError = useCallback(() => {
     setIsLoading(false);
@@ -51,33 +66,33 @@ export default function RobustImage({
     // Mark as error and notify parent
     setHasError(true);
     const errorMessage = `Failed to load image: ${src}`;
+    logImageError(src, errorMessage);
     onError?.(errorMessage);
-    
-    // Log error for debugging (only in development)
-    if (process.env.NODE_ENV === 'development') {
-      console.warn(`RobustImage: ${errorMessage}`);
-    }
   }, [src, fallbackSrc, currentSrc, onError]);
 
   // Error state - show placeholder
   if (hasError) {
-    const containerStyle = fill 
+    const containerStyle = fill
       ? { position: 'absolute' as const, inset: 0 }
       : { width, height };
 
     return (
-      <div 
-        className={`flex items-center justify-center bg-gray-100 border border-gray-200 ${className}`}
+      <div
+        className={`flex items-center justify-center bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg ${className}`}
         style={containerStyle}
+        title={`Failed to load image: ${src}`}
       >
         <div className="text-center p-4">
           <ImageIcon className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-          <p className="text-xs text-gray-500">Image unavailable</p>
+          <p className="text-xs text-gray-500 font-medium">Image unavailable</p>
           {showErrorDetails && (
-            <div className="mt-2">
-              <AlertTriangle className="h-4 w-4 text-amber-500 mx-auto mb-1" />
+            <div className="mt-2 space-y-1">
+              <AlertTriangle className="h-4 w-4 text-amber-500 mx-auto" />
               <p className="text-xs text-amber-600">
-                {src.startsWith('http') ? 'External image failed' : 'Local file missing'}
+                {src.startsWith('http') ? 'External image failed to load' : 'Local file not found'}
+              </p>
+              <p className="text-xs text-gray-400 break-all">
+                {src.length > 30 ? `...${src.slice(-30)}` : src}
               </p>
             </div>
           )}

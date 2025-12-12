@@ -90,7 +90,10 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
                   alt={img.title ?? "Uploaded image"}
                   fill
                   className="object-cover transition-transform hover:scale-105"
-                  showErrorDetails={process.env.NODE_ENV === 'development'}
+                  showErrorDetails={true}
+                  onError={(error) => {
+                    console.warn(`Gallery image failed to load: ${img.url}`, error);
+                  }}
                 />
               </div>
               {/* ...existing content like Title, Added date... */}

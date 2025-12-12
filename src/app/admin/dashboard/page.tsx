@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/com
 
 import { ImageIcon, NewspaperIcon, FileTextIcon, CalendarIcon, Bug, FolderIcon } from "lucide-react"
 import { Button } from "~/components/ui/button"
+import ImageHealthStatus from "~/components/admin/ImageHealthStatus"
 
 
 export default function AdminDashboard() {
@@ -18,6 +19,12 @@ export default function AdminDashboard() {
     <div className="container py-8">
 
       <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
+
+      {/* Image Health Status */}
+      <div className="mb-8">
+        <ImageHealthStatus />
+      </div>
+
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Link href="/admin/news/create">
           <Card className="hover:bg-primary/5 transition-colors cursor-pointer">
