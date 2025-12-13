@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
-import Image from 'next/image';
+import React, { useState, useCallback, useEffect } from 'react';
 import { ImageIcon, AlertTriangle } from 'lucide-react';
 import { logImageError, isPlaceholderImage } from '~/lib/image-error-handler';
 
@@ -34,13 +33,40 @@ export default function RobustImage({
   const [isLoading, setIsLoading] = useState(true);
   const [currentSrc, setCurrentSrc] = useState(src);
 
+  // Debug logging
+  console.log(`RobustImage: Initializing with src=${src}, isLoading=${isLoading}, hasError=${hasError}`);
+
+  // Reset states when src changes
+  useEffect(() => {
+    console.log(`RobustImage: src changed to ${src}, resetting states`);
+    setIsLoading(true);
+    setHasError(false);
+    setCurrentSrc(src);
+  }, [src]);
+
+  // Add a timeout to prevent infinite loading state
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (isLoading) {
+        console.log(`RobustImage: Timeout reached for ${src}, forcing error state`);
+        setIsLoading(false);
+        setHasError(true);
+      }
+    }, 5000); // 5 second timeout
+
+    return () => clearTimeout(timeout);
+  }, [src, isLoading]);
+
   const handleLoad = useCallback((event: React.SyntheticEvent<HTMLImageElement>) => {
+    console.log(`RobustImage handleLoad called for: ${src}`);
     const img = event.currentTarget;
+    console.log(`Image dimensions: ${img.naturalWidth}x${img.naturalHeight}`);
 
     // Check if this is a placeholder image (1x1 transparent PNG)
     // The server returns this when the actual image is missing
     if (isPlaceholderImage(img)) {
       // This is likely a placeholder - treat as error
+      console.log(`RobustImage: Detected placeholder for ${src}`);
       setIsLoading(false);
       setHasError(true);
       const errorMessage = `Image not found: ${src}`;
@@ -49,21 +75,25 @@ export default function RobustImage({
       return;
     }
 
+    console.log(`RobustImage: Successfully loaded ${src} (${img.naturalWidth}x${img.naturalHeight})`);
     setIsLoading(false);
     setHasError(false);
     onLoad?.();
   }, [src, onLoad, onError]);
 
   const handleError = useCallback(() => {
+    console.log(`RobustImage handleError called for: ${src}`);
     setIsLoading(false);
-    
+
     // If we haven't tried the fallback yet and one is provided
     if (fallbackSrc && currentSrc !== fallbackSrc) {
+      console.log(`RobustImage: Trying fallback ${fallbackSrc} for ${src}`);
       setCurrentSrc(fallbackSrc);
       return;
     }
-    
+
     // Mark as error and notify parent
+    console.log(`RobustImage: Setting error state for ${src}`);
     setHasError(true);
     const errorMessage = `Failed to load image: ${src}`;
     logImageError(src, errorMessage);
@@ -117,15 +147,51 @@ export default function RobustImage({
     );
   }
 
-  // Normal image rendering
-  const imageProps = {
-    src: currentSrc,
-    alt,
-    className,
-    onLoad: handleLoad,
-    onError: handleError,
-    ...(fill ? { fill: true } : { width, height })
-  };
+  // For local uploads, use regular img tag to avoid Next.js Image optimization issues
+  if (currentSrc.startsWith('/uploads/')) {
+    const imgStyle = fill
+      ? { position: 'absolute' as const, inset: 0, width: '100%', height: '100%', objectFit: 'cover' as const }
+      : { width, height };
 
-  return <Image {...imageProps} />;
+    return (
+      <img
+        src={currentSrc}
+        alt={alt}
+        className={className}
+        style={imgStyle}
+        onLoad={(e) => {
+          console.log(`LOCAL IMG onLoad event fired for: ${currentSrc}`);
+          handleLoad(e);
+        }}
+        onError={(_e) => {
+          console.log(`LOCAL IMG onError event fired for: ${currentSrc}`);
+          handleError();
+        }}
+      />
+    );
+  }
+
+  // For external images, also use regular img tag for now to debug
+  const imgStyle = fill
+    ? { position: 'absolute' as const, inset: 0, width: '100%', height: '100%', objectFit: 'cover' as const }
+    : { width, height };
+
+  console.log(`RobustImage: Rendering img with src=${currentSrc}, onLoad=${!!handleLoad}, onError=${!!handleError}`);
+
+  return (
+    <img
+      src={currentSrc}
+      alt={alt}
+      className={className}
+      style={imgStyle}
+      onLoad={(e) => {
+        console.log(`IMG onLoad event fired for: ${currentSrc}`);
+        handleLoad(e);
+      }}
+      onError={(e) => {
+        console.log(`IMG onError event fired for: ${currentSrc}`);
+        handleError();
+      }}
+    />
+  );
 }

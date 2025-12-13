@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { formatDate } from "~/lib/utils"
 import { type Image as imageType} from "~/server/db/schema"
-import RobustImage from "~/components/ui/robust-image"
+import Image from "next/image"
 
 export default function GalleryPageClient({ 
   images,
@@ -49,12 +49,12 @@ export default function GalleryPageClient({
           className="overflow-hidden bg-secondary p-4 rounded-lg shadow-md"
         >
           <div className="relative aspect-square mb-4">
-            <RobustImage
+            <Image
               src={img.url}
               alt={img.title}
               fill
               className="object-cover"
-              showErrorDetails={true}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>
 

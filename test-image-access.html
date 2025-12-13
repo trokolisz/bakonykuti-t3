@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Access Test</title>
+</head>
+<body>
+    <h1>Image Access Test</h1>
+    
+    <h2>Local Images (should work with Next.js static serving)</h2>
+    <div>
+        <h3>Direct static file access:</h3>
+        <img src="/uploads/gallery/Artemis_3d7f7929.png" alt="Artemis" style="max-width: 200px; border: 1px solid red;" 
+             onload="console.log('Direct static: SUCCESS')" 
+             onerror="console.log('Direct static: FAILED')">
+        
+        <h3>Via API route:</h3>
+        <img src="/api/images/uploads/gallery/Artemis_3d7f7929.png" alt="Artemis via API" style="max-width: 200px; border: 1px solid blue;" 
+             onload="console.log('API route: SUCCESS')" 
+             onerror="console.log('API route: FAILED')">
+    </div>
+    
+    <h2>External Images (UploadThing)</h2>
+    <div>
+        <img src="https://utfs.io/f/26L8Sk7UnuECn1bcfKypuwvx56J1US2AQWgyPYTDO7XGiend" alt="External" style="max-width: 200px; border: 1px solid green;" 
+             onload="console.log('External: SUCCESS')" 
+             onerror="console.log('External: FAILED')">
+    </div>
+    
+    <script>
+        // Test fetch requests
+        console.log('Testing image accessibility...');
+
+        fetch('/uploads/gallery/Artemis_3d7f7929.png')
+            .then(response => {
+                console.log('Direct fetch status:', response.status, response.statusText);
+                if (response.ok) {
+                    return response.blob();
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            })
+            .then(blob => {
+                console.log('Direct fetch SUCCESS - blob size:', blob.size);
+            })
+            .catch(err => console.log('Direct fetch ERROR:', err));
+
+        fetch('/api/images/uploads/gallery/Artemis_3d7f7929.png')
+            .then(response => {
+                console.log('API fetch status:', response.status, response.statusText);
+                if (response.ok) {
+                    return response.blob();
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            })
+            .then(blob => {
+                console.log('API fetch SUCCESS - blob size:', blob.size);
+            })
+            .catch(err => console.log('API fetch ERROR:', err));
+
+        // Test external image
+        fetch('https://utfs.io/f/26L8Sk7UnuECn1bcfKypuwvx56J1US2AQWgyPYTDO7XGiend')
+            .then(response => {
+                console.log('External fetch status:', response.status, response.statusText);
+                if (response.ok) {
+                    return response.blob();
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            })
+            .then(blob => {
+                console.log('External fetch SUCCESS - blob size:', blob.size);
+            })
+            .catch(err => console.log('External fetch ERROR:', err));
+    </script>
+</body>
+</html>

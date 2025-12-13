@@ -171,6 +171,7 @@ export default function ImageManagementTable({
                       alt={image.title}
                       fill
                       className="object-cover rounded"
+                      sizes="64px"
                     />
                   </div>
                 </td>

@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect, useCallback } from "react"
 import { formatDate } from "~/lib/utils"
 import { type Image as imageType} from "~/server/db/schema"
-import RobustImage from "~/components/ui/robust-image"
+import Image from "next/image"
 
 function getVisibleIndices(current: number, total: number) {
   if (total <= 7) return Array.from(Array(total).keys())
@@ -85,15 +85,12 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
             >
               {/* ...existing card-like structure... */}
               <div className="relative aspect-square">
-                <RobustImage
+                <Image
                   src={img.url}
                   alt={img.title ?? "Uploaded image"}
                   fill
                   className="object-cover transition-transform hover:scale-105"
-                  showErrorDetails={true}
-                  onError={(error) => {
-                    console.warn(`Gallery image failed to load: ${img.url}`, error);
-                  }}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>
               {/* ...existing content like Title, Added date... */}
@@ -133,12 +130,13 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
                   <path d="M15 18l-6-6 6-6" />
                 </svg>
               </button>
-              <RobustImage
+              <Image
                 src={images[index]?.url ?? ""}
                 alt={images[index]?.title ?? "Uploaded image"}
                 fill
                 className="object-contain transition-transform scale-125 lg:scale-150"
-                showErrorDetails={true}
+                sizes="100vw"
+                priority
               />
               <button
                 onClick={nextImage}
@@ -169,7 +167,13 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
                 className={`relative w-24 h-16 cursor-pointer ${i === index ? "border-4 border-white" : "border"}`}
                 onClick={() => setIndex(i)}
               >
-                <RobustImage src={images[i]?.url ?? ""} alt={images[i]?.url ?? ""} fill className="object-cover border" />
+                <Image
+                  src={images[i]?.url ?? ""}
+                  alt={images[i]?.title ?? "Thumbnail"}
+                  fill
+                  className="object-cover border"
+                  sizes="96px"
+                />
               </div>
             ))}
           </div>
