@@ -8,15 +8,27 @@ import { createFileRecord, getMimeTypeFromExtension } from '~/lib/file-managemen
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('🔄 Gallery upload request received');
+
     // Check authentication
     const { session, error } = await requireAuth(request);
-    if (error) return error;
+    if (error) {
+      console.log('❌ Authentication failed');
+      return error;
+    }
+    console.log('✅ Authentication successful for user:', session.user.id);
 
     // Parse form data
     const formData = await request.formData();
     const files = formData.getAll('files') as File[];
 
+    console.log(`📁 Received ${files.length} files for upload`);
+    files.forEach((file, index) => {
+      console.log(`  File ${index + 1}: ${file.name} (${file.size} bytes, ${file.type})`);
+    });
+
     if (!files || files.length === 0) {
+      console.log('❌ No files provided');
       return NextResponse.json(
         { error: 'No files provided' },
         { status: 400 }
@@ -24,13 +36,21 @@ export async function POST(request: NextRequest) {
     }
 
     // Process file uploads (max 5 files for gallery)
+    console.log('🔄 Processing file uploads...');
     const uploadResults = await processMultipleFiles(files, 'gallery', 5);
+
+    console.log('📊 Upload results:', uploadResults.map(r => ({
+      success: r.success,
+      url: r.url,
+      error: r.error
+    })));
 
     // Check if any uploads failed
     const failedUploads = uploadResults.filter(result => !result.success);
     if (failedUploads.length > 0) {
+      console.log('❌ Some uploads failed:', failedUploads);
       return NextResponse.json(
-        { 
+        {
           error: 'Some uploads failed',
           details: failedUploads.map(f => f.error)
         },
@@ -39,27 +59,37 @@ export async function POST(request: NextRequest) {
     }
 
     // Save successful uploads to database
+    console.log('💾 Saving uploads to database...');
     const savedImages = [];
     for (const result of uploadResults) {
       if (result.success && result.url) {
-        // Insert the image (MySQL/MariaDB doesn't support .returning())
-        await db.insert(images).values({
-          title: result.filename || '',
-          url: result.url,
-          gallery: true,
-          visible: true, // New images are visible by default
-          localPath: result.url, // Store the public URL as local path for now
-          image_size: result.size || 0,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        });
+        console.log(`💾 Inserting image: ${result.url}`);
+        try {
+          // Insert the image (MySQL/MariaDB doesn't support .returning())
+          await db.insert(images).values({
+            title: result.filename || '',
+            url: result.url,
+            gallery: true,
+            visible: true, // New images are visible by default
+            localPath: result.url, // Store the public URL as local path for now
+            image_size: result.size || 0,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          });
+          console.log(`✅ Successfully inserted image: ${result.url}`);
+        } catch (dbError) {
+          console.error(`❌ Database insertion failed for ${result.url}:`, dbError);
+          throw dbError;
+        }
 
         // Get the inserted image by URL (since we can't use returning())
+        console.log(`🔍 Looking up inserted image: ${result.url}`);
         const savedImage = await db.query.images.findFirst({
           where: eq(images.url, result.url),
         });
 
         if (savedImage) {
+          console.log(`✅ Found inserted image with ID: ${savedImage.id}`);
           // Create file record for tracking
           try {
             await createFileRecord({
@@ -76,9 +106,11 @@ export async function POST(request: NextRequest) {
               isOrphaned: false,
             });
           } catch (error) {
-            console.error('Error creating file record:', error);
+            console.error('❌ Error creating file record:', error);
             // Continue even if file record creation fails
           }
+        } else {
+          console.log(`⚠️  Could not find inserted image: ${result.url}`);
         }
 
         savedImages.push({
@@ -87,9 +119,11 @@ export async function POST(request: NextRequest) {
           filename: result.filename,
           size: result.size,
         });
+        console.log(`✅ Added to savedImages: ${result.url}`);
       }
     }
 
+    console.log(`🎉 Upload complete! Saved ${savedImages.length} images`);
     return NextResponse.json({
       success: true,
       message: `Successfully uploaded ${savedImages.length} image(s)`,
@@ -97,9 +131,9 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('Gallery upload error:', error);
+    console.error('❌ Gallery upload error:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

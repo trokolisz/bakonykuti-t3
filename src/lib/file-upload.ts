@@ -70,28 +70,37 @@ export async function saveFileToLocal(
   uploadType: UploadType
 ): Promise<{ success: boolean; filePath?: string; publicUrl?: string; error?: string }> {
   try {
+    console.log(`📁 Saving file: ${file.name} (${file.size} bytes) to ${uploadType}`);
+
     // Validate file type
     const fileType = uploadType === 'documents' ? 'document' : 'image';
     const validation = validateFile(file, fileType);
     if (!validation.valid) {
+      console.log(`❌ File validation failed: ${validation.error}`);
       return { success: false, error: validation.error };
     }
+    console.log(`✅ File validation passed`);
 
     // Ensure upload directory exists
     await ensureUploadDir(uploadType);
+    console.log(`✅ Upload directory ensured: ${UPLOAD_DIRS[uploadType]}`);
 
     // Generate unique filename
     const filename = generateUniqueFilename(file.name);
     const uploadDir = UPLOAD_DIRS[uploadType];
     const filePath = path.join(uploadDir, filename);
+    console.log(`📝 Generated filename: ${filename}`);
+    console.log(`📂 Full file path: ${filePath}`);
 
     // Convert file to buffer and save
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     await writeFile(filePath, buffer);
+    console.log(`💾 File saved successfully to: ${filePath}`);
 
-    // Generate public URL (remove 'public' from path for web access)
-    const publicUrl = `/${uploadDir.replace('public/', '')}/${filename}`;
+    // Generate public URL through API route for proper serving
+    const publicUrl = `/api/images/${uploadDir.replace('public/', '')}/${filename}`;
+    console.log(`🌐 Generated public URL: ${publicUrl}`);
 
     return {
       success: true,
@@ -99,10 +108,10 @@ export async function saveFileToLocal(
       publicUrl,
     };
   } catch (error) {
-    console.error('Error saving file:', error);
+    console.error('❌ Error saving file:', error);
     return {
       success: false,
-      error: 'Failed to save file',
+      error: `Failed to save file: ${error instanceof Error ? error.message : 'Unknown error'}`,
     };
   }
 }

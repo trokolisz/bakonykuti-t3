@@ -91,6 +91,7 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
                   fill
                   className="object-cover transition-transform hover:scale-105"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  unoptimized={img.url.startsWith('/uploads/') || img.url.startsWith('/api/images/')}
                 />
               </div>
               {/* ...existing content like Title, Added date... */}
@@ -137,6 +138,7 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
                 className="object-contain transition-transform scale-125 lg:scale-150"
                 sizes="100vw"
                 priority
+                unoptimized={(images[index]?.url ?? "").startsWith('/uploads/') || (images[index]?.url ?? "").startsWith('/api/images/')}
               />
               <button
                 onClick={nextImage}
@@ -173,6 +175,7 @@ export default function GalleryPageClient({ images }: { images: imageType[] }) {
                   fill
                   className="object-cover border"
                   sizes="96px"
+                  unoptimized={(images[i]?.url ?? "").startsWith('/uploads/') || (images[i]?.url ?? "").startsWith('/api/images/')}
                 />
               </div>
             ))}

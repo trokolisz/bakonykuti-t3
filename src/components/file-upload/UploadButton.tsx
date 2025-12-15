@@ -121,6 +121,11 @@ export default function UploadButton({
   const uploadFiles = async (files: File[]) => {
     if (files.length === 0) return;
 
+    console.log(`🔄 Starting upload of ${files.length} files to ${endpoint}`);
+    files.forEach((file, index) => {
+      console.log(`  File ${index + 1}: ${file.name} (${file.size} bytes)`);
+    });
+
     setIsUploading(true);
 
     try {
@@ -136,17 +141,22 @@ export default function UploadButton({
         if (documentMetadata.date) formData.append('date', documentMetadata.date);
       }
 
+      console.log(`📤 Sending request to: ${config.apiPath}`);
       const response = await fetch(config.apiPath, {
         method: 'POST',
         body: formData,
       });
 
+      console.log(`📥 Response status: ${response.status} ${response.statusText}`);
+
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Upload failed');
+        console.error('❌ Upload failed:', errorData);
+        throw new Error(errorData.error || `Upload failed with status ${response.status}`);
       }
 
       const result = await response.json();
+      console.log('✅ Upload successful:', result);
       
       if (result.success) {
         let uploadedFiles: UploadedFile[] = [];

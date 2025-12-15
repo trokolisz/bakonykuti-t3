@@ -172,6 +172,7 @@ export default function ImageManagementTable({
                       fill
                       className="object-cover rounded"
                       sizes="64px"
+                      unoptimized={image.url.startsWith('/uploads/') || image.url.startsWith('/api/images/')}
                     />
                   </div>
                 </td>

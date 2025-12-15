@@ -40,6 +40,7 @@ export default function ImageCard({
                         height={300}
                         alt={image.title || 'Uploaded image'}
                         className="w-full h-48 object-cover rounded-md mb-4"
+                        unoptimized={image.url.startsWith('/uploads/') || image.url.startsWith('/api/images/')}
                     />
                     <button
                         onClick={onDelete}
