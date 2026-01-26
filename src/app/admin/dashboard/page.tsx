@@ -4,7 +4,7 @@
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card"
 
-import { ImageIcon, NewspaperIcon, FileTextIcon, CalendarIcon, Bug, FolderIcon } from "lucide-react"
+import { ImageIcon, NewspaperIcon, FileTextIcon, CalendarIcon, Bug, FolderIcon, Users } from "lucide-react"
 import { Button } from "~/components/ui/button"
 import ImageHealthStatus from "~/components/admin/ImageHealthStatus"
 
@@ -141,6 +141,26 @@ export default function AdminDashboard() {
               </p>
               <Button variant="outline" className="w-full">
                 Manage Files
+              </Button>
+            </CardContent>
+          </Card>
+        </Link>
+
+        <Link href="/admin/users">
+          <Card className="hover:bg-primary/5 transition-colors cursor-pointer">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Users className="h-5 w-5 text-primary" />
+                User Management
+              </CardTitle>
+              <CardDescription>Manage admin users and passwords</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Create admin accounts and change passwords
+              </p>
+              <Button variant="outline" className="w-full">
+                Manage Users
               </Button>
             </CardContent>
           </Card>
