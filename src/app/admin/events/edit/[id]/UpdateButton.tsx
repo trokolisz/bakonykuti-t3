@@ -93,7 +93,7 @@ export default function UpdateButton({ updateAction, event }: UpdateButtonProps)
             <div className="flex gap-2">
               <Input
                 required
-                type='url'
+                type='text'
                 id="thumbnail"
                 name="thumbnail"
                 defaultValue={event.thumbnail}

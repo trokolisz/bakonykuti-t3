@@ -57,7 +57,7 @@ export default function UpdateButton({ updateAction, news }: UpdateButtonProps) 
       />
       <input
         id="url_input"
-        type="url"
+        type="text"
         name="url"
         required
         defaultValue={news.thumbnail}

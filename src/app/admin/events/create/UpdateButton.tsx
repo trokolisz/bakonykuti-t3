@@ -76,7 +76,7 @@ export default function UpdateButton({ updateAction }: UpdateButtonProps) {
                 <option value="gun_range">Lőtér</option>
             </select>
             <input
-                type="url"
+                type="text"
                 name="thumbnail"
                 value={thumbnailUrl}
                 onChange={(e) => setThumbnailUrl(e.target.value)}

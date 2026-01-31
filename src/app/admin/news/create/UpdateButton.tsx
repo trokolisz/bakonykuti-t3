@@ -56,7 +56,7 @@ export default function UpdateButton({ updateAction }: UpdateButtonProps) {
                 className="border placeholder:text-gray-300 bg-secondary text-foreground border-gray-300 p-3 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
             />
             <input
-                type="url"
+                type="text"
                 name="url"
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
