@@ -28,7 +28,7 @@ export interface DocumentUploadProps {
 
 export default function DocumentUpload({
   className,
-  maxFileSize = 4, // 4MB default
+  maxFileSize = 20, // 20MB default for documents
   acceptedFileTypes = ['application/pdf'],
   onUploadComplete,
   onUploadError,

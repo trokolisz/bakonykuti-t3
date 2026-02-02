@@ -4,7 +4,8 @@ import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
 // File validation constants
-export const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4MB
+export const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4MB for images
+export const MAX_DOCUMENT_SIZE = 20 * 1024 * 1024; // 20MB for documents
 export const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 export const ALLOWED_DOCUMENT_TYPES = ['application/pdf'];
 
@@ -19,8 +20,9 @@ export const UPLOAD_DIRS = {
 export type UploadType = keyof typeof UPLOAD_DIRS;
 
 // File validation functions
-export function validateFileSize(file: File): boolean {
-  return file.size <= MAX_FILE_SIZE;
+export function validateFileSize(file: File, type: 'image' | 'document' = 'image'): boolean {
+  const maxSize = type === 'document' ? MAX_DOCUMENT_SIZE : MAX_FILE_SIZE;
+  return file.size <= maxSize;
 }
 
 export function validateImageType(file: File): boolean {
@@ -32,8 +34,9 @@ export function validateDocumentType(file: File): boolean {
 }
 
 export function validateFile(file: File, type: 'image' | 'document'): { valid: boolean; error?: string } {
-  if (!validateFileSize(file)) {
-    return { valid: false, error: 'File size must be less than 4MB' };
+  if (!validateFileSize(file, type)) {
+    const maxSizeMB = type === 'document' ? 20 : 4;
+    return { valid: false, error: `File size must be less than ${maxSizeMB}MB` };
   }
 
   if (type === 'image' && !validateImageType(file)) {

@@ -33,7 +33,7 @@ export const uploadConfigs = {
   bakonykutiDocumentPdfUploader: {
     endpoint: 'documents' as const,
     maxFiles: 1,
-    maxFileSize: 4,
+    maxFileSize: 20,
     acceptedFileTypes: ['application/pdf']
   }
 };

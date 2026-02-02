@@ -29,6 +29,11 @@ export interface UploadButtonProps {
     category?: string;
     date?: string;
   };
+  getDocumentMetadata?: () => {
+    title?: string;
+    category?: string;
+    date?: string;
+  } | null;
 }
 
 // Default configurations for each endpoint
@@ -53,7 +58,7 @@ const endpointConfigs = {
   },
   documents: {
     maxFiles: 1,
-    maxFileSize: 4,
+    maxFileSize: 20,
     acceptedFileTypes: ['application/pdf'],
     apiPath: '/api/upload/documents'
   }
@@ -70,7 +75,8 @@ export default function UploadButton({
   maxFiles,
   maxFileSize,
   acceptedFileTypes,
-  documentMetadata
+  documentMetadata,
+  getDocumentMetadata
 }: UploadButtonProps) {
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -97,12 +103,14 @@ export default function UploadButton({
     if (!files || disabled) return;
 
     const fileArray = Array.from(files);
-    
+
     // Check file count
     if (fileArray.length > finalMaxFiles) {
       onUploadError?.({ message: `Maximum ${finalMaxFiles} files allowed` });
       return;
     }
+
+
 
     // Validate each file
     const validFiles: File[] = [];
@@ -134,12 +142,7 @@ export default function UploadButton({
         formData.append('files', file);
       });
 
-      // Add document metadata if provided and endpoint is documents
-      if (endpoint === 'documents' && documentMetadata) {
-        if (documentMetadata.title) formData.append('title', documentMetadata.title);
-        if (documentMetadata.category) formData.append('category', documentMetadata.category);
-        if (documentMetadata.date) formData.append('date', documentMetadata.date);
-      }
+
 
       console.log(`📤 Sending request to: ${config.apiPath}`);
       const response = await fetch(config.apiPath, {
@@ -166,9 +169,9 @@ export default function UploadButton({
           uploadedFiles = result.images || [];
         } else if (endpoint === 'documents') {
           uploadedFiles = [{
-            url: result.document.fileUrl,
-            filename: result.document.filename,
-            size: files[0]?.size
+            url: result.file.url,
+            filename: result.file.filename,
+            size: result.file.size
           }];
         } else {
           // news, events

@@ -17,6 +17,8 @@ export default function UpdateButton({ updateAction }: UpdateButtonProps) {
     const [uploadError, setUploadError] = useState<string | null>(null);
     const [submissionStatus, setSubmissionStatus] = useState<string | null>(null);
 
+
+
     const handleFileUpload = (res: { url: string; filename?: string; size?: number }[]) => {
         if (!res || res.length === 0) {
             setUploadError('Fájl feltöltése sikertelen.');
@@ -34,6 +36,8 @@ export default function UpdateButton({ updateAction }: UpdateButtonProps) {
             }
         }
     };
+
+
 
     async function handleSubmit(formData: FormData) {
         try {
