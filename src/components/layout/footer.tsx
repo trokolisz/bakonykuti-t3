@@ -43,7 +43,7 @@ export default function Footer() {
             </div>
         </div>
         <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Village Name. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Bakonykuti. All rights reserved.</p>
         </div>
 
       </div>
