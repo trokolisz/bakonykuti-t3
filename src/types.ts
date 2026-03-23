@@ -11,6 +11,7 @@ export type Image = {
 export type Page = {
   id: string
   title: string
+  thumbnail: string
   content: string | null
   slug: string
   lastModified: Date

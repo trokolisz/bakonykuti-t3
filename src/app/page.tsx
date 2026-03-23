@@ -23,7 +23,7 @@ const cards: CardTypes[] = [
   { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECIaccBCbF3U6xf5SojbkZpQ2y7DV0lPOWMeCB", title: 'Intézmények',  href: '/intezmenyek' },
   { id: 6, image: "https://utfs.io/f/26L8Sk7UnuECC7hPjSoD3h5BTWPtNcop4XHGVmvlbLQxAy71", title: 'Egészségügy',  href: '/egeszsegugy' },
   { id: 7, image: "https://utfs.io/f/26L8Sk7UnuECXtaSj3cZENFc91oCB07LqidpvXmUWH4VeMwx", title: 'Galéria',  href: '/galeria' },
-  { id: 8, image: "https://utfs.io/f/26L8Sk7UnuECXjCxYrcZENFc91oCB07LqidpvXmUWH4VeMwx", title: 'Közérdekü',  href: '/kozerdeku' },
+  { id: 8, image: "https://utfs.io/f/26L8Sk7UnuECXjCxYrcZENFc91oCB07LqidpvXmUWH4VeMwx", title: 'Közérdekű',  href: '/kozerdeku' },
   { id: 9, image: "https://qh0hg1d52r.ufs.sh/f/26L8Sk7UnuECYvN5Mqn5diVuyFRbKC6l9PrQOtLBvmwhEopq", title: 'Rendezvények',  href: '/rendezvenyek' },
 ];
 
@@ -78,7 +78,7 @@ közelségben, a szomszédos településekkel összefogva a lakosság rendelkez�
               <p className="text-lg text-muted-foreground mb-4">
               A honlapunkon az érdeklődők további információt találhatnak Bakonykúti múltjáról, jelenéről és
 természeti környezetéről, településünk lakói pedig nyomon követhetik az önkormányzat képviselő-testületének
-munkáját, megtalálhatják a községünkkel kapcsolatos közérdekű információkat, aktuális híreket.
+              munkáját, megtalálhatják a községünkkel kapcsolatos közérdekű információkat, aktuális híreket.
               </p>
               
               <p className="text-lg text-muted-foreground mb-0 text-center">

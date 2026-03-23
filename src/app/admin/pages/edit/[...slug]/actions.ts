@@ -6,15 +6,19 @@ import { pages } from "~/server/db/schema";
 
 export async function updateLastModified(
   title: string,
-  slug: string,
+  currentSlug: string,
+  newSlug: string,
+  thumbnail: string,
   content: string,
 ) {
   await db
     .update(pages)
     .set({
       title: title,
+      slug: newSlug,
+      thumbnail: thumbnail,
       lastModified: new Date(),
       content: content,
     })
-    .where(eq(pages.slug, slug));
+    .where(eq(pages.slug, currentSlug));
 }
