@@ -1,18 +1,27 @@
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card"
+import { Button } from "~/components/ui/button"
 import { db } from "~/server/db"
 import { formatDate } from "~/lib/utils"
-import { FileText } from "lucide-react"
+import { FileText, Plus } from "lucide-react"
 import Link from "next/link"
 
 // Force dynamic rendering to ensure we get real database data
 export const dynamic = 'force-dynamic';
 
 export default async function PagesAdminPage() {
-  const pages = await db.query.pages.findMany()
+  const pages = await db.query.pages.findMany();
 
   return (
     <div className="container py-8">
-      <h1 className="text-3xl font-bold mb-8">Page Management</h1>
+      <div className="mb-8 flex items-center justify-between gap-4">
+        <h1 className="text-3xl font-bold">Page Management</h1>
+        <Button asChild>
+          <Link href="/admin/pages/new">
+            <Plus className="mr-2 h-4 w-4" />
+            New Page
+          </Link>
+        </Button>
+      </div>
       <div className="grid gap-6">
         {pages.map((page) => (
           <Link key={page.id} href={`/admin/pages/edit/${page.slug}`}>
@@ -33,5 +42,5 @@ export default async function PagesAdminPage() {
         ))}
       </div>
     </div>
-  )
+  );
 }

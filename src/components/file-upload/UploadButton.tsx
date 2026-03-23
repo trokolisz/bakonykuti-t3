@@ -13,7 +13,7 @@ export interface UploadedFile {
 
 export interface UploadButtonProps {
   className?: string;
-  endpoint: 'gallery' | 'news' | 'events' | 'documents';
+  endpoint: 'gallery' | 'news' | 'events' | 'documents' | 'pages';
   onClientUploadComplete?: (files: UploadedFile[]) => void;
   onUploadError?: (error: { message: string }) => void;
   onUploadProgress?: (progress: number) => void;
@@ -61,6 +61,12 @@ const endpointConfigs = {
     maxFileSize: 20,
     acceptedFileTypes: ['application/pdf'],
     apiPath: '/api/upload/documents'
+  },
+  pages: {
+    maxFiles: 1,
+    maxFileSize: 4,
+    acceptedFileTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],
+    apiPath: '/api/upload/pages'
   }
 };
 

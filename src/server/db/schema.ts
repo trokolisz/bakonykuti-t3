@@ -46,6 +46,7 @@ export type InsertPage = typeof pages.$inferInsert;
 export const pages = createTable("page", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 256 }).notNull(),
+  thumbnail: varchar("thumbnail", { length: 2056 }).default("").notNull(),
   content: text("content").notNull(), // Ensure content is not null to store markdown data
   slug: varchar("slug", { length: 256 }).notNull().unique(),
   lastModified: timestamp("last_modified")

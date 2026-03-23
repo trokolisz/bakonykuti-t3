@@ -17,8 +17,7 @@
 
   /* Links */
    a {
-    color: hsl(214 100% 60%);
-    
+    color: #8B5C2A;
     text-decoration: none;
     transition: all 0.2s ease-out;
   }

@@ -16,6 +16,17 @@ import {
   SheetTitle,
 } from "~/components/ui/sheet"
 
+type MenuItem = {
+  title: string
+  href: string
+}
+
+type Section = {
+  title: string
+  href: string
+  subsections?: string[]
+}
+
 const sections = [
   {
     title: "Köszöntő",
@@ -81,8 +92,8 @@ const sections = [
     href: "/kozerdeku",
     subsections: [
       "Magyar Honvédség Böszörményi Géza Csapatgyakorlótér Parancsnokság",
-      "DRV",
-      "E-ON",
+      "Víz és szennyvíz",
+      "Közvilágítás, áram",
       "Telekom",
       "Kéményellenőrzés és tisztítás",
       "Körzeti Megbízott",
@@ -92,19 +103,82 @@ const sections = [
     title: "Rendezvények",
     href: "/rendezvenyek",
   },
-]
+] satisfies Section[]
+
+function slugify(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[áÁ]/g, 'a')
+    .replace(/[éÉ]/g, 'e')
+    .replace(/[íÍ]/g, 'i')
+    .replace(/[óÓöÖőŐ]/g, 'o')
+    .replace(/[úÚüÜűŰ]/g, 'u')
+}
+
+function getFallbackItems(section: Section): MenuItem[] {
+  if (!section.subsections) {
+    return []
+  }
+
+  return section.subsections.map((subsection) => ({
+    title: subsection,
+    href: `${section.href}/${slugify(subsection)}`,
+  }))
+}
 
 export default function Navbar() {
   const pathname = usePathname()
+  const [menuByGroup, setMenuByGroup] = React.useState<Record<string, MenuItem[]>>({})
+
+  React.useEffect(() => {
+    let isMounted = true
+
+    async function loadMenu() {
+      try {
+        const response = await fetch('/api/pages/menu', { cache: 'no-store' })
+        if (!response.ok) {
+          return
+        }
+
+        const data = (await response.json()) as Record<string, MenuItem[]>
+        if (isMounted) {
+          setMenuByGroup(data)
+        }
+      } catch {
+        // Keep static fallback menu when API fetch fails.
+      }
+    }
+
+    void loadMenu()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  const getSectionItems = React.useCallback((section: Section): MenuItem[] => {
+    const groupKey = section.href.replace(/^\//, '')
+    const dynamicItems = menuByGroup[groupKey]
+
+    if (dynamicItems?.length) {
+      return dynamicItems
+    }
+
+    return getFallbackItems(section)
+  }, [menuByGroup])
 
   const NavItems = () => (
     <NavigationMenu>
       <NavigationMenuList className="hidden md:flex">
 
-        {sections.map((section) => (
+        {sections.map((section) => {
+          const sectionItems = getSectionItems(section)
+
+          return (
 
           <NavigationMenuItem key={section.title}>
-            {section.subsections ? (
+            {sectionItems.length > 0 ? (
               <>
                 <NavigationMenuTrigger>{section.title}</NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -119,26 +193,14 @@ export default function Navbar() {
                         </NavigationMenuLink>
                       </Link>
                     </li>
-                    {section.subsections.map((subsection) => (
-                      <li key={subsection}>
-                        <Link href={`${section.href}/${subsection.toLowerCase()
-                          .replace(/\s+/g, '-')
-                          .replace(/[á]/g, 'a')
-                          .replace(/[é]/g, 'e')
-                          .replace(/[í]/g, 'i')
-                          .replace(/[óöő]/g, 'o')
-                          .replace(/[úüű]/g, 'u')}`} legacyBehavior passHref>
+                    {sectionItems.map((item) => (
+                      <li key={item.href}>
+                        <Link href={item.href} legacyBehavior passHref>
                           <NavigationMenuLink className={cn(
                             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                            pathname === `${section.href}/${subsection.toLowerCase()
-                              .replace(/\s+/g, '-')
-                              .replace(/[áÁ]/g, 'a')
-                              .replace(/[éÉ]/g, 'e')
-                              .replace(/[íÍ]/g, 'i')
-                              .replace(/[óÓöÖőŐ]/g, 'o')
-                              .replace(/[úÚüÜűŰ]/g, 'u')}` && "bg-accent/50"
+                            pathname === item.href && "bg-accent/50"
                           )}>
-                            {subsection}
+                            {item.title}
                           </NavigationMenuLink>
                         </Link>
                       </li>
@@ -155,7 +217,7 @@ export default function Navbar() {
             )}
           </NavigationMenuItem>
 
-        ))
+        )})
         }
       </NavigationMenuList>
     </NavigationMenu>
@@ -176,49 +238,41 @@ export default function Navbar() {
         </SheetHeader>
         <nav className="h-full pb-16 overflow-y-auto" aria-label="Főmenü">
           <div className="space-y-2 py-4">
-            {sections.map((section) => (
-              <div key={section.title} className="px-6 py-2">
-                <Link
-                  href={section.href}
-                  className={cn(
-                    "block text-lg font-medium transition-colors hover:text-primary",
-                    pathname === section.href ? "text-primary font-semibold" : "text-foreground/90"
+            {sections.map((section) => {
+              const sectionItems = getSectionItems(section)
+
+              return (
+                <div key={section.title} className="px-6 py-2">
+                  <Link
+                    href={section.href}
+                    className={cn(
+                      "block text-lg font-medium transition-colors hover:text-primary",
+                      pathname === section.href ? "text-primary font-semibold" : "text-foreground/90"
+                    )}
+                  >
+                    {section.title}
+                  </Link>
+                  {sectionItems.length > 0 && (
+                    <div className="ml-4 mt-2 flex flex-col gap-1">
+                      {sectionItems.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className={cn(
+                            "text-sm py-1 px-2 rounded-md transition-colors",
+                            pathname === item.href
+                              ? "bg-primary/10 text-primary font-medium"
+                              : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                          )}
+                        >
+                          {item.title}
+                        </Link>
+                      ))}
+                    </div>
                   )}
-                >
-                  {section.title}
-                </Link>
-                {section.subsections && (
-                  <div className="ml-4 mt-2 flex flex-col gap-1">
-                    {section.subsections.map((subsection) => (
-                      <Link
-                        key={subsection}
-                        href={`${section.href}/${subsection.toLowerCase()
-                          .replace(/\s+/g, '-')
-                          .replace(/[á]/g, 'a')
-                          .replace(/[é]/g, 'e')
-                          .replace(/[í]/g, 'i')
-                          .replace(/[óöő]/g, 'o')
-                          .replace(/[úüű]/g, 'u')}`}
-                        className={cn(
-                          "text-sm py-1 px-2 rounded-md transition-colors",
-                          pathname === `${section.href}/${subsection.toLowerCase()
-                            .replace(/\s+/g, '-')
-                            .replace(/[á]/g, 'a')
-                            .replace(/[é]/g, 'e')
-                            .replace(/[í]/g, 'i')
-                            .replace(/[óöő]/g, 'o')
-                            .replace(/[úüű]/g, 'u')}` 
-                            ? "bg-primary/10 text-primary font-medium"
-                            : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                        )}
-                      >
-                        {subsection}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+                </div>
+              )
+            })}
           </div>
         </nav>
       </SheetContent>

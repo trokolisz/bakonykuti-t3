@@ -5,6 +5,8 @@ import { Input } from "~/components/ui/input";
 import { Card, CardHeader, CardContent } from "~/components/ui/card";
 import { Suspense } from 'react';
 import { Skeleton } from "~/components/ui/skeleton";
+import { useRouter } from 'next/navigation';
+import { UploadButton } from "~/components/file-upload";
 
 import "~/styles/markdown.css"
 import { MarkdownEditor } from "~/components/markdown-editor/editor";
@@ -12,9 +14,9 @@ import { type Page } from "~/server/db/schema";
 
 
 type UpdateButtonProps = {
-  updateAction: (title: string, slug: string, content: string) => Promise<void>;
+  updateAction: (title: string, currentSlug: string, newSlug: string, thumbnail: string, content: string) => Promise<void>;
   page: Page;
-  slug: string;
+  currentSlug: string;
 };
 
 function EditorSkeleton() {
@@ -25,15 +27,21 @@ function EditorSkeleton() {
   );
 }
 
-export default function UpdateButton({ updateAction, page, slug }: UpdateButtonProps) {
+export default function UpdateButton({ updateAction, page, currentSlug }: UpdateButtonProps) {
+  const router = useRouter();
   const [content, setContent] = useState(page.content ?? '');
 
 
   async function handleSubmit(formData: FormData) {
     const content = formData.get('content') as string;
     const title = formData.get('title') as string;
-    console.log("handleSubmit with title: ", title);
-    await updateAction(title, slug, content);
+    const newSlug = formData.get('slug') as string;
+    const thumbnail = formData.get('thumbnail') as string;
+    await updateAction(title, currentSlug, newSlug, thumbnail, content);
+
+    if (newSlug && newSlug !== currentSlug) {
+      router.push(`/admin/pages/edit/${newSlug}`);
+    }
   }
 
   return (
@@ -54,6 +62,47 @@ export default function UpdateButton({ updateAction, page, slug }: UpdateButtonP
               className="text-lg"
               placeholder="Enter page title..."
             />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="slug" className="text-lg font-medium">
+              URL Path (slug)
+            </Label>
+            <Input
+              id="slug"
+              name="slug"
+              defaultValue={page.slug}
+              className="text-lg"
+              placeholder="onkormanyzat/hirdetmenyek"
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="thumbnail" className="text-lg font-medium">
+              Card image URL (thumbnail)
+            </Label>
+            <Input
+              id="thumbnail"
+              name="thumbnail"
+              defaultValue={page.thumbnail}
+              className="text-lg"
+              placeholder="/uploads/news/page-image.webp"
+            />
+            <UploadButton
+              endpoint="pages"
+              onClientUploadComplete={(files) => {
+                const first = files[0];
+                if (!first?.url) return;
+                const input = document.getElementById('thumbnail') as HTMLInputElement | null;
+                if (input) input.value = first.url;
+              }}
+              onUploadError={(error) => {
+                alert(`Upload Error: ${error.message}`);
+              }}
+            >
+              Upload page image
+            </UploadButton>
           </div>
 
           <div className="space-y-3">
