@@ -5,24 +5,29 @@ import { AccessibilityMenu } from "~/components/shared/accessibility-menu"
 import { db } from "~/server/db"
 import CardGrid from "~/components/cardGrid"
 import { Widgets } from '~/components/layout/widgets'
-
-import { type Card as CardTypes } from "~/types"
+import { buildSectionCards, type SectionPage } from "~/lib/section-cards"
 
 // Force dynamic rendering to ensure we get real database data
 export const dynamic = 'force-dynamic';
 
-const cards: CardTypes[] = [
-    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECC7hPjSoD3h5BTWPtNcop4XHGVmvlbLQxAy71", title: 'Háziorvosi Ellátás',  href: '/egeszsegugy/haziorvosi-ellatas' },
-    { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECX0uXYYcZENFc91oCB07LqidpvXmUWH4VeMwx", title: 'Fogászati rendelés',  href: '/egeszsegugy/fogaszati-rendeles' },
-    { id: 3, image: "https://utfs.io/f/26L8Sk7UnuEC3pZ6QfUGVEstpDrH4YmojWGN9uMyOIeCwJlK", title: 'Védőnői ellátás',  href: '/egeszsegugy/vedonoi-ellatas' },
-    { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECGD5hBAlRAoqETBFgX2U4fvkxMsYmrHbh51an", title: 'Vérvétel',  href: '/egeszsegugy/vervetel' },
-];
+const fallbackCardImages: Record<string, string> = {
+    'egeszsegugy/haziorvosi-ellatas': 'https://utfs.io/f/26L8Sk7UnuECC7hPjSoD3h5BTWPtNcop4XHGVmvlbLQxAy71',
+    'egeszsegugy/fogaszati-rendeles': 'https://utfs.io/f/26L8Sk7UnuECX0uXYYcZENFc91oCB07LqidpvXmUWH4VeMwx',
+    'egeszsegugy/vedonoi-ellatas': 'https://utfs.io/f/26L8Sk7UnuEC3pZ6QfUGVEstpDrH4YmojWGN9uMyOIeCwJlK',
+    'egeszsegugy/vervetel': 'https://utfs.io/f/26L8Sk7UnuECGD5hBAlRAoqETBFgX2U4fvkxMsYmrHbh51an',
+}
 
 
 
 export default async function Home() {
-    const pages = await db.query.pages.findMany()
+    const pages = await db.query.pages.findMany() as SectionPage[]
     const news = await db.query.news.findMany()
+
+    const cards = buildSectionCards({
+        pages,
+        sectionSlug: 'egeszsegugy',
+        fallbackCardImages,
+    })
     
     
     return (

@@ -5,25 +5,31 @@ import { AccessibilityMenu } from "~/components/shared/accessibility-menu"
 import { db } from "~/server/db"
 import CardGrid from "~/components/cardGrid"
 import { Widgets } from '~/components/layout/widgets'
-
-import { type Card as CardTypes } from "~/types"
+import { buildSectionCards, type SectionPage } from "~/lib/section-cards"
 
 // Force dynamic rendering to ensure we get real database data
 export const dynamic = 'force-dynamic';
 
-const cards: CardTypes[] = [
-    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuEC1G7e7b489QX6bm0v4B8adyiMJAnfwWCDKkVO", title: 'Iszkaszentgyörgyi Szociális Intézményi Társulás',  href: '/intezmenyek/iszkaszentgyorgyi-szocialis-intezmenyi-tarsulas' },
-    { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECwgAWYHheWP5jZyfGnp24M8Jrbm0t9vNAFkaB", title: 'Iszkaszentgyörgyi Szociális Alapszolgáltatási Intézmény',  href: '/intezmenyek/iszkaszentgyorgyi-szocialis-alapszolgaltatasi-intezmeny' },
-    { id: 3, image: "https://utfs.io/f/26L8Sk7UnuEC5hGvIGKkVqBcO9XlC0318ZTQN4s6Axy7fgoJ", title: 'Iszkaszentgyörgyi Általános Iskola',  href: '/intezmenyek/iszkaszentgyorgyi-altalanos-iskola' },
-    { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECBsKCA3LtiGAb1WuzdjMZ6rO9S2U8Ll3D75pI", title: 'Iszkaszentgyörgyi Vackor Óvoda és Konyha',  href: '/intezmenyek/iszkaszentgyorgyi-vackor-ovoda-es-konyha' },
-    { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECRucf2egOMzl8R0LVyP71WfxAQKYCqZmBGUud", title: 'Közösségi Ház és Könyvtár',  href: '/intezmenyek/kozossegi-haz-es-konyvtar' },
-];
+const fallbackCardImages: Record<string, string> = {
+    'intezmenyek/iszkaszentgyorgyi-szocialis-intezmenyi-tarsulas': 'https://utfs.io/f/26L8Sk7UnuEC1G7e7b489QX6bm0v4B8adyiMJAnfwWCDKkVO',
+    'intezmenyek/iszkaszentgyorgyi-szocialis-alapszolgaltatasi-intezmeny': 'https://utfs.io/f/26L8Sk7UnuECwgAWYHheWP5jZyfGnp24M8Jrbm0t9vNAFkaB',
+    'intezmenyek/iszkaszentgyorgyi-altalanos-iskola': 'https://utfs.io/f/26L8Sk7UnuEC5hGvIGKkVqBcO9XlC0318ZTQN4s6Axy7fgoJ',
+    'intezmenyek/iszkaszentgyorgyi-vackor-ovoda-es-konyha': 'https://utfs.io/f/26L8Sk7UnuECBsKCA3LtiGAb1WuzdjMZ6rO9S2U8Ll3D75pI',
+    'intezmenyek/kozossegi-haz-es-konyvtar': 'https://utfs.io/f/26L8Sk7UnuECRucf2egOMzl8R0LVyP71WfxAQKYCqZmBGUud',
+}
 
 
 
 export default async function Home() {
     const pages = await db.query.pages.findMany()
+    const sectionPages = pages as SectionPage[]
     const news = await db.query.news.findMany()
+
+    const cards = buildSectionCards({
+        pages: sectionPages,
+        sectionSlug: 'intezmenyek',
+        fallbackCardImages,
+    })
     
     
     return (

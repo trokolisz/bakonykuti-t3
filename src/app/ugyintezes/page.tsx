@@ -5,21 +5,24 @@ import { AccessibilityMenu } from "~/components/shared/accessibility-menu"
 import { db } from "~/server/db"
 import CardGrid from "~/components/cardGrid"
 import { Widgets } from '~/components/layout/widgets'
-
-import { type Card as CardTypes } from "~/types"
+import { buildSectionCards, type SectionPage } from "~/lib/section-cards"
 
 // Force dynamic rendering to ensure we get real database data
 export const dynamic = 'force-dynamic';
 
-const cards: CardTypes[] = [
-    
-];
+const fallbackCardImages: Record<string, string> = {}
 
 
 
 export default async function Home() {
-    const pages = await db.query.pages.findMany()
+    const pages = await db.query.pages.findMany() as SectionPage[]
     const news = await db.query.news.findMany()
+
+    const cards = buildSectionCards({
+        pages,
+        sectionSlug: 'ugyintezes',
+        fallbackCardImages,
+    })
     
     
     return (

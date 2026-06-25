@@ -88,7 +88,16 @@ export function EventComponent({ eventItem: eventItem }: EventComponentProps) {
         </div>
 
         <Card className="p-6 prose prose-green dark:prose-invert max-w-none markdown bg-[hsla(80,30%,17%,1)]">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{eventItem.content}</ReactMarkdown>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              a: ({ node, ...props }) => (
+                <a {...props} target="_blank" rel="noopener noreferrer" />
+              ),
+            }}
+          >
+            {eventItem.content}
+          </ReactMarkdown>
         </Card>
       </div>
     </div>

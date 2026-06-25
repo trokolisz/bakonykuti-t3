@@ -91,7 +91,16 @@ export default async function StaticPage({ params }: Props) {
                 <EditPageButton slugPath={slugPath} />
               </div>
               <Card className="p-6 prose prose-green dark:prose-invert max-w-none markdown">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    a: ({ node, ...props }) => (
+                      <a {...props} target="_blank" rel="noopener noreferrer" />
+                    ),
+                  }}
+                >
+                  {content}
+                </ReactMarkdown>
               </Card>
             </section>
 

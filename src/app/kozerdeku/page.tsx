@@ -5,25 +5,29 @@ import { AccessibilityMenu } from "~/components/shared/accessibility-menu"
 import { db } from "~/server/db"
 import CardGrid from "~/components/cardGrid"
 import { Widgets } from '~/components/layout/widgets'
+import { buildSectionCards, type SectionPage } from "~/lib/section-cards"
 
-import { type Card as CardTypes } from "~/types"
 
-
-const cards: CardTypes[] = [
-    { id: 1, image: "https://utfs.io/f/26L8Sk7UnuECwcWT6w9heWP5jZyfGnp24M8Jrbm0t9vNAFka", title: 'Magyar Honvédség',  href: '/kozerdeku/magyar-honvedseg-boszormenyi-geza-csapatgyakorloter-parancsnoksag' },
-    { id: 2, image: "https://utfs.io/f/26L8Sk7UnuECpiiFxR0tYOVN4SgU2xuoem6swRjIQKAFZBLf", title: 'Víz és szennyvíz',  href: '/kozerdeku/viz-es-szennyviz' },
-    { id: 3, image: "https://utfs.io/f/26L8Sk7UnuECoz5xrnAu3SMxWU2adZA8VJYKbfw6OtzGmPIQ", title: 'Közvilágítás, áram',  href: '/kozerdeku/kozvilagitas-aram' },
-    { id: 4, image: "https://utfs.io/f/26L8Sk7UnuECLM7LgGKbp6Sh14YX5LERKwtFsGya3UVgiH8Q", title: 'Telekom',  href: '/kozerdeku/telekom' },
-    { id: 5, image: "https://utfs.io/f/26L8Sk7UnuECIabjJ3zF3U6xf5SojbkZpQ2y7DV0lPOWMeCB", title: 'Kéményellenőrzés és tisztítás',  href: '/kozerdeku/kemeny-ellenorzes-es-tisztitas' },
-    { id: 6, image: "https://qh0hg1d52r.ufs.sh/f/26L8Sk7UnuECPhBcN1fJNKIGrYFwbxade7LC2c1QkEVH3MnB", title: 'Körzeti megbízott',  href: '/kozerdeku/korzeti-megbizott' },
-
-];
+const fallbackCardImages: Record<string, string> = {
+    'kozerdeku/magyar-honvedseg-boszormenyi-geza-csapatgyakorloter-parancsnoksag': 'https://utfs.io/f/26L8Sk7UnuECwcWT6w9heWP5jZyfGnp24M8Jrbm0t9vNAFka',
+    'kozerdeku/viz-es-szennyviz': 'https://utfs.io/f/26L8Sk7UnuECpiiFxR0tYOVN4SgU2xuoem6swRjIQKAFZBLf',
+    'kozerdeku/kozvilagitas-aram': 'https://utfs.io/f/26L8Sk7UnuECoz5xrnAu3SMxWU2adZA8VJYKbfw6OtzGmPIQ',
+    'kozerdeku/telekom': 'https://utfs.io/f/26L8Sk7UnuECLM7LgGKbp6Sh14YX5LERKwtFsGya3UVgiH8Q',
+    'kozerdeku/kemeny-ellenorzes-es-tisztitas': 'https://utfs.io/f/26L8Sk7UnuECIabjJ3zF3U6xf5SojbkZpQ2y7DV0lPOWMeCB',
+    'kozerdeku/korzeti-megbizott': 'https://qh0hg1d52r.ufs.sh/f/26L8Sk7UnuECPhBcN1fJNKIGrYFwbxade7LC2c1QkEVH3MnB',
+}
 
 
 
 export default async function Home() {
-    const pages = await db.query.pages.findMany()
+    const pages = await db.query.pages.findMany() as SectionPage[]
     const news = await db.query.news.findMany()
+
+    const cards = buildSectionCards({
+        pages,
+        sectionSlug: 'kozerdeku',
+        fallbackCardImages,
+    })
     
     
     return (

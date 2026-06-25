@@ -17,14 +17,19 @@
 
   /* Links */
    a {
-    color: #8B5C2A;
-    text-decoration: none;
-    transition: all 0.2s ease-out;
+    color: #FFD966; /* Warm gold for high contrast on dark green background */
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 500;
+    transition: color 0.2s ease-out;
   }
   a:hover {
+    color: #FFE999;
     text-decoration: underline;
-    opacity: 0.8;
-  } 
+  }
+  a:visited {
+    color: #F3B04B;
+  }
 
   /* Lists */
   ul, ol {

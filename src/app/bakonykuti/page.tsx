@@ -5,8 +5,7 @@ import { AccessibilityMenu } from "~/components/shared/accessibility-menu"
 import { db } from "~/server/db"
 import CardGrid from "~/components/cardGrid"
 import { Widgets } from '~/components/layout/widgets'
-
-import { type Card as CardTypes } from "~/types"
+import { buildSectionCards, type SectionPage } from "~/lib/section-cards"
 
 // Force dynamic rendering to ensure we get real database data
 export const dynamic = 'force-dynamic';
@@ -22,23 +21,15 @@ const fallbackCardImages: Record<string, string> = {
 
 export default async function Home() {
     const pages = await db.query.pages.findMany()
-    const bakonykutiPages = pages as Array<{
-        id: number
-        title: string
-        slug: string
-        thumbnail: string
-    }>
+    const bakonykutiPages = pages as SectionPage[]
     const news = await db.query.news.findMany()
 
-    const cards: CardTypes[] = bakonykutiPages
-        .filter((page) => page.slug.startsWith('bakonykuti/'))
-        .sort((a, b) => a.title.localeCompare(b.title, 'hu'))
-        .map((page, index) => ({
-            id: page.id ?? index + 1,
-            title: page.title,
-            href: `/${page.slug}`,
-            image: page.thumbnail || fallbackCardImages[page.slug] || 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1200&auto=format&fit=crop&q=80',
-        }))
+    const cards = buildSectionCards({
+        pages: bakonykutiPages,
+        sectionSlug: 'bakonykuti',
+        fallbackCardImages,
+        sortBy: 'title',
+    })
     
     
     return (
