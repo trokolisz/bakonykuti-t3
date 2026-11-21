@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState, useEffect } from "react";
 import { Button } from "~/components/ui/button";
@@ -9,24 +9,29 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card"
+} from "~/components/ui/card";
 
 export function CookieConsent() {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem("cookie-consent")
+    const consent = localStorage.getItem("cookie-consent");
     if (!consent) {
-      setShow(true)
+      setShow(true);
     }
-  }, [])
+  }, []);
 
   const handleAccept = () => {
-    localStorage.setItem("cookie-consent", "true")
-    setShow(false)
-  }
+    localStorage.setItem("cookie-consent", "accepted");
+    setShow(false);
+  };
 
-  if (!show) return null
+  const handleDecline = () => {
+    localStorage.setItem("cookie-consent", "declined");
+    setShow(false);
+  };
+
+  if (!show) return null;
 
   return (
     <Card className="fixed bottom-4 right-4 z-50 max-w-md">
@@ -42,13 +47,11 @@ export function CookieConsent() {
         </p>
       </CardContent>
       <CardFooter className="flex justify-end space-x-2">
-        <Button variant="outline" onClick={() => setShow(false)}>
-          Később
+        <Button variant="outline" onClick={handleDecline}>
+          Elutasítom
         </Button>
-        <Button onClick={handleAccept}>
-          Elfogadom
-        </Button>
+        <Button onClick={handleAccept}>Elfogadom</Button>
       </CardFooter>
     </Card>
-  )
+  );
 }
