@@ -1,31 +1,39 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { cn } from "~/lib/utils"
-import { Button } from "~/components/ui/button"
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "~/components/ui/navigation-menu"
-import { ModeToggle } from "~/components/theme-toggle"
-import { Menu } from "lucide-react"
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "~/lib/utils";
+import { Button } from "~/components/ui/button";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "~/components/ui/navigation-menu";
+import { ModeToggle } from "~/components/theme-toggle";
+import { Menu } from "lucide-react";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
   SheetHeader,
   SheetTitle,
-} from "~/components/ui/sheet"
+} from "~/components/ui/sheet";
 
 type MenuItem = {
-  title: string
-  href: string
-}
+  title: string;
+  href: string;
+};
 
 type Section = {
-  title: string
-  href: string
-  subsections?: string[]
-}
+  title: string;
+  href: string;
+  subsections?: string[];
+};
 
 const sections = [
   {
@@ -35,7 +43,7 @@ const sections = [
   {
     title: "Bakonykúti",
     href: "/bakonykuti",
-    subsections: ["Bemutatás", "Történet", "Környékünk", "Látnivalók"]
+    subsections: ["Bemutatás", "Történet", "Környékünk", "Látnivalók"],
   },
   {
     title: "Hírek",
@@ -51,17 +59,17 @@ const sections = [
       "Dokumentumok",
       "Iszkaszentgyörgyi Közös Önkormányzati Hivatal",
       "Elérhetőségek",
-      "Közérdekű adatok",      
+      "Közérdekű adatok",
       "Hirdetmények",
-      'Szabályzatok',
-      'Helyi Esélyegyenlőségi Program',
-      'Településrendezési eszközök és arculati kézikönyv',
-      'Pályázatok',
-      'Választás',
+      "Szabályzatok",
+      "Helyi Esélyegyenlőségi Program",
+      "Településrendezési eszközök és arculati kézikönyv",
+      "Pályázatok",
+      "Választás",
       "Ügyfélfogadás",
       "Bejelentés köteles tevékenységek",
       "Akadálymentesitési Nyilatkozat",
-    ]
+    ],
   },
   {
     title: "Intézmények",
@@ -72,7 +80,7 @@ const sections = [
       "Iszkaszentgyörgyi Általános Iskola",
       "Iszkaszentgyörgyi Vackor Óvoda és Konyha",
       "Közösségi Ház és Könyvtár",
-    ]
+    ],
   },
   {
     title: "Egészségügy",
@@ -81,7 +89,12 @@ const sections = [
       "Háziorvosi ellátás",
       "Fogászati rendelés",
       "Védőnői ellátás",
-      "Vérvétel"]
+      "Vérvétel",
+    ],
+  },
+  {
+    title: "Ügyintézés",
+    href: "/ugyintezes",
   },
   {
     title: "Galéria",
@@ -97,149 +110,158 @@ const sections = [
       "Telekom",
       "Kéményellenőrzés és tisztítás",
       "Körzeti Megbízott",
-    ]
+    ],
   },
   {
     title: "Rendezvények",
     href: "/rendezvenyek",
   },
-] satisfies Section[]
+] satisfies Section[];
 
 function slugify(value: string): string {
   return value
     .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[áÁ]/g, 'a')
-    .replace(/[éÉ]/g, 'e')
-    .replace(/[íÍ]/g, 'i')
-    .replace(/[óÓöÖőŐ]/g, 'o')
-    .replace(/[úÚüÜűŰ]/g, 'u')
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 function getFallbackItems(section: Section): MenuItem[] {
   if (!section.subsections) {
-    return []
+    return [];
   }
 
   return section.subsections.map((subsection) => ({
     title: subsection,
     href: `${section.href}/${slugify(subsection)}`,
-  }))
+  }));
 }
 
 export default function Navbar() {
-  const pathname = usePathname()
-  const [menuByGroup, setMenuByGroup] = React.useState<Record<string, MenuItem[]>>({})
+  const pathname = usePathname();
+  const [menuByGroup, setMenuByGroup] = React.useState<
+    Record<string, MenuItem[]>
+  >({});
 
   React.useEffect(() => {
-    let isMounted = true
+    let isMounted = true;
 
     async function loadMenu() {
       try {
-        const response = await fetch('/api/pages/menu', { cache: 'no-store' })
+        const response = await fetch("/api/pages/menu", { cache: "no-store" });
         if (!response.ok) {
-          return
+          return;
         }
 
-        const data = (await response.json()) as Record<string, MenuItem[]>
+        const data = (await response.json()) as Record<string, MenuItem[]>;
         if (isMounted) {
-          setMenuByGroup(data)
+          setMenuByGroup(data);
         }
       } catch {
         // Keep static fallback menu when API fetch fails.
       }
     }
 
-    void loadMenu()
+    void loadMenu();
 
     return () => {
-      isMounted = false
-    }
-  }, [])
+      isMounted = false;
+    };
+  }, []);
 
-  const getSectionItems = React.useCallback((section: Section): MenuItem[] => {
-    const groupKey = section.href.replace(/^\//, '')
-    const dynamicItems = menuByGroup[groupKey]
+  const getSectionItems = React.useCallback(
+    (section: Section): MenuItem[] => {
+      const groupKey = section.href.replace(/^\//, "");
+      const dynamicItems = menuByGroup[groupKey];
 
-    if (dynamicItems?.length) {
-      return dynamicItems
-    }
+      if (dynamicItems?.length) {
+        return dynamicItems;
+      }
 
-    return getFallbackItems(section)
-  }, [menuByGroup])
+      return getFallbackItems(section);
+    },
+    [menuByGroup],
+  );
 
   const NavItems = () => (
     <NavigationMenu>
       <NavigationMenuList className="hidden md:flex">
-
         {sections.map((section) => {
-          const sectionItems = getSectionItems(section)
+          const sectionItems = getSectionItems(section);
 
           return (
-
-          <NavigationMenuItem key={section.title}>
-            {sectionItems.length > 0 ? (
-              <>
-                <NavigationMenuTrigger>{section.title}</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    <li>
-                      <Link href={section.href} legacyBehavior passHref>
-                        <NavigationMenuLink className={cn(
-                          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                          pathname === section.href && "bg-accent/50"
-                        )}>
-                          Áttekintés
-                        </NavigationMenuLink>
-                      </Link>
-                    </li>
-                    {sectionItems.map((item) => (
-                      <li key={item.href}>
-                        <Link href={item.href} legacyBehavior passHref>
-                          <NavigationMenuLink className={cn(
-                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                            pathname === item.href && "bg-accent/50"
-                          )}>
-                            {item.title}
+            <NavigationMenuItem key={section.title}>
+              {sectionItems.length > 0 ? (
+                <>
+                  <NavigationMenuTrigger>{section.title}</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      <li>
+                        <Link href={section.href} legacyBehavior passHref>
+                          <NavigationMenuLink
+                            className={cn(
+                              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                              pathname === section.href && "bg-accent/50",
+                            )}
+                          >
+                            Áttekintés
                           </NavigationMenuLink>
                         </Link>
                       </li>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </>
-            ) : (
-              <Link href={section.href} legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  {section.title}
-                </NavigationMenuLink>
-              </Link>
-            )}
-          </NavigationMenuItem>
-
-        )})
-        }
+                      {sectionItems.map((item) => (
+                        <li key={item.href}>
+                          <Link href={item.href} legacyBehavior passHref>
+                            <NavigationMenuLink
+                              className={cn(
+                                "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                                pathname === item.href && "bg-accent/50",
+                              )}
+                            >
+                              {item.title}
+                            </NavigationMenuLink>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </>
+              ) : (
+                <Link href={section.href} legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    {section.title}
+                  </NavigationMenuLink>
+                </Link>
+              )}
+            </NavigationMenuItem>
+          );
+        })}
       </NavigationMenuList>
     </NavigationMenu>
-  )
+  );
 
   const MobileNav = () => (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden" aria-label="Főmenü megnyitása">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden"
+          aria-label="Főmenü megnyitása"
+        >
           <Menu className="h-6 w-6" />
           <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-[300px] sm:w-[400px] p-0">
+      <SheetContent side="left" className="w-[300px] p-0 sm:w-[400px]">
         <SheetHeader className="border-b px-6 py-4">
           <SheetTitle>Bakonykúti</SheetTitle>
           <p className="text-sm text-muted-foreground">Községi Önkormányzat</p>
         </SheetHeader>
-        <nav className="h-full pb-16 overflow-y-auto" aria-label="Főmenü">
+        <nav className="h-full overflow-y-auto pb-16" aria-label="Főmenü">
           <div className="space-y-2 py-4">
             {sections.map((section) => {
-              const sectionItems = getSectionItems(section)
+              const sectionItems = getSectionItems(section);
 
               return (
                 <div key={section.title} className="px-6 py-2">
@@ -247,7 +269,9 @@ export default function Navbar() {
                     href={section.href}
                     className={cn(
                       "block text-lg font-medium transition-colors hover:text-primary",
-                      pathname === section.href ? "text-primary font-semibold" : "text-foreground/90"
+                      pathname === section.href
+                        ? "font-semibold text-primary"
+                        : "text-foreground/90",
                     )}
                   >
                     {section.title}
@@ -259,10 +283,10 @@ export default function Navbar() {
                           key={item.href}
                           href={item.href}
                           className={cn(
-                            "text-sm py-1 px-2 rounded-md transition-colors",
+                            "rounded-md px-2 py-1 text-sm transition-colors",
                             pathname === item.href
-                              ? "bg-primary/10 text-primary font-medium"
-                              : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                              ? "bg-primary/10 font-medium text-primary"
+                              : "text-muted-foreground hover:bg-accent hover:text-foreground",
                           )}
                         >
                           {item.title}
@@ -271,16 +295,16 @@ export default function Navbar() {
                     </div>
                   )}
                 </div>
-              )
+              );
             })}
           </div>
         </nav>
       </SheetContent>
     </Sheet>
-  )
+  );
 
   return (
-    <div className="border-b sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
+    <div className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-4">
           <MobileNav />
@@ -289,5 +313,5 @@ export default function Navbar() {
         <ModeToggle />
       </div>
     </div>
-  )
+  );
 }
